@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Library to build responsive tables using the Bootstrap framework within React.",
   "homepage": "https://www.pallas.uk",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "main": "dist/esm/components/index.js",
   "module": "dist/esm/components/index.js",
   "types": "dist/esm/types/components/index.d.ts",
