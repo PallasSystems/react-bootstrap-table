@@ -14,13 +14,30 @@ const isInRange = (index: number, rowsPerPage: number, tablePosition: number): b
   return index >= tablePosition && tablePosition + rowsPerPage > index;
 };
 
-export const BootstrapTable: FC<TableData> = ({ request_url, columns, data }) => {
+export const BootstrapTable: FC<TableData> = ({ request_url, columns, data, name, varient }) => {
   const [rows, setRows] = useState<Record<string, string>[]>(data ?? []);
   const [displayedRows, setDisplayedRows] = useState<Record<string, string>[]>(data ?? []);
   const [columnDefs, setColumnDefs] = useState<ColumnDefs[]>(columns ?? []);
 
   const [tablePosition, setTablePosition] = useState<number>(0);
+  const handleTablePosition = (value: number) => {
+    const display = rows.filter((_record: Record<string, string>, index: number) =>
+      isInRange(index, rowsPerPage, value),
+    );
+    console.log('Table Position: ' + JSON.stringify(display));
+    setDisplayedRows(display);
+    setTablePosition(value);
+  };
+
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const handleRowsPerPage = (value: number) => {
+    const display = rows.filter((_record: Record<string, string>, index: number) =>
+      isInRange(index, value, tablePosition),
+    );
+
+    setDisplayedRows(display);
+    setRowsPerPage(value);
+  };
 
   const [compact, setCompact] = useState<boolean>(false);
   const handleCompactState = useCallback((isCompact: boolean) => {
@@ -32,6 +49,15 @@ export const BootstrapTable: FC<TableData> = ({ request_url, columns, data }) =>
     setDisplayedRows(retrieveSearchMatches(value, columnDefs, rows));
   }, []);
 
+  const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
+  const tableName = useMemo(() => {
+    let result = 'Table';
+    if (name && name.length > 0) {
+      result = name + ' Table';
+    }
+    return result;
+  }, [name]);
+
   /**
    * This will retrieve data is a request URL is supplied, this simply perform a GET Request at this point.
    */
@@ -39,16 +65,13 @@ export const BootstrapTable: FC<TableData> = ({ request_url, columns, data }) =>
     if (request_url) {
       axios.get(request_url).then((response: AxiosResponse) => {
         if (response && response.data && Array.isArray(response.data)) {
-          if (response.data.length > 5) {
-            setRowsPerPage(5);
-          } else {
-            setRowsPerPage(0);
-          }
-
-          setTablePosition(0);
-
           setRows(response.data);
-          setDisplayedRows(response.data);
+          setTablePosition(0);
+          if (response.data.length > 5) {
+            handleRowsPerPage(5);
+          } else {
+            handleRowsPerPage(0);
+          }
         }
       });
     }
@@ -61,16 +84,20 @@ export const BootstrapTable: FC<TableData> = ({ request_url, columns, data }) =>
         isSearchable={isSearchableTable}
         setCompact={handleCompactState}
         setSearchValue={handleSearchValue}
+        name={tableName}
+        varient={styleVarient}
       />
       <Row>
         <Col>
-          <Table hover responsive size={compact ? 'sm' : ''}>
-            <thead className={'table-dark'}>
+          <Table hover responsive size={compact ? 'sm' : ''} aria-label={tableName}>
+            <thead className={'table-' + styleVarient}>
               <tr>
                 {columnDefs.map((header: ColumnDefs) => {
                   return (
                     <th scope='col' key={'table.header.' + header.field}>
-                      <span className={'px-3'}>{header.label}</span>
+                      <span className={'px-3'} title={header.label}>
+                        {header.label}
+                      </span>
                     </th>
                   );
                 })}
@@ -78,21 +105,18 @@ export const BootstrapTable: FC<TableData> = ({ request_url, columns, data }) =>
               </tr>
             </thead>
             <tbody>
-              {displayedRows.map((value: Record<string, string>, index: number) => {
-                return isInRange(index, rowsPerPage, tablePosition) ? (
-                  <tr key={'table.row.' + value.name}>
+              {displayedRows.map((value: Record<string, string>) => {
+                return (
+                  <tr key={'table.row.' + JSON.stringify(value)}>
                     {columnDefs.map((header: ColumnDefs) => {
                       return (
-                        <td key={'table.row.' + index + '.' + header.field}>
+                        <td key={'table.row.' + header.field + '.' + value[header.field]}>
                           <span className={'px-3'}>{value[header.field]}</span>
                         </td>
                       );
                     })}
-                    <td>
-                      <ChevronRight />
-                    </td>
                   </tr>
-                ) : null;
+                );
               })}
             </tbody>
           </Table>
@@ -101,9 +125,11 @@ export const BootstrapTable: FC<TableData> = ({ request_url, columns, data }) =>
       <BootstrapTableRowControls
         numRows={displayedRows.length}
         rowsPerPage={rowsPerPage}
-        setRowsPerPage={setRowsPerPage}
+        setRowsPerPage={handleRowsPerPage}
         tablePosition={tablePosition}
-        setTablePosition={setTablePosition}
+        setTablePosition={handleTablePosition}
+        name={tableName}
+        varient={styleVarient}
       />
     </Container>
   );

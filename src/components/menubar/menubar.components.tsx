@@ -5,14 +5,27 @@ import { Download, Filter, Grid3x2Gap, Grid3x3Gap, Search } from 'react-bootstra
 
 import { BootstrapTableMenuBarProps } from './menubar.types';
 
+/**
+ *
+ * @param param0
+ * @returns
+ */
 export const BootstrapTableMenuBar: FC<BootstrapTableMenuBarProps> = ({
   isCompact,
   isSearchable,
+  name,
   varient,
   setCompact,
   setSearchValue,
 }) => {
   const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
+  const tableName = useMemo(() => {
+    let result = 'Menu Bar';
+    if (name && name.length > 0) {
+      result = name + ' Menu Bar';
+    }
+    return result;
+  }, [name]);
 
   return (
     <Row>
@@ -22,23 +35,24 @@ export const BootstrapTableMenuBar: FC<BootstrapTableMenuBarProps> = ({
           {isSearchable ? (
             <Form.Control
               placeholder='Search'
-              aria-label='Search Table'
-              aria-describedby='basic-addon2'
+              aria-label={tableName + ' Search Input'}
+              tabIndex={0}
               onChange={(e) => setSearchValue(e.target.value)}
             />
           ) : null}
           {isSearchable ? (
-            <Button variant={varient} id='button-addon2'>
+            <Button variant={varient} aria-label={tableName + ' Search Input Button'}>
               <Search />
             </Button>
           ) : null}
-          <Button variant={varient} id='button-addon2'>
-            <Filter />
-          </Button>
-          <Button variant={varient} id='button-addon2' onClick={() => setCompact(!isCompact)}>
+          <Button
+            variant={varient}
+            aria-label={tableName + ' Compact Setting Toggle'}
+            onClick={() => setCompact(!isCompact)}
+          >
             {isCompact ? <Grid3x3Gap /> : <Grid3x2Gap />}
           </Button>
-          <Button variant={varient} id='button-addon2'>
+          <Button variant={varient} aria-label={tableName + ' Download CSV Button'} tabIndex={0}>
             <Download />
           </Button>
         </InputGroup>

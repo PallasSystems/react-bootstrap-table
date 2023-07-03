@@ -1,3 +1,5 @@
+export type { BaseTableEntity } from './common';
+
 export type { BootstrapTableMenuBarProps } from './menubar';
 export { BootstrapTableMenuBar } from './menubar';
 
