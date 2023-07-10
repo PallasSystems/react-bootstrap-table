@@ -1,35 +1,26 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { BootstrapTableRowControls } from './rowcontrols.components';
+import { RBTRowControls } from './rowcontrols.components';
+import { searchableArgs } from '../common/common.tests';
 
 const meta = {
   title: 'react-bootstrap-table/Table Row Controls',
-  component: BootstrapTableRowControls,
+  component: RBTRowControls,
   tags: ['autodocs'],
   args: {
-    numRows: 10,
-    rowsPerPage: 5,
-    tablePosition: 0,
+    ...searchableArgs,
+    name: 'bob',
     varient: 'dark',
-    setRowsPerPage: (e) => {
-      console.log('setRowsPerPage: ' + JSON.stringify(e));
-    },
-    setTablePosition: (e) => {
-      console.log('setTablePosition: ' + JSON.stringify(e));
+    handleDisplayedRows: (e) => {
+      console.log('handleDisplayedRows: ' + JSON.stringify(e));
     },
   },
-} satisfies Meta<typeof BootstrapTableRowControls>;
+} satisfies Meta<typeof RBTRowControls>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-  args: {
-    numRows: 205,
-    rowsPerPage: 5,
-    tablePosition: 0,
-  },
-};
+export const Primary: Story = {};
 
 export const PrimaryVarient: Story = {
   args: {

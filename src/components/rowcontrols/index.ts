@@ -1,2 +1,2 @@
-export type { BootstrapTableRowControlProps } from './rowcontrols.types';
-export { BootstrapTableRowControls } from './rowcontrols.components';
+export type { RBTRowControlStyleOptions, RBTRowControlOptions } from './rowcontrols.types';
+export { RBTRowControls } from './rowcontrols.components';

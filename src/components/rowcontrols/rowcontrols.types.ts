@@ -1,9 +1,11 @@
-import type { BaseTableEntity } from '../common';
+import type { RBTData, RBTStyleOptions } from '../common';
 
-export type BootstrapTableRowControlProps = BaseTableEntity & {
-  numRows: number;
-  rowsPerPage: number;
-  setRowsPerPage: (e: number) => void;
-  tablePosition: number;
-  setTablePosition: (e: number) => void;
+export type RBTRowControlStyleOptions = RBTStyleOptions & {
+  rowsPerPage?: number;
 };
+
+export type RBTRowControlOptions<TData extends Record<string, any> = {}> = RBTData<TData> &
+  RBTRowControlStyleOptions & {
+    isCompact?: boolean;
+    handleDisplayedRows?: (e: TData[]) => void;
+  };

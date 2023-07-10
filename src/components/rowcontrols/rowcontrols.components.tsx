@@ -1,25 +1,50 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { ChevronBarLeft, ChevronBarRight, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 
-import { BootstrapTableRowControlProps } from './rowcontrols.types';
+import { RBTRowControlOptions } from './rowcontrols.types';
 import { getRowOptions, getRowRangeText } from './rowcontrols.helper';
+import { RBTRow } from '../common/common.types';
 
-export const BootstrapTableRowControls: FC<BootstrapTableRowControlProps> = ({
-  numRows,
-  rowsPerPage,
-  tablePosition,
-  name,
-  varient,
-  setRowsPerPage,
-  setTablePosition,
-}) => {
+export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, name, varient, handleDisplayedRows }) => {
   const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
-  const rowOptions = useMemo(() => getRowOptions(numRows), [numRows]);
+  const [paginationRows, setPaginationRows] = useState<number>(rowsPerPage ?? 5);
+  //
+  const [tablePosition, setTablePosition] = useState<number>(0);
+  const handleTablePosition = (tablePos: number) => {
+    if (handleDisplayedRows) {
+      const displayedRows: RBTRow<Record<string, any>>[] = [];
+
+      let changed = false;
+      const upperRange = tablePos + paginationRows;
+      for (let index = 0; index < data.length; index++) {
+        const row: RBTRow<Record<string, any>> = data[index];
+        if (row.position >= tablePos && row.position < upperRange) {
+          changed = changed || !row.displayed;
+          row.displayed = true;
+        } else if (row.displayed) {
+          row.displayed = false;
+          changed = true;
+        }
+        displayedRows.push(row);
+      }
+
+      if (changed) {
+        handleDisplayedRows(displayedRows);
+      }
+    }
+    setTablePosition(tablePos);
+  };
+
+  const numRows = useMemo(() => {
+    return data ? data.length : 0;
+  }, [data]);
+  const rowOptions = useMemo(() => getRowOptions(numRows), [data]);
   const rangeText = useMemo(
-    () => getRowRangeText(numRows, rowsPerPage, tablePosition),
-    [numRows, rowsPerPage, tablePosition],
+    () => getRowRangeText(numRows, paginationRows, tablePosition),
+    [numRows, paginationRows, tablePosition],
   );
+  //
   const tableName = useMemo(() => {
     let result = 'Row Controls';
     if (name && name.length > 0) {
@@ -27,6 +52,17 @@ export const BootstrapTableRowControls: FC<BootstrapTableRowControlProps> = ({
     }
     return result;
   }, [name]);
+
+  const test = (): boolean => {
+    console.log('test - numRows: ' + numRows);
+    console.log('test - paginationRows: ' + paginationRows);
+    console.log('test - tablePosition: ' + tablePosition);
+
+    const result = tablePosition - paginationRows < 0;
+    console.log('test - result: ' + result);
+
+    return result;
+  };
 
   return (
     <Row className={'align-items-center mx-0 px-0'}>
@@ -37,7 +73,7 @@ export const BootstrapTableRowControls: FC<BootstrapTableRowControlProps> = ({
           aria-expanded={false}
           aria-haspopup={'listbox'}
           aria-label={tableName + ' Set Rows Per Table Page'}
-          onChange={(e) => setRowsPerPage(+e.currentTarget.value)}
+          onChange={(e) => setPaginationRows(+e.currentTarget.value)}
         >
           {rowOptions.map((option: string) => {
             return (
@@ -52,7 +88,7 @@ export const BootstrapTableRowControls: FC<BootstrapTableRowControlProps> = ({
       <Col md='auto' className={'mx-1 px-0'}>
         <Button
           aria-label={tableName + ' Move to first page of table results'}
-          onClick={() => setTablePosition(0)}
+          onClick={() => handleTablePosition(0)}
           disabled={tablePosition === 0}
           variant={styleVarient}
         >
@@ -62,8 +98,8 @@ export const BootstrapTableRowControls: FC<BootstrapTableRowControlProps> = ({
       <Col md='auto' className={'mx-1 px-0'}>
         <Button
           aria-label={tableName + ' Move to previous page of table results'}
-          onClick={() => setTablePosition(tablePosition - rowsPerPage)}
-          disabled={tablePosition - rowsPerPage < 0}
+          onClick={() => handleTablePosition(tablePosition - paginationRows)}
+          disabled={test()}
           variant={styleVarient}
         >
           <ChevronLeft />
@@ -72,8 +108,8 @@ export const BootstrapTableRowControls: FC<BootstrapTableRowControlProps> = ({
       <Col md='auto' className={'mx-1 px-0'}>
         <Button
           aria-label={tableName + ' Move to next page of table results'}
-          onClick={() => setTablePosition(tablePosition + rowsPerPage)}
-          disabled={tablePosition + rowsPerPage >= numRows}
+          onClick={() => handleTablePosition(tablePosition + paginationRows)}
+          disabled={tablePosition + paginationRows >= numRows}
           variant={styleVarient}
         >
           <ChevronRight />
@@ -82,8 +118,8 @@ export const BootstrapTableRowControls: FC<BootstrapTableRowControlProps> = ({
       <Col md='auto' className={'mx-1 px-0'}>
         <Button
           aria-label={tableName + ' Move to last page of table results'}
-          onClick={() => setTablePosition(numRows - rowsPerPage)}
-          disabled={numRows - rowsPerPage <= tablePosition}
+          onClick={() => handleTablePosition(numRows - paginationRows)}
+          disabled={numRows - paginationRows <= tablePosition}
           variant={styleVarient}
         >
           <ChevronBarRight />

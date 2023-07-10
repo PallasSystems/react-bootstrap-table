@@ -21,6 +21,10 @@ export const getRowOptions = (rows: number): string[] => {
 export const getRowRangeText = (rows: number, rowsPerPage: number, tablePosition: number): string => {
   let result = '0 of 0';
 
+  console.log('getRowRangeText - rows: ' + rows);
+  console.log('getRowRangeText - rowsPerPage: ' + rowsPerPage);
+  console.log('getRowRangeText - tablePosition: ' + tablePosition);
+
   if (rows > 0) {
     result = tablePosition + 1 + ' - ';
     if (tablePosition + rowsPerPage > rows) {
@@ -31,6 +35,8 @@ export const getRowRangeText = (rows: number, rowsPerPage: number, tablePosition
 
     result += ' of ' + rows;
   }
+
+  console.log('getRowRangeText - result: ' + result);
 
   return result;
 };
