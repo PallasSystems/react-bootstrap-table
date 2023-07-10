@@ -1,44 +1,43 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { BootstrapTableMenuBar } from './menubar.components';
+import { RBTMenuBar } from './menubar.components';
+import { RBTMenuBarOptions } from './menubar.types';
+import { searchableArgs } from '../common/common.tests';
 
 const meta = {
   title: 'react-bootstrap-table/Table Menu Bar',
-  component: BootstrapTableMenuBar,
+  component: RBTMenuBar,
   tags: ['autodocs'],
   args: {
-    isCompact: true,
-    isSearchable: true,
-    varient: 'dark',
+    ...searchableArgs,
+    isCompact: false,
     setCompact: (e) => {
       console.log('setCompact: ' + JSON.stringify(e));
     },
-    setSearchValue: (e) => {
-      console.log('setSearchValue: ' + JSON.stringify(e));
+    handleDisplayedRows: (e) => {
+      console.log('handleDisplayedRows: ' + JSON.stringify(e));
     },
   },
-} satisfies Meta<typeof BootstrapTableMenuBar>;
+} satisfies Meta<typeof RBTMenuBar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-  args: {
-    isCompact: false,
-    isSearchable: false,
-    varient: 'dark',
-  },
-};
-
-export const Searchable: Story = {
-  args: {
-    isSearchable: true,
-  },
-};
+export const Primary: Story = {};
 
 export const Compact: Story = {
   args: {
     isCompact: true,
+  },
+};
+
+export const NotSearchable: Story = {
+  args: {
+    columns: [
+      { accessorKey: 'firstName', header: 'First Name', searchable: false },
+      { accessorKey: 'surname', header: 'Surname', searchable: false },
+      { accessorKey: 'age', header: 'Age' },
+    ],
   },
 };
 

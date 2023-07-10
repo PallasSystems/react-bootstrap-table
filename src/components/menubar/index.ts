@@ -1,2 +1,2 @@
-export type { BootstrapTableMenuBarProps } from './menubar.types';
-export { BootstrapTableMenuBar } from './menubar.components';
+export type { RBTMenuBarStyleOptions, RBTMenuBarOptions } from './menubar.types';
+export { RBTMenuBar } from './menubar.components';

@@ -1,8 +1,13 @@
-import type { BaseTableEntity } from '../common';
+import type { RBTData, RBTStyleOptions } from '../common';
+import { RBTSearchOptions } from '../search';
 
-export type BootstrapTableMenuBarProps = BaseTableEntity & {
-  isCompact: boolean;
-  setCompact: (e: boolean) => void;
-  isSearchable: boolean;
-  setSearchValue: (e: string) => void;
+export type RBTMenuBarStyleOptions = RBTStyleOptions & {
+  enableDensityToggle?: boolean;
 };
+
+export type RBTMenuBarOptions<TData extends Record<string, any> = {}> = RBTData<TData> &
+  RBTSearchOptions<TData> &
+  RBTMenuBarStyleOptions & {
+    isCompact?: boolean;
+    setCompact?: (e: boolean) => void;
+  };
