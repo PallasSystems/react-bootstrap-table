@@ -1,4 +1,4 @@
-import { ColumnDefs } from "./table.types";
+import { ColumnDefs } from './table.types';
 
 export const isSearchable = (columnDefs: ColumnDefs[]): boolean => {
   let result = false;
@@ -24,7 +24,7 @@ export const retrieveSearchMatches = (
   const keys: string[] = [];
   columnDefs.forEach((value: ColumnDefs) => {
     if (value.searchable) {
-      keys.push(value.field);
+      keys.push(value.accessorKey);
     }
   });
 

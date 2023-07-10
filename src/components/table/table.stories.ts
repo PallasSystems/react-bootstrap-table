@@ -1,45 +1,45 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { BootstrapTable } from './table.components';
+import { RBTable } from './table.components';
+import { RBTColumnDefs } from '../common';
+import { RBTOptions } from './table.types';
+
+type SimpleDataType = {
+  firstName: string;
+  surname: string;
+};
+
+const simpleArgs: RBTOptions<SimpleDataType> = {
+  columns: [
+    { accessorKey: 'firstName', header: 'First Name', searchable: true },
+    { accessorKey: 'surname', header: 'Surname', searchable: true },
+  ],
+  data: [
+    { firstName: 'Joe', surname: 'Bloggs' },
+    { firstName: 'Jane', surname: 'Doe' },
+    { firstName: 'John', surname: 'Smith' },
+    { firstName: 'Sarah', surname: 'Wilson' },
+    { firstName: 'Josiah', surname: 'Faulkner' },
+    { firstName: 'Amanda', surname: 'Blaese' },
+    { firstName: 'Maxim', surname: 'Ochoa' },
+    { firstName: 'Stephanie', surname: 'Williams' },
+    { firstName: 'Alfie', surname: 'Best' },
+    { firstName: 'Jennifer', surname: 'Johnson' },
+  ],
+};
 
 const meta = {
   title: 'react-bootstrap-table/Table',
-  component: BootstrapTable,
+  component: RBTable,
   tags: ['autodocs'],
-  args: {
-    columns: [
-      { field: 'field1', label: 'Column 1' },
-      { field: 'field2', label: 'Column 2' },
-    ],
-    data: [
-      { field1: 'Field 1 Row 1', field2: 'Field 2 Row 1' },
-      { field1: 'Field 1 Row 2', field2: 'Field 2 Row 3' },
-      { field1: 'Field 1 Row 3', field2: 'Field 2 Row 3' },
-      { field1: 'Field 1 Row 4', field2: 'Field 2 Row 4' },
-      { field1: 'Field 1 Row 5', field2: 'Field 2 Row 5' },
-      { field1: 'Field 1 Row 6', field2: 'Field 2 Row 6' },
-      { field1: 'Field 1 Row 7', field2: 'Field 2 Row 7' },
-      { field1: 'Field 1 Row 8', field2: 'Field 2 Row 8' },
-      { field1: 'Field 1 Row 9', field2: 'Field 2 Row 9' },
-      { field1: 'Field 1 Row 10', field2: 'Field 2 Row 10' },
-    ],
-  },
-} satisfies Meta<typeof BootstrapTable>;
+  args: simpleArgs,
+} satisfies Meta<typeof RBTable>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {},
-};
-
-export const SearchableField1: Story = {
-  args: {
-    columns: [
-      { field: 'field1', label: 'Column 1', searchable: true },
-      { field: 'field2', label: 'Column 2' },
-    ],
-  },
 };
 
 export const PrimaryVarient: Story = {
