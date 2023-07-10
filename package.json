@@ -1,5 +1,5 @@
 {
-  "name": "@pallassystems/react-bootstrap-library",
+  "name": "@pallassystems/react-bootstrap-table",
   "version": "0.0.1",
   "description": "Library to build responsive tables using the Bootstrap framework within React.",
   "homepage": "https://www.pallas.uk",
@@ -14,16 +14,12 @@
   ],
   "private": false,
   "dependencies": {
-    "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "react": ">=18.2.0",
     "react-bootstrap": ">=2.0.0",
     "react-bootstrap-icons": "^1.10.3",
     "react-dom": ">=18.2.0",
-    "react-router-bootstrap": "^0.26.0",
-    "react-router-dom": "^6.3.0",
-    "typescript": "^4.9.5",
-    "web-vitals": "^3.3.2"
+    "typescript": "^4.9.5"
   },
   "peerDependencies": {
     "@types/react": ">=18.0.0",
@@ -87,9 +83,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "analyse": "source-map-explorer 'build/static/js/*.js'",
-    "eslint": "eslint --ext .ts --ext .tsx --output-file eslint_report.json --format json src",
-    "stylelint": "stylelint \"./src/**/*.css\" --formatter json --output-file stylelint_report.json",
-    "report": "npm run eslint && npm run stylelint"
+    "eslint": "eslint --ext .ts --ext .tsx --output-file eslint_report.json --format json src"
   },
   "repository": {
     "type": "git",
