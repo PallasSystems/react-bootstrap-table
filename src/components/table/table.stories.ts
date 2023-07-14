@@ -1,38 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTable } from './table.components';
+import { searchableArgs } from '../common/common.tests';
+
 import { RBTColumnDefs } from '../common';
 import { RBTOptions } from './table.types';
-
-type SimpleDataType = {
-  firstName: string;
-  surname: string;
-};
-
-const simpleArgs: RBTOptions<SimpleDataType> = {
-  columns: [
-    { accessorKey: 'firstName', header: 'First Name', searchable: true },
-    { accessorKey: 'surname', header: 'Surname', searchable: true },
-  ],
-  data: [
-    { firstName: 'Joe', surname: 'Bloggs' },
-    { firstName: 'Jane', surname: 'Doe' },
-    { firstName: 'John', surname: 'Smith' },
-    { firstName: 'Sarah', surname: 'Wilson' },
-    { firstName: 'Josiah', surname: 'Faulkner' },
-    { firstName: 'Amanda', surname: 'Blaese' },
-    { firstName: 'Maxim', surname: 'Ochoa' },
-    { firstName: 'Stephanie', surname: 'Williams' },
-    { firstName: 'Alfie', surname: 'Best' },
-    { firstName: 'Jennifer', surname: 'Johnson' },
-  ],
-};
 
 const meta = {
   title: 'react-bootstrap-table/Table',
   component: RBTable,
   tags: ['autodocs'],
-  args: simpleArgs,
+  args: {
+    ...searchableArgs,
+    enableDensityToggle: true,
+    enableTableHead: true,
+  },
 } satisfies Meta<typeof RBTable>;
 
 export default meta;

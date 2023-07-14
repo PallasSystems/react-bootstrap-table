@@ -9,12 +9,14 @@ import { RBTRowControls } from '../rowcontrols';
 
 import type { RBTRow, RBTColumnDefs } from '../common';
 import { RBTOptions } from './table.types';
+import { RBTableHead } from '../tableHead';
+import { RBTablePlaceholder } from '../tablePlaceholder';
 
 const isInRange = (index: number, rowsPerPage: number, tablePosition: number): boolean => {
   return index >= tablePosition && tablePosition + rowsPerPage > index;
 };
 
-export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, name, varient }) => {
+export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, enableTableHead, name, varient }) => {
   //
   const [rows, setRows] = useState<RBTRow<Record<string, any>>[]>(() => {
     const results: RBTRow<Record<string, any>>[] = [];
@@ -66,7 +68,10 @@ export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, na
       />
       <Row>
         <Col>
-          <Table hover responsive size={compact ? 'sm' : ''} aria-label={tableName}></Table>
+          <Table hover responsive size={compact ? 'sm' : ''} aria-label={tableName}>
+            <RBTableHead columns={columnDefs} enableTableHead={enableTableHead} name={name} varient={styleVarient} />
+            <RBTablePlaceholder columns={columnDefs} name={name} varient={styleVarient} />
+          </Table>
         </Col>
       </Row>
       <RBTRowControls
