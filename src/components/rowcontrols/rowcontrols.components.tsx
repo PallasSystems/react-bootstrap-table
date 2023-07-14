@@ -8,9 +8,18 @@ import { RBTRow } from '../common/common.types';
 
 export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, name, varient, handleDisplayedRows }) => {
   const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
+  const tableName = useMemo(() => {
+    name && name.length > 0 ? name + ' Row Controls' : 'Row Controls';
+  }, [name]);
+
+  /** How Many Table rows should be displayed? The default is 5 */
   const [paginationRows, setPaginationRows] = useState<number>(rowsPerPage ?? 5);
-  //
+  /** What is the current position of displayed rows within the table (e.g. if there are 5 rows per page and 10 records, position could be 0, 5)*/
   const [tablePosition, setTablePosition] = useState<number>(0);
+  /**
+   * This is supplied a new table position, it will iterate only data from that postion (to the range endpoint)
+   * @param tablePos the new table position
+   */
   const handleTablePosition = (tablePos: number) => {
     if (handleDisplayedRows) {
       const displayedRows: RBTRow<Record<string, any>>[] = [];
@@ -36,32 +45,46 @@ export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, na
     setTablePosition(tablePos);
   };
 
+  /** Works out how many rows are visible to the user, to create a row total. */
   const numRows = useMemo(() => {
-    return data ? data.length : 0;
+    let result = 0;
+    if (data) {
+      for (let index = 0; index < data.length; index++) {
+        if (!data[index].filtered) {
+          result++;
+        }
+      }
+    }
+
+    return result;
   }, [data]);
+  /** Gets the table sizes based on the number of rows of data.*/
   const rowOptions = useMemo(() => getRowOptions(numRows), [data]);
+  /** Generates the text which sits next to the drop down to indicate to the user, */
   const rangeText = useMemo(
     () => getRowRangeText(numRows, paginationRows, tablePosition),
     [numRows, paginationRows, tablePosition],
   );
-  //
-  const tableName = useMemo(() => {
-    let result = 'Row Controls';
-    if (name && name.length > 0) {
-      result = name;
+
+  /**
+   * Called as the drop down can contain numbers and string values, so this correctly converts
+   * them as appropriate.
+   *
+   * @param {string} value the Rows Per Page value we want to update the table to
+   */
+  const handleTablePagination = (value: string) => {
+    if (value) {
+      if (value === 'All') {
+        setPaginationRows(numRows);
+      } else {
+        const convertedValue: number = Number(value);
+        if (isNaN(convertedValue)) {
+          console.log('handleTablePagination: Invalid Value has been supplied ' + value);
+        } else {
+          setPaginationRows(convertedValue);
+        }
+      }
     }
-    return result;
-  }, [name]);
-
-  const test = (): boolean => {
-    console.log('test - numRows: ' + numRows);
-    console.log('test - paginationRows: ' + paginationRows);
-    console.log('test - tablePosition: ' + tablePosition);
-
-    const result = tablePosition - paginationRows < 0;
-    console.log('test - result: ' + result);
-
-    return result;
   };
 
   return (
@@ -73,7 +96,7 @@ export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, na
           aria-expanded={false}
           aria-haspopup={'listbox'}
           aria-label={tableName + ' Set Rows Per Table Page'}
-          onChange={(e) => setPaginationRows(+e.currentTarget.value)}
+          onChange={(e) => handleTablePagination(e.currentTarget.value)}
         >
           {rowOptions.map((option: string) => {
             return (
@@ -99,7 +122,7 @@ export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, na
         <Button
           aria-label={tableName + ' Move to previous page of table results'}
           onClick={() => handleTablePosition(tablePosition - paginationRows)}
-          disabled={test()}
+          disabled={tablePosition - paginationRows < 0}
           variant={styleVarient}
         >
           <ChevronLeft />
