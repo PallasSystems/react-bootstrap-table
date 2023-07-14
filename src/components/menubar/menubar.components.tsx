@@ -7,20 +7,14 @@ import { RBTMenuBarOptions } from './menubar.types';
 import { RBTSearch } from '../search';
 
 /**
- *
- * @param param0
- * @returns
+ * This component builds a menu bar.
+ * @param {RBTMenuBarOptions} props
  */
 export const RBTMenuBar: FC<RBTMenuBarOptions> = (props) => {
   const displayCompactBtn = useMemo(() => props.enableDensityToggle ?? true, [props.enableDensityToggle]);
   const styleVarient = useMemo(() => props.varient ?? 'dark', [props.varient]);
-  //
   const tableName = useMemo(() => {
-    let result = 'Menu Bar';
-    if (props.name && props.name.length > 0) {
-      result = props.name + ' Menu Bar';
-    }
-    return result;
+    props.name && props.name.length > 0 ? props.name + ' SearchBar' : 'SearchBar';
   }, [props.name]);
 
   return (
