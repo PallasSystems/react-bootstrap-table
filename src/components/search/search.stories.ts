@@ -2,12 +2,18 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTSearch } from './search.components';
 import { RBTSearchOptions } from './search.types';
+import { searchableArgs } from '../common/common.tests';
 
 const meta = {
   title: 'react-bootstrap-table/Search Bar',
   component: RBTSearch,
   tags: ['autodocs'],
-  args: searchableArgs,
+  args: {
+    ...searchableArgs,
+    handleDisplayedRows: (e) => {
+      console.log('handleDisplayedRows: ' + JSON.stringify(e));
+    },
+  },
 } satisfies Meta<typeof RBTSearch>;
 
 export default meta;
@@ -15,12 +21,18 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {};
 
-export const NotSearchable: Story = {
+export const NoSearchableColumns: Story = {
   args: {
     columns: [
-      { accessorKey: 'surname', header: 'Column 1', searchable: false },
-      { accessorKey: 'age', header: 'Column 2' },
+      { accessorKey: 'firstName', header: 'First Name', searchable: false },
+      { accessorKey: 'surname', header: 'Surname', searchable: false },
     ],
+  },
+};
+
+export const NoSearchableCallback: Story = {
+  args: {
+    handleDisplayedRows: undefined,
   },
 };
 
