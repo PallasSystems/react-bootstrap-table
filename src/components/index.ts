@@ -1,10 +1,12 @@
-export type { BaseTableEntity } from './common';
+export type { RBTStyleOptions, RBTData, RBTColumnSizing, RBTColumnDefs } from './common';
 
-export type { BootstrapTableMenuBarProps } from './menubar';
-export { BootstrapTableMenuBar } from './menubar';
+export type { RBTMenuBarOptions, RBTMenuBarStyleOptions } from './menubar';
+export { RBTMenuBar } from './menubar';
 
-export type { BootstrapTableRowControlProps } from './rowcontrols';
-export { BootstrapTableRowControls } from './rowcontrols';
+export type { RBTRowControlStyleOptions, RBTRowControlOptions } from './rowcontrols';
+export { RBTRowControls } from './rowcontrols';
 
-export type { ColumnDefs, TableData } from './table';
+export type { RBTSearchOptions } from './search';
+export { RBTSearch } from './search';
+
 export { BootstrapTable } from './table';

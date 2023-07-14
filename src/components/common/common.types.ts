@@ -1,25 +1,47 @@
+import { Type } from 'typescript';
+
+/**
+ * Basic data properties almost every RBT componet requires (e.g. the columns and data).
+ * @alias RBTStyleOptions
+ * @type {Type}
+ */
 export type RBTStyleOptions = {
-  varient?: string;
+  /** References the Bootstrap varient property. */
+  varient?: 'light' | 'dark' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'link';
+  /** Unique name prefix to give to each table element. */
   name?: string;
 };
 
+/**
+ * Basic data properties almost every RBT componet requires (e.g. the columns and data).
+ * @alias RBTData
+ * @type {RBTStyleOptions}
+ */
 export type RBTData<TData extends Record<string, any> = {}> = RBTStyleOptions & {
+  /** List of all columns  you want to display within the table, along with various configuration information. */
   columns: RBTColumnDefs<TData>[];
-  data: TData[];
+  /** The data objects you want to display in the table. */
+  data: RBTRow<TData>[];
 };
 
-export type RBTColumnSizing {
+/**
+ * Column configuration choices.
+ * @alias RBTColumnSizing
+ * @type {Type}
+ */
+export type RBTColumnSizing = {
+  /** Can the column be resized? */
   enableResizing?: boolean;
-  size?: number;
+  /** The minimum width (in pixels) of the column. */
   minSize?: number;
+  /** The maximum width (in pixels) of the column. */
   maxSize?: number;
-}
+};
 
 /**
- * @typedef {Object} RBTColumnDefs Information required to define a the table columns and data mapppings.
- * @property {string} accessorKey the Field name within a data object we want to represent in the table.
- * @property {string} header the Label to provide in the column header for the table
- * @property {boolean} [searchable] should this particular field be part of the search mechanisim?
+ * Information required to define a the table columns and data mapppings.
+ * @alias RBTColumnDefs
+ * @type {RBTStyleOptions}
  */
 export type RBTColumnDefs<TData extends Record<string, any> = {}> = RBTColumnSizing & {
   /**
@@ -52,13 +74,26 @@ export type RBTColumnDefs<TData extends Record<string, any> = {}> = RBTColumnSiz
    * @default gets set to the same value as `accessorKey` by default
    */
   id?: string;
-
+  /**
+   * Should this particular field be part of the search mechanisim?
+   */
   searchable?: boolean;
 };
 
+/**
+ * Internal wrapper around supplied data objects. We give each record a position within the table list.
+ * Filtering ensurings the record is not included in the display and display is linked to table pagination
+ * (e.g. only show X records).
+ * @alias RBTColumnSizing
+ * @type {Type}
+ */
 export type RBTRow<TData extends Record<string, any>> = {
+  /** The record we need to create a table row for. */
   data: TData;
+  /** The records table row number. */
   position: number;
+  /** Should the record be filtered out of the display? */
   filtered: boolean;
+  /** Is the record currently displayed to the user? */
   displayed: boolean;
 };
