@@ -1,8 +1,24 @@
 export type {
-  BaseTableEntity,
-  BootstrapTableMenuBarProps,
-  BootstrapTableRowControlProps,
-  ColumnDefs,
-  TableData,
+  RBTStyleOptions,
+  RBTData,
+  RBTColumnSizing,
+  RBTColumnDefs,
+  RBTMenuBarOptions,
+  RBTMenuBarStyleOptions,
+  RBTRowControlStyleOptions,
+  RBTRowControlOptions,
+  RBTSearchOptions,
+  RBTOptions,
+  RBTableHeadOptions,
+  RBTablePlaceholderOptions,
 } from './components';
-export { BootstrapTable, BootstrapTableMenuBar, BootstrapTableRowControls } from './components';
+
+export {
+  RBTable,
+  RBTableHead,
+  RBTablePlaceholder,
+  RBTablePlaceholderRow,
+  RBTMenuBar,
+  RBTRowControls,
+  RBTSearch,
+} from './components';

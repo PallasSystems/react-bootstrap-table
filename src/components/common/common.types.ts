@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { Type } from 'typescript';
 
 /**
@@ -45,12 +46,21 @@ export type RBTColumnSizing = {
  */
 export type RBTColumnDefs<TData extends Record<string, any> = {}> = RBTColumnSizing & {
   /**
+   * Allows users to define a function to return an element for the table header contents.
+   */
+  Cell?: ReactNode | ((props: { column: string; originalRow: TData }) => ReactNode);
+  /**
+   * Allows users to define a function to return an element for the table header contents.
+   */
+  Header?: ReactNode | ((props: { header: string; id?: string; minSize?: number; maxSize?: number }) => ReactNode);
+
+  /**
    * Either an `accessorKey` or a combination of an `accessorFn` and `id` are required for a data column definition.
    * Specify a function here to point to the correct property in the data object.
    *
    * @example accessorFn: (row) => row.username
    */
-  accessorFn?: (originalRow: TData) => any;
+  accessorFn?: (originalRow: TData) => string;
   /**
    * Either an `accessorKey` or a combination of an `accessorFn` and `id` are required for a data column definition.
    * Specify which key in the row this column should use to access the correct data.

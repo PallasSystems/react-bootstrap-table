@@ -6,6 +6,11 @@ import { RBTRowControlOptions } from './rowcontrols.types';
 import { getRowOptions, getRowRangeText } from './rowcontrols.helper';
 import { RBTRow } from '../common/common.types';
 
+/**
+ * This is used to create table paigniation controls at the bottom of the table
+ * @param {RBTRowControlOptions} param0
+ * @returns
+ */
 export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, name, varient, handleDisplayedRows }) => {
   const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
   const tableName = useMemo(() => {

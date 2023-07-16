@@ -9,4 +9,11 @@ export { RBTRowControls } from './rowcontrols';
 export type { RBTSearchOptions } from './search';
 export { RBTSearch } from './search';
 
-export { BootstrapTable } from './table';
+export type { RBTOptions } from './table';
+export { RBTable } from './table';
+
+export type { RBTableHeadStyleOptions, RBTableHeadOptions } from './tableHead';
+export { RBTableHead } from './tableHead';
+
+export type { RBTablePlaceholderOptions } from './tablePlaceholder';
+export { RBTablePlaceholder, RBTablePlaceholderRow } from './tablePlaceholder';

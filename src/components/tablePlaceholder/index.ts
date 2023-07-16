@@ -1,2 +1,2 @@
 export type { RBTablePlaceholderOptions } from './tablePlaceholder.types';
-export { RBTablePlaceholder } from './tablePlaceholder.components';
+export { RBTablePlaceholder, RBTablePlaceholderRow } from './tablePlaceholder.components';

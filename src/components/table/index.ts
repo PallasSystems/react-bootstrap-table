@@ -1,2 +1,2 @@
-export type { ColumnDefs, TableData } from './table.types';
-export { BootstrapTable } from './table.components';
+export type { RBTOptions } from './table.types';
+export { RBTable } from './table.components';

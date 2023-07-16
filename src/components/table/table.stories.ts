@@ -24,6 +24,22 @@ export const Primary: Story = {
   args: {},
 };
 
+export const DisabledTableHeader: Story = {
+  args: {
+    enableTableHead: false,
+  },
+};
+
+export const HeaderFunctionSetOnColumnDefs: Story = {
+  args: {
+    columns: [
+      { accessorKey: 'firstName', header: 'First Name', searchable: true, Header: () => 'Header Function Name' },
+      { accessorKey: 'surname', header: 'Surname', searchable: true, Header: () => 'Header Function Surname' },
+      { accessorKey: 'age', header: 'Age', Header: () => 'Header Function Age' },
+    ],
+  },
+};
+
 export const PrimaryVarient: Story = {
   args: {
     varient: 'primary',

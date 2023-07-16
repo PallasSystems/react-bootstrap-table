@@ -1,11 +1,10 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 
 import { RBTSearchOptions } from './search.types';
 import { RBTColumnDefs } from '../common';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Form, InputGroup } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 import { RBTRow } from '../common/common.types';
-import { isNamedTupleMember } from 'typescript';
 
 /**
  * This is used to provide a search bar which will look through the supplied data objects and mark them as
@@ -13,7 +12,6 @@ import { isNamedTupleMember } from 'typescript';
  *
  * @component
  * @param {RBTSearchOptions} param0 this is used
- * @returns
  */
 export const RBTSearch: FC<RBTSearchOptions> = ({ columns, data, name, varient, handleDisplayedRows }) => {
   const styleVarient = useMemo(() => varient ?? 'dark', [varient]);

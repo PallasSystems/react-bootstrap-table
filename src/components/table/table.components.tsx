@@ -1,8 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 
 import { Col, Container, Row, Table } from 'react-bootstrap';
-import { ChevronRight } from 'react-bootstrap-icons';
 
 import { RBTMenuBar } from '../menubar';
 import { RBTRowControls } from '../rowcontrols';
@@ -11,10 +9,6 @@ import type { RBTRow, RBTColumnDefs } from '../common';
 import { RBTOptions } from './table.types';
 import { RBTableHead } from '../tableHead';
 import { RBTablePlaceholder } from '../tablePlaceholder';
-
-const isInRange = (index: number, rowsPerPage: number, tablePosition: number): boolean => {
-  return index >= tablePosition && tablePosition + rowsPerPage > index;
-};
 
 export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, enableTableHead, name, varient }) => {
   //
