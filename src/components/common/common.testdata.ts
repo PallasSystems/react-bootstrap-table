@@ -1,3 +1,4 @@
+import { RBTOptions } from '../table';
 import { RBTData } from './common.types';
 
 export type SimpleDataType = {
@@ -6,7 +7,7 @@ export type SimpleDataType = {
   age: number;
 };
 
-export const searchableArgs: RBTData<SimpleDataType> = {
+export const searchableArgs: RBTOptions<SimpleDataType> = {
   columns: [
     { accessorKey: 'firstName', header: 'First Name', searchable: true },
     { accessorKey: 'surname', header: 'Surname', searchable: true },

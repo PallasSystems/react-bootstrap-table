@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTRowControls } from './rowcontrols.components';
-import { searchableArgs } from '../common/common.tests';
+import { searchableArgs } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Table Row Controls',

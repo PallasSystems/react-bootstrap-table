@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTMenuBar } from './menubar.components';
 import { RBTMenuBarOptions } from './menubar.types';
-import { searchableArgs } from '../common/common.tests';
+import { searchableArgs } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Table Menu Bar',

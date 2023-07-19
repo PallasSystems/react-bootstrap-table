@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTable } from './table.components';
-import { searchableArgs } from '../common/common.tests';
+import { searchableArgs } from '../common/common.testdata';
 
 import { RBTColumnDefs } from '../common';
 import { RBTOptions } from './table.types';

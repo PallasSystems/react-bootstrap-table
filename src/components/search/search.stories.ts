@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTSearch } from './search.components';
 import { RBTSearchOptions } from './search.types';
-import { searchableArgs } from '../common/common.tests';
+import { searchableArgs } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Search Bar',
