@@ -1,0 +1,127 @@
+name: Release NPM project
+
+on:
+  create:
+    branches:
+      - release/*
+  workflow_dispatch:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.JS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Find yarn cache
+        id: yarn-cache-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Setup Pallas Scoped Github package repository
+        run: echo "@pallassystems:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+      - name: Add authentication for scoped package repository
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.SCM_TOKEN }}" >> ~/.npmrc
+      - name: Add normal registry
+        run: echo "registry=https://registry.npmjs.org" >> ~/.npmrc
+
+      - name: Configure GPG key settings
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          git_user_signingkey: true
+          git_config_global: true
+          git_committer_name: "pallasCI"
+          git_committer_email: "continuous.integration@pallas.uk"
+          git_commit_gpgsign: true
+          git_push_gpgsign: false
+          git_tag_gpgsign: true
+
+      - name: Extract branch name
+        id: extract_branch
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / - | sed 's/release-*//')" >> $GITHUB_ENV
+
+      - name: Set Project Version
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: "npm version ${{ env.BRANCH_NAME }} -m \"[NPM Release] Performing release: ${{ env.BRANCH_NAME }}\""
+        continue-on-error: true
+
+      - name: Run NPM Install
+        run: npm ci
+
+      - name: Run NPM Build
+        run: npm run build --if-present
+
+      - name: Run NPM Test
+        run: npm run test --if-present
+        continue-on-error: true
+
+      - name: Save Code Linting Report JSON
+        run: npm run lint:report --if-present
+        continue-on-error: true
+
+      - name: Upload ESLint report
+        uses: actions/upload-artifact@v2
+        with:
+          name: eslint_report.json
+          path: ${GITHUB_WORKSPACE}/eslint_report.json
+
+      - name: Upload StyleLint report
+        uses: actions/upload-artifact@v2
+        with:
+          name: stylelint_report.txt
+          path: ${GITHUB_WORKSPACE}/stylelint_report.json
+
+      # Automatic Scanner is enabled
+      - name: SonarCloud Analysis
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_USER: ${{ secrets.SCM_USER }}
+          GITHUB_TOKEN: ${{ secrets.SCM_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Publish package on NPM 📦
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git 
+          npm publish
+        env:
+          GITHUB_USER: "pallasCI <continuous.integration@pallas.uk>"
+          GITHUB_TOKEN: ${{ secrets.SCM_TOKEN }}
+
+      - name: Push the Release Change into the Branch
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: git push origin release/${{ env.BRANCH_NAME }}
+
+      - name: Increase Patch Version
+        run: "npm version patch -m \"[NPM Release] Moving to Next Dev Version\""
+
+      - name: Push the Patch change into the Branch
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: git push origin release/${{ env.BRANCH_NAME }}
+
+      - name: Fetch all Branches
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: git fetch --all
+
+      - name: Switch to main branch
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: git checkout main
+
+      - name: Merge release banch into main
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: git merge origin/release/${{ env.BRANCH_NAME }}
+
+      - name: Merge release banch into main
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: git push origin main

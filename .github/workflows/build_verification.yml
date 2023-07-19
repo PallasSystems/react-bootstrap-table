@@ -1,0 +1,89 @@
+name: Build Verification of Node.JS project
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x, 18.X ]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up Node.JS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Find yarn cache
+        id: yarn-cache-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Setup Pallas Scoped Github package repository
+        run: echo "@pallassystems:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+      - name: Add authentication for scoped package repository
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.SCM_TOKEN }}" >> ~/.npmrc
+      - name: Add normal registry
+        run: echo "registry=https://registry.npmjs.org" >> ~/.npmrc
+
+      - name: Run NPM Install
+        run: npm ci
+
+      - name: Run NPM Build
+        run: npm run build --if-present
+
+      - name: Run NPM Test
+        run: npm run test --if-present
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
+        with:
+          name: JEST Tests            # Name of the check run which will be created
+          path: junit.xml             # Path to test results
+          reporter: jest-junit        # Format of test results
+
+      - name: Save Code Linting Report JSON
+        run: npm run lint:report --if-present
+        continue-on-error: true
+
+#      - name: ESLint Annotate from Report JSON
+#        uses: ataylorme/eslint-annotate-action@1.2.0
+#        with:
+#          repo-token: ${{ secrets.SCM_TOKEN }}
+#          report-json: "eslint_report.json"
+#          only-pr-files: true
+
+      - name: Upload ESLint report
+        uses: actions/upload-artifact@v2
+        with:
+          name: eslint_report.json
+          path: ${GITHUB_WORKSPACE}/eslint_report.json
+
+      - name: Upload StyleLint report
+        uses: actions/upload-artifact@v2
+        with:
+          name: stylelint_report.txt
+          path: ${GITHUB_WORKSPACE}/stylelint_report.json
+
+      # Automatic Scanner is enabled
+      - name: SonarCloud Analysis
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_USER: ${{ secrets.SCM_USER }}
+          GITHUB_TOKEN: ${{ secrets.SCM_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
