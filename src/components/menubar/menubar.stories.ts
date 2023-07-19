@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTMenuBar } from './menubar.components';
-import { RBTMenuBarOptions } from './menubar.types';
-import { searchableArgs } from '../common/common.testdata';
+import { searchableArgsRBTData } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Table Menu Bar',
   component: RBTMenuBar,
   tags: ['autodocs'],
   args: {
-    ...searchableArgs,
+    ...searchableArgsRBTData,
     isCompact: false,
     setCompact: (e) => {
       console.log('setCompact: ' + JSON.stringify(e));
