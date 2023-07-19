@@ -9,6 +9,7 @@ import type { RBTRow, RBTColumnDefs } from '../common';
 import { RBTOptions } from './table.types';
 import { RBTableHead } from '../tableHead';
 import { RBTablePlaceholder } from '../tablePlaceholder';
+import { RBTableBody } from '../tableCell/tableCell.components';
 
 export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, enableTableHead, name, varient }) => {
   //
@@ -64,7 +65,11 @@ export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, en
         <Col>
           <Table hover responsive size={compact ? 'sm' : ''} aria-label={tableName}>
             <RBTableHead columns={columnDefs} enableTableHead={enableTableHead} name={name} varient={styleVarient} />
-            <RBTablePlaceholder columns={columnDefs} name={name} varient={styleVarient} />
+            {rows.length > 0 ? (
+              <RBTableBody columns={columnDefs} name={name} varient={styleVarient} data={rows} />
+            ) : (
+              <RBTablePlaceholder columns={columnDefs} name={name} varient={styleVarient} />
+            )}
           </Table>
         </Col>
       </Row>

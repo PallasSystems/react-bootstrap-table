@@ -48,7 +48,8 @@ export type RBTColumnDefs<TData extends Record<string, any> = {}> = RBTColumnSiz
   /**
    * Allows users to define a function to return an element for the table header contents.
    */
-  Cell?: ReactNode | ((props: { column: string; originalRow: TData }) => ReactNode);
+  Cell?: (props:{column: string, originalRow: TData}) => ReactNode;
+
   /**
    * Allows users to define a function to return an element for the table header contents.
    */
@@ -97,7 +98,7 @@ export type RBTColumnDefs<TData extends Record<string, any> = {}> = RBTColumnSiz
  * @alias RBTColumnSizing
  * @type {Type}
  */
-export type RBTRow<TData extends Record<string, any>> = {
+export type RBTRow<TData extends Record<string, any> = {}> = {
   /** The record we need to create a table row for. */
   data: TData;
   /** The records table row number. */
