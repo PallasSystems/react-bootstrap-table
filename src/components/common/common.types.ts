@@ -48,7 +48,7 @@ export type RBTColumnDefs<TData extends Record<string, any> = {}> = RBTColumnSiz
   /**
    * Allows users to define a function to return an element for the table header contents.
    */
-  Cell?: (props:{column: string, originalRow: TData}) => ReactNode;
+  Cell?: ReactNode | ((props: { column: string; originalRow: TData }) => ReactNode);
 
   /**
    * Allows users to define a function to return an element for the table header contents.

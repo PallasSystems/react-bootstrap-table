@@ -8,20 +8,14 @@ export const RBTablePlaceholder: FC<RBTablePlaceholderOptions> = (props) => {
   return (
     <tbody>
       {[...Array(paginationRows)].map(() => (
-        <RBTablePlaceholderRow {...props} />
+        <tr>
+          {props.columns?.map(() => (
+            <td>
+              <Placeholder as={'td'} xs={10} />
+            </td>
+          ))}
+        </tr>
       ))}
     </tbody>
-  );
-};
-
-export const RBTablePlaceholderRow: FC<RBTablePlaceholderOptions> = ({ columns }) => {
-  return (
-    <tr>
-      {columns?.map(() => (
-        <td>
-          <Placeholder as={'td'} xs={10} />
-        </td>
-      ))}
-    </tr>
   );
 };

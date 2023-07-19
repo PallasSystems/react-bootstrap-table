@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { ChevronBarLeft, ChevronBarRight, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 
@@ -70,6 +70,13 @@ export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, na
     () => getRowRangeText(numRows, paginationRows, tablePosition),
     [numRows, paginationRows, tablePosition],
   );
+
+  /**
+   *
+   */
+  useEffect(() => {
+    handleTablePosition(0);
+  });
 
   /**
    * Called as the drop down can contain numbers and string values, so this correctly converts

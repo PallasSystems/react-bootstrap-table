@@ -7,23 +7,9 @@ import { RBTColumnDefs } from '../common';
  * @param {RBTableHeadOptions} param0
  * @returns {ReactNode} the <thead> element for our React Bootstrap Table, populated based on the contents of the columns parameter.
  */
-export const RBTableHead: FC<RBTableHeadOptions> = ({ columns, enableTableHead, name }) => {
-  //
-  const tableName = useMemo(() => {
-    let result = 'Table Header';
-    if (name && name.length > 0) {
-      result = name + ' ' + result;
-    }
-    return result;
-  }, [name]);
-
-  const columnPrefix = useMemo(() => {
-    let result = 'table.head';
-    if (name && name.length > 0) {
-      result = name + ',' + result;
-    }
-    return result;
-  }, [name]);
+export const RBTableHead: FC<RBTableHeadOptions> = ({ columns, enableTableHead, name, varient }) => {
+  const styleVarient = useMemo<string>(() => varient ?? 'dark', [varient]);
+  const columnPrefix = useMemo<string>(() => (name && name.length > 0 ? name + '.table.head' : 'table.head'), [name]);
 
   /**
    * Used to either reach out to a Header Function to define the contents of a Table Header Column, or return the header name.
@@ -38,15 +24,20 @@ export const RBTableHead: FC<RBTableHeadOptions> = ({ columns, enableTableHead, 
       id = columnPrefix + column.header.replace(' ', '');
     }
 
-    if (column.Header && typeof column.Header !== 'undefined') {
-      return <th aria-label={id}>{column.Header(column.header, column.id, column.minSize, column.maxSize)}</th>;
+    let result: ReactNode;
+    if (column.Header && column.id) {
+      result = <th aria-label={id}>{column.Header({ ...column })}</th>;
+    } else if (column.accessorKey) {
+      result = <th aria-label={id}>{column.header}</th>;
     } else {
-      return <th aria-label={id}>{column.header}</th>;
-    };
+      result = <th aria-label={id}></th>;
+    }
+
+    return result;
   };
 
   return (
-    <thead aria-label={tableName} className={'table-dark'}>
+    <thead className={'table-' + styleVarient}>
       <tr aria-label={columnPrefix}>{enableTableHead ? columns?.map((column) => GenerateHeader(column)) : null}</tr>
     </thead>
   );

@@ -9,7 +9,7 @@ import type { RBTRow, RBTColumnDefs } from '../common';
 import { RBTOptions } from './table.types';
 import { RBTableHead } from '../tableHead';
 import { RBTablePlaceholder } from '../tablePlaceholder';
-import { RBTableBody } from '../tableCell/tableCell.components';
+import { RBTableBody } from '../tableBody/tableBody.components';
 
 export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, enableTableHead, name, varient }) => {
   //
@@ -30,6 +30,7 @@ export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, en
 
     return results;
   });
+
   const handleRows = (values: RBTRow<Record<string, any>>[]) => {
     setRows(values);
   };

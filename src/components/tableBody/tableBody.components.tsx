@@ -1,14 +1,12 @@
 import React, { FC, ReactNode, useMemo } from 'react';
 
-import { RBTableCellProps } from './tableCell.types';
+import { RBTableCellProps } from './tableBody.types';
 import { RBTColumnDefs, RBTRow } from '../common';
-import { CompareRBTRow } from './tableCell.helper';
+import { CompareRBTRow } from './tableBody.helper';
 
 export const RBTableBody: FC<RBTableCellProps> = ({ columns, data }) => {
   const displayed: RBTRow[] = useMemo(() => {
-    const results: RBTRow[] = data.filter((value) => {
-      value.displayed;
-    });
+    const results: RBTRow[] = data.filter((value) => value.displayed);
     return results.sort(CompareRBTRow);
   }, [data]);
 
@@ -18,7 +16,7 @@ export const RBTableBody: FC<RBTableCellProps> = ({ columns, data }) => {
     if (column.Cell && column.id) {
       result = column.Cell({ column: column.id, originalRow: row.data });
     } else if (column.accessorKey) {
-      result = <td>row.data[column.accessorKey]</td>;
+      result = <td>{row.data[column.accessorKey]}</td>;
     } else {
       result = <td></td>;
     }
