@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Type } from 'typescript';
 
 /**
  * Basic data properties almost every RBT componet requires (e.g. the columns and data).
@@ -18,7 +17,7 @@ export type RBTStyleOptions = {
  * @alias RBTData
  * @type {RBTStyleOptions}
  */
-export type RBTData<TData extends Record<string, any> = {}> = RBTStyleOptions & {
+export type RBTData<TData extends Record<string, unknown>> = RBTStyleOptions & {
   /** List of all columns  you want to display within the table, along with various configuration information. */
   columns: RBTColumnDefs<TData>[];
   /** The data objects you want to display in the table. */
@@ -44,7 +43,7 @@ export type RBTColumnSizing = {
  * @alias RBTColumnDefs
  * @type {RBTStyleOptions}
  */
-export type RBTColumnDefs<TData extends Record<string, any> = {}> = RBTColumnSizing & {
+export type RBTColumnDefs<TData extends Record<string, unknown>> = RBTColumnSizing & {
   /**
    * Allows users to define a function to return an element for the table header contents.
    */
@@ -98,7 +97,7 @@ export type RBTColumnDefs<TData extends Record<string, any> = {}> = RBTColumnSiz
  * @alias RBTColumnSizing
  * @type {Type}
  */
-export type RBTRow<TData extends Record<string, any> = {}> = {
+export type RBTRow<TData extends Record<string, unknown>> = {
   /** The record we need to create a table row for. */
   data: TData;
   /** The records table row number. */

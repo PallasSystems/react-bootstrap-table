@@ -16,7 +16,7 @@ export type RBTMenuBarStyleOptions = RBTStyleOptions & {
  * @alias RBTMenuBarStyleOptions
  * @type {Type}
  */
-export type RBTMenuBarOptions<TData extends Record<string, any> = {}> = RBTData<TData> &
+export type RBTMenuBarOptions<TData extends Record<string, unknown>> = RBTData<TData> &
   RBTSearchOptions<TData> &
   RBTMenuBarStyleOptions & {
     /**Indicates if the display should be compact. */

@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTSearch } from './search.components';
-import { RBTSearchOptions } from './search.types';
-import { searchableArgs } from '../common/common.testdata';
+import { searchableArgsRBTData } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Search Bar',
   component: RBTSearch,
   tags: ['autodocs'],
   args: {
-    ...searchableArgs,
+    ...searchableArgsRBTData,
     handleDisplayedRows: (e) => {
       console.log('handleDisplayedRows: ' + JSON.stringify(e));
     },

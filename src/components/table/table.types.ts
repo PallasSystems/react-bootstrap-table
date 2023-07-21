@@ -1,5 +1,5 @@
-import { RBTColumnDefs, RBTData } from '../common';
-import { RBTMenuBarOptions, RBTMenuBarStyleOptions } from '../menubar';
+import { RBTColumnDefs } from '../common';
+import { RBTMenuBarStyleOptions } from '../menubar';
 
 /**
  * @typedef {Object} RBTOptions Specifies the properties needed to generate a Bootstrap Table.
@@ -7,7 +7,7 @@ import { RBTMenuBarOptions, RBTMenuBarStyleOptions } from '../menubar';
  * @property {string} [varient]
  * @property {string} [name]
  */
-export type RBTOptions<TData extends Record<string, any> = {}> = Omit<RBTMenuBarStyleOptions, 'name varient'> & {
+export type RBTOptions<TData extends Record<string, unknown>> = Omit<RBTMenuBarStyleOptions, 'name varient'> & {
   columns?: RBTColumnDefs<TData>[];
   data?: TData[];
   enablePagination?: boolean;

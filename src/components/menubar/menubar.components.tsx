@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 
 import { Button, Col, InputGroup, Row } from 'react-bootstrap';
-import { Download, Grid3x2Gap, Grid3x3Gap, Search } from 'react-bootstrap-icons';
+import { Download, Grid3x2Gap, Grid3x3Gap } from 'react-bootstrap-icons';
 
 import { RBTMenuBarOptions } from './menubar.types';
 import { RBTSearch } from '../search';

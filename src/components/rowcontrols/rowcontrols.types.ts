@@ -14,7 +14,7 @@ export type RBTRowControlStyleOptions = RBTStyleOptions & {
  * @alias RBTRowControlOptions
  * @type {Type}
  */
-export type RBTRowControlOptions<TData extends Record<string, any> = {}> = RBTData<TData> &
+export type RBTRowControlOptions<TData extends Record<string, unknown>> = RBTData<TData> &
   RBTRowControlStyleOptions & {
     /**Indicates if the display should be compact. */
     isCompact?: boolean;

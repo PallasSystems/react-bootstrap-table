@@ -13,8 +13,7 @@ import { RBTRow } from '../common/common.types';
  * @component
  * @param {RBTSearchOptions} param0 this is used
  */
-export const RBTSearch: FC<RBTSearchOptions> = ({ columns, data, name, varient, handleDisplayedRows }) => {
-  const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
+export const RBTSearch: FC<RBTSearchOptions> = ({ columns, data, name, handleDisplayedRows }) => {
   const tableName = useMemo(() => {
     name && name.length > 0 ? name + ' SearchBar' : 'SearchBar';
   }, [name]);
@@ -49,12 +48,12 @@ export const RBTSearch: FC<RBTSearchOptions> = ({ columns, data, name, varient, 
   const handleSearchValue = useCallback(
     (toFind: string) => {
       if (handleDisplayedRows) {
-        const results: RBTRow<Record<string, any>>[] = [];
+        const results: RBTRow<Record<string, unknown>>[] = [];
         // Convert to Upper case to remove case specific issues
         const upperToFind = toFind.toUpperCase();
         let changed = false;
         //iterate over each table record to find ones which match our search term
-        data?.forEach((row: RBTRow<Record<string, any>>) => {
+        data?.forEach((row: RBTRow<Record<string, unknown>>) => {
           const data = row.data;
           if (data) {
             let match = false;

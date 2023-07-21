@@ -28,7 +28,7 @@ export const RBTableBody: FC<RBTableCellProps> = ({ columns, data }) => {
     <tbody>
       {displayed.map((row: RBTRow): ReactNode => {
         return (
-          <tr>
+          <tr key={row.position}>
             {columns.map((column: RBTColumnDefs): ReactNode => {
               return GenerateCell(column, row);
             })}

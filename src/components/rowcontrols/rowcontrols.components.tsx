@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { ChevronBarLeft, ChevronBarRight, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 
@@ -27,12 +27,12 @@ export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, na
    */
   const handleTablePosition = (tablePos: number) => {
     if (handleDisplayedRows) {
-      const displayedRows: RBTRow<Record<string, any>>[] = [];
+      const displayedRows: RBTRow<Record<string, unknown>>[] = [];
 
       let changed = false;
       const upperRange = tablePos + paginationRows;
       for (let index = 0; index < data.length; index++) {
-        const row: RBTRow<Record<string, any>> = data[index];
+        const row: RBTRow<Record<string, unknown>> = data[index];
         if (row.position >= tablePos && row.position < upperRange) {
           changed = changed || !row.displayed;
           row.displayed = true;
@@ -89,7 +89,7 @@ export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, na
       if (value === 'All') {
         setPaginationRows(numRows);
       } else {
-        const convertedValue: number = Number(value);
+        const convertedValue = Number(value);
         if (isNaN(convertedValue)) {
           console.log('handleTablePagination: Invalid Value has been supplied ' + value);
         } else {

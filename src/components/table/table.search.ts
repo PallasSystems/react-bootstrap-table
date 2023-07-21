@@ -15,7 +15,7 @@ export const isSearchable = (columnDefs: RBTColumnDefs[]): boolean => {
 export const retrieveSearchMatches = (
   toFind: string,
   columnDefs: RBTColumnDefs[],
-  values: Record<string, any>[],
+  values: Record<string, unknown>[],
 ): Record<string, string>[] => {
   const results: Record<string, string>[] = [];
 
