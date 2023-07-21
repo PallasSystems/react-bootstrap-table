@@ -24,19 +24,17 @@
           "validProperties": ["composes"]
         }
       }
-    ]     
+    ]
   },
-  "include": [
-    "../src/components",
-    "../src/pages",
-  ],
+  "include": ["../src/components", "../src/pages"],
   "exclude": [
     "../build",
     "../dist",
     "../node_modules",
     "../src/**/*.test.tsx",
     "../src/**/*.stories.tsx",
+    "../src/**/*.stories.ts",
     "../**/*.md",
     "../**/rollup.config.js"
-  ],
+  ]
 }
