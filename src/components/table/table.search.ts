@@ -1,9 +1,9 @@
 import { RBTColumnDefs } from '../common';
 
-export const isSearchable = (columnDefs: ColumnDefs[]): boolean => {
+export const isSearchable = (columnDefs: RBTColumnDefs[]): boolean => {
   let result = false;
 
-  columnDefs.forEach((value: ColumnDefs) => {
+  columnDefs.forEach((value: RBTColumnDefs) => {
     if (value.searchable) {
       result = true;
     }
@@ -22,7 +22,7 @@ export const retrieveSearchMatches = (
   const keys: string[] = [];
   columnDefs.forEach((value: RBTColumnDefs) => {
     if (value.searchable) {
-      keys.push(value.accessorKey);
+      keys.push(value.accessorKey ?? '');
     }
   });
 
