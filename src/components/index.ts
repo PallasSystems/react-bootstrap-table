@@ -12,8 +12,11 @@ export { RBTSearch } from './search';
 export type { RBTOptions } from './table';
 export { RBTable } from './table';
 
+export { RBTableBody } from './tableBody';
+export type { RBTableCellProps } from './tableBody';
+
 export type { RBTableHeadStyleOptions, RBTableHeadOptions } from './tableHead';
 export { RBTableHead } from './tableHead';
 
 export type { RBTablePlaceholderOptions } from './tablePlaceholder';
-export { RBTablePlaceholder, RBTablePlaceholderRow } from './tablePlaceholder';
+export { RBTablePlaceholder } from './tablePlaceholder';
