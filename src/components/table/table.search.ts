@@ -1,4 +1,4 @@
-import { ColumnDefs } from './table.types';
+import { RBTColumnDefs } from '../common';
 
 export const isSearchable = (columnDefs: ColumnDefs[]): boolean => {
   let result = false;
@@ -14,15 +14,13 @@ export const isSearchable = (columnDefs: ColumnDefs[]): boolean => {
 
 export const retrieveSearchMatches = (
   toFind: string,
-  columnDefs: ColumnDefs[],
-  values: Record<string, string>[],
+  columnDefs: RBTColumnDefs[],
+  values: Record<string, any>[],
 ): Record<string, string>[] => {
   const results: Record<string, string>[] = [];
 
-  console.log('toFind: ' + toFind);
-
   const keys: string[] = [];
-  columnDefs.forEach((value: ColumnDefs) => {
+  columnDefs.forEach((value: RBTColumnDefs) => {
     if (value.searchable) {
       keys.push(value.accessorKey);
     }
@@ -41,8 +39,6 @@ export const retrieveSearchMatches = (
       results.push(value);
     }
   });
-
-  console.log('results: ' + JSON.stringify(results));
 
   return results;
 };
