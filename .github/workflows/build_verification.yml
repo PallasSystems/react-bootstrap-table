@@ -64,15 +64,14 @@ jobs:
       - name: ESLint Annotate from Report JSON
         uses: ataylorme/eslint-annotate-action@1.2.0
         with:
-          repo-token: ${{ secrets.SCM_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           report-json: 'eslint_report.json'
-          only-pr-files: true
 
       - name: Upload ESLint report
         uses: actions/upload-artifact@v2
         with:
           name: eslint_report.json
-          path: ${GITHUB_WORKSPACE}/eslint_report.json
+          path: eslint_report.json
 
       - name: Upload StyleLint report
         uses: actions/upload-artifact@v2
