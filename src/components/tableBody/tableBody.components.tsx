@@ -4,19 +4,25 @@ import { RBTableCellProps } from './tableBody.types';
 import { RBTColumnDefs, RBTRow } from '../common';
 import { CompareRBTRow } from './tableBody.helper';
 
-export const RBTableBody: FC<RBTableCellProps> = ({ columns, data }) => {
-  const displayed: RBTRow[] = useMemo(() => {
-    const results: RBTRow[] = data.filter((value) => value.displayed);
+export const RBTableBody = <TData extends Record<string, unknown>>({ columns, data }: RBTableCellProps<TData>) => {
+  const displayed: RBTRow<TData>[] = useMemo(() => {
+    const results: RBTRow<TData>[] = data.filter((value) => value.displayed);
     return results.sort(CompareRBTRow);
   }, [data]);
 
-  const GenerateCell = (column: RBTColumnDefs, row: RBTRow): ReactNode => {
+  const GenerateCell = (column: RBTColumnDefs<TData>, row: RBTRow<TData>): ReactNode => {
     let result: ReactNode;
 
     if (column.Cell && column.id) {
       result = column.Cell({ column: column.id, originalRow: row.data });
     } else if (column.accessorKey) {
-      result = <td>{row.data[column.accessorKey]}</td>;
+      const data = row.data[column.accessorKey];
+
+      if (typeof data === 'string' || typeof data === 'number') {
+        result = <td>{data}</td>;
+      } else {
+        console.log('GenerateCell - Unable to convert data into table cell: ' + JSON.stringify(data));
+      }
     } else {
       result = <td></td>;
     }
@@ -26,10 +32,10 @@ export const RBTableBody: FC<RBTableCellProps> = ({ columns, data }) => {
 
   return (
     <tbody>
-      {displayed.map((row: RBTRow): ReactNode => {
+      {displayed.map((row: RBTRow<TData>): ReactNode => {
         return (
           <tr key={row.position}>
-            {columns.map((column: RBTColumnDefs): ReactNode => {
+            {columns.map((column: RBTColumnDefs<TData>): ReactNode => {
               return GenerateCell(column, row);
             })}
           </tr>

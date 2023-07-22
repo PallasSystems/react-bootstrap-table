@@ -1,9 +1,9 @@
 import { RBTColumnDefs } from '../common';
 
-export const isSearchable = (columnDefs: RBTColumnDefs[]): boolean => {
+export const isSearchable = <TData extends Record<string, unknown>>(columnDefs: RBTColumnDefs<TData>[]): boolean => {
   let result = false;
 
-  columnDefs.forEach((value: RBTColumnDefs) => {
+  columnDefs.forEach((value: RBTColumnDefs<TData>) => {
     if (value.searchable) {
       result = true;
     }
@@ -12,17 +12,22 @@ export const isSearchable = (columnDefs: RBTColumnDefs[]): boolean => {
   return result;
 };
 
-export const retrieveSearchMatches = (
+export const retrieveSearchMatches = <TData extends Record<string, unknown>>(
   toFind: string,
-  columnDefs: RBTColumnDefs[],
-  values: Record<string, unknown>[],
-): Record<string, string>[] => {
-  const results: Record<string, string>[] = [];
+  columnDefs: RBTColumnDefs<TData>[],
+  values: TData[],
+): TData[] => {
+  const results: TData[] = [];
 
   const keys: string[] = [];
-  columnDefs.forEach((value: RBTColumnDefs) => {
+  columnDefs.forEach((value: RBTColumnDefs<TData>) => {
+    const accessor = value.accessorKey;
     if (value.searchable) {
-      keys.push(value.accessorKey ?? '');
+      if (typeof accessor === 'string') {
+        keys.push(accessor);
+      } else {
+        console.log('retrieveSearchMatches - Unable to retrieve accessor for column: ' + JSON.stringify(value));
+      }
     }
   });
 
@@ -31,8 +36,11 @@ export const retrieveSearchMatches = (
   values.forEach((value) => {
     let matched = false;
     keys.forEach((key) => {
-      if (value[key] && value[key].toUpperCase().indexOf(upperToFind) > -1) {
-        matched = true;
+      const field = value[key];
+      if (typeof field === 'string') {
+        if (field.toUpperCase().indexOf(upperToFind) > -1) {
+          matched = true;
+        }
       }
     });
     if (matched) {

@@ -2,10 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTSearch } from './search.components';
 import { searchableArgsRBTData } from '../common/common.testdata';
+import type { SimpleDataType } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Search Bar',
-  component: RBTSearch,
+  component: RBTSearch<SimpleDataType>,
   tags: ['autodocs'],
   args: {
     ...searchableArgsRBTData,
@@ -13,7 +14,7 @@ const meta = {
       console.log('handleDisplayedRows: ' + JSON.stringify(e));
     },
   },
-} satisfies Meta<typeof RBTSearch>;
+} satisfies Meta<typeof RBTSearch<SimpleDataType>>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

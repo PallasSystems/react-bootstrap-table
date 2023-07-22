@@ -6,7 +6,10 @@ import { RBTRow } from '../common';
  * @param valueB
  * @returns
  */
-export const CompareRBTRow = (valueA: RBTRow, valueB: RBTRow): number => {
+export const CompareRBTRow = <TData extends Record<string, unknown>>(
+  valueA: RBTRow<TData>,
+  valueB: RBTRow<TData>,
+): number => {
   let comparison = 0;
   if (valueA.position > valueB.position) {
     comparison = 1;

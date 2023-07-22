@@ -2,17 +2,18 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTable } from './table.components';
 import { searchableArgs } from '../common/common.testdata';
+import type { SimpleDataType } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Table',
-  component: RBTable,
+  component: RBTable<SimpleDataType>,
   tags: ['autodocs'],
   args: {
     ...searchableArgs,
     enableDensityToggle: true,
     enableTableHead: true,
   },
-} satisfies Meta<typeof RBTable>;
+} satisfies Meta<typeof RBTable<SimpleDataType>>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

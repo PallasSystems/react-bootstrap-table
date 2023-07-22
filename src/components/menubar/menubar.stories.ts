@@ -2,10 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTMenuBar } from './menubar.components';
 import { searchableArgsRBTData } from '../common/common.testdata';
+import type { SimpleDataType } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Table Menu Bar',
-  component: RBTMenuBar,
+  component: RBTMenuBar<SimpleDataType>,
   tags: ['autodocs'],
   args: {
     ...searchableArgsRBTData,
@@ -17,7 +18,7 @@ const meta = {
       console.log('handleDisplayedRows: ' + JSON.stringify(e));
     },
   },
-} satisfies Meta<typeof RBTMenuBar>;
+} satisfies Meta<typeof RBTMenuBar<SimpleDataType>>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -1,4 +1,4 @@
-import type { RBTData, RBTStyleOptions } from '../common';
+import type { RBTData, RBTRow, RBTStyleOptions } from '../common';
 
 /**
  * Row Control specific options, the row controls set the number of display objects within the table.
@@ -19,5 +19,5 @@ export type RBTRowControlOptions<TData extends Record<string, unknown>> = RBTDat
     /**Indicates if the display should be compact. */
     isCompact?: boolean;
     /** If various pagination options are chosen it will lead to an update in the displayed tables, this is passed through this function. */
-    handleDisplayedRows?: (e: TData[]) => void;
+    handleDisplayedRows?: (e: RBTRow<TData>[]) => void;
   };

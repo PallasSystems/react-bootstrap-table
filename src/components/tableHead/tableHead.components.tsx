@@ -7,7 +7,13 @@ import { RBTColumnDefs } from '../common';
  * @param {RBTableHeadOptions} param0
  * @returns {ReactNode} the <thead> element for our React Bootstrap Table, populated based on the contents of the columns parameter.
  */
-export const RBTableHead: FC<RBTableHeadOptions> = ({ columns, enableTableHead, name, varient }) => {
+
+export const RBTableHead = <TData extends Record<string, unknown>>({
+  columns,
+  enableTableHead,
+  name,
+  varient,
+}: RBTableHeadOptions<TData>) => {
   const styleVarient = useMemo<string>(() => varient ?? 'dark', [varient]);
   const columnPrefix = useMemo<string>(() => (name && name.length > 0 ? name + '.table.head' : 'table.head'), [name]);
 
@@ -16,7 +22,7 @@ export const RBTableHead: FC<RBTableHeadOptions> = ({ columns, enableTableHead, 
    * @param {RBTColumnDefs} column the column we are generates a th element for.
    * @returns ReactNode a table head element container either the Header text or the contents of a function call.
    */
-  const GenerateHeader = (column: RBTColumnDefs): ReactNode => {
+  const GenerateHeader = (column: RBTColumnDefs<TData>): ReactNode => {
     let id = columnPrefix;
     if (column.id && column.id.length > 0) {
       id = column.id;

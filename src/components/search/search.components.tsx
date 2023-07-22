@@ -13,7 +13,13 @@ import { RBTRow } from '../common/common.types';
  * @component
  * @param {RBTSearchOptions} param0 this is used
  */
-export const RBTSearch: FC<RBTSearchOptions> = ({ columns, data, name, handleDisplayedRows }) => {
+
+export const RBTSearch = <TData extends Record<string, unknown>>({
+  columns,
+  data,
+  name,
+  handleDisplayedRows,
+}: RBTSearchOptions<TData>) => {
   const tableName = useMemo(() => {
     name && name.length > 0 ? name + ' SearchBar' : 'SearchBar';
   }, [name]);
@@ -23,9 +29,9 @@ export const RBTSearch: FC<RBTSearchOptions> = ({ columns, data, name, handleDis
    */
   const searchableColumns = useMemo((): string[] => {
     const keys: string[] = [];
-    columns?.forEach((value: RBTColumnDefs) => {
+    columns?.forEach((value: RBTColumnDefs<TData>) => {
       if (value.searchable && value.accessorKey) {
-        keys.push(value.accessorKey);
+        keys.push(value.accessorKey.toString());
       }
     });
 
@@ -48,20 +54,22 @@ export const RBTSearch: FC<RBTSearchOptions> = ({ columns, data, name, handleDis
   const handleSearchValue = useCallback(
     (toFind: string) => {
       if (handleDisplayedRows) {
-        const results: RBTRow<Record<string, unknown>>[] = [];
+        const results: RBTRow<TData>[] = [];
         // Convert to Upper case to remove case specific issues
         const upperToFind = toFind.toUpperCase();
         let changed = false;
         //iterate over each table record to find ones which match our search term
-        data?.forEach((row: RBTRow<Record<string, unknown>>) => {
+        data?.forEach((row: RBTRow<TData>) => {
           const data = row.data;
           if (data) {
             let match = false;
             for (let keyIndex = 0; keyIndex < searchableColumns.length; keyIndex++) {
               // TODO This needs to be configured for multi level objects
               const key = searchableColumns[keyIndex];
-              if (data[key]) {
-                match = data[key].toUpperCase().indexOf(upperToFind) > -1;
+              const value = data[key];
+              if (typeof value === 'string') {
+                match = value.toUpperCase().indexOf(upperToFind) > -1;
+
                 if (match) {
                   break;
                 }

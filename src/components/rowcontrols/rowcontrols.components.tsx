@@ -11,7 +11,14 @@ import { RBTRow } from '../common/common.types';
  * @param {RBTRowControlOptions} param0
  * @returns
  */
-export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, name, varient, handleDisplayedRows }) => {
+
+export const RBTRowControls = <TData extends Record<string, unknown>>({
+  rowsPerPage,
+  data,
+  name,
+  varient,
+  handleDisplayedRows,
+}: RBTRowControlOptions<TData>) => {
   const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
   const tableName = useMemo(() => {
     name && name.length > 0 ? name + ' Row Controls' : 'Row Controls';
@@ -27,12 +34,12 @@ export const RBTRowControls: FC<RBTRowControlOptions> = ({ rowsPerPage, data, na
    */
   const handleTablePosition = (tablePos: number) => {
     if (handleDisplayedRows) {
-      const displayedRows: RBTRow<Record<string, unknown>>[] = [];
+      const displayedRows: RBTRow<TData>[] = [];
 
       let changed = false;
       const upperRange = tablePos + paginationRows;
       for (let index = 0; index < data.length; index++) {
-        const row: RBTRow<Record<string, unknown>> = data[index];
+        const row: RBTRow<TData> = data[index];
         if (row.position >= tablePos && row.position < upperRange) {
           changed = changed || !row.displayed;
           row.displayed = true;

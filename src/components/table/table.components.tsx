@@ -11,14 +11,21 @@ import { RBTableHead } from '../tableHead';
 import { RBTablePlaceholder } from '../tablePlaceholder';
 import { RBTableBody } from '../tableBody/tableBody.components';
 
-export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, enableTableHead, name, varient }) => {
+export const RBTable = <TData extends Record<string, unknown>>({
+  columns,
+  data,
+  enableDensityToggle,
+  enableTableHead,
+  name,
+  varient,
+}: RBTOptions<TData>) => {
   //
-  const [rows, setRows] = useState<RBTRow<Record<string, unknown>>[]>(() => {
-    const results: RBTRow<Record<string, unknown>>[] = [];
+  const [rows, setRows] = useState<RBTRow<TData>[]>(() => {
+    const results: RBTRow<TData>[] = [];
     //
     if (data) {
       for (let index = 0; index < data.length; index++) {
-        const row: RBTRow<Record<string, unknown>> = {
+        const row: RBTRow<TData> = {
           data: data[index],
           position: index,
           filtered: false,
@@ -31,11 +38,11 @@ export const RBTable: FC<RBTOptions> = ({ columns, data, enableDensityToggle, en
     return results;
   });
 
-  const handleRows = (values: RBTRow<Record<string, unknown>>[]) => {
+  const handleRows = (values: RBTRow<TData>[]) => {
     setRows(values);
   };
 
-  const [columnDefs] = useState<RBTColumnDefs[]>(columns ?? []);
+  const [columnDefs] = useState<RBTColumnDefs<TData>[]>(columns ?? []);
   const [compact, setCompact] = useState<boolean>(false);
   const handleCompactState = useCallback((isCompact: boolean) => {
     setCompact(isCompact);

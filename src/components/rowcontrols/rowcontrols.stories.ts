@@ -1,21 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTRowControls } from './rowcontrols.components';
-import { searchableArgs } from '../common/common.testdata';
+import { searchableArgsRBTData } from '../common/common.testdata';
+import type { SimpleDataType } from '../common/common.testdata';
 
 const meta = {
   title: 'react-bootstrap-table/Table Row Controls',
-  component: RBTRowControls,
+  component: RBTRowControls<SimpleDataType>,
   tags: ['autodocs'],
   args: {
-    ...searchableArgs,
+    ...searchableArgsRBTData,
     name: 'bob',
     varient: 'dark',
     handleDisplayedRows: (e) => {
       console.log('handleDisplayedRows: ' + JSON.stringify(e));
     },
   },
-} satisfies Meta<typeof RBTRowControls>;
+} satisfies Meta<typeof RBTRowControls<SimpleDataType>>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

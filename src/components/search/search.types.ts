@@ -1,4 +1,4 @@
-import { RBTData } from '../common';
+import { RBTData, RBTRow } from '../common';
 
 /**
  * @typedef {Object} RBTSearchOptions Properties the Search Bar component requires to create
@@ -7,5 +7,5 @@ import { RBTData } from '../common';
  * @property {boolean} [searchable] should this particular field be part of the search mechanisim?
  */
 export type RBTSearchOptions<TData extends Record<string, unknown>> = RBTData<TData> & {
-  handleDisplayedRows?: (e: TData[]) => void;
+  handleDisplayedRows?: (e: RBTRow<TData>[]) => void;
 };

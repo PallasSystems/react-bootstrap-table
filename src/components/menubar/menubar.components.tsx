@@ -10,7 +10,7 @@ import { RBTSearch } from '../search';
  * This component builds a menu bar.
  * @param {RBTMenuBarOptions} props
  */
-export const RBTMenuBar: FC<RBTMenuBarOptions> = (props) => {
+export const RBTMenuBar = <TData extends Record<string, unknown>>(props: RBTMenuBarOptions<TData>) => {
   const displayCompactBtn = useMemo(() => props.enableDensityToggle ?? true, [props.enableDensityToggle]);
   const styleVarient = useMemo(() => props.varient ?? 'dark', [props.varient]);
   const tableName = useMemo(() => {
