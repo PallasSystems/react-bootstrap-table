@@ -32,6 +32,7 @@
     "../dist",
     "../node_modules",
     "../src/**/*.test.tsx",
+    "../src/**/*.testdata.ts",
     "../src/**/*.stories.tsx",
     "../src/**/*.stories.ts",
     "../**/*.md",
