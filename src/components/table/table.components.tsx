@@ -19,9 +19,7 @@ export const RBTable = <TData extends Record<string, unknown>>({
   name,
   varient,
 }: RBTOptions<TData>) => {
-  // We want to wrap eac data item within a row object which controls how informaiton is displayed
-  // by default nothing should be filtered from view and everything should be displayed.
-  const [rows, setRows] = useState<RBTRow<TData>[]>(() => {
+  const initialisedRows = useMemo(() => {
     const results: RBTRow<TData>[] = [];
     //
     if (data) {
@@ -36,17 +34,13 @@ export const RBTable = <TData extends Record<string, unknown>>({
     }
 
     return results;
-  });
+  }, [data]);
 
-  const handleRows = (values: RBTRow<TData>[]) => {
-    setRows(values);
-  };
-
+  // We want to wrap eac data item within a row object which controls how informaiton is displayed
+  // by default nothing should be filtered from view and everything should be displayed.
+  const [rows, setRows] = useState<RBTRow<TData>[]>(initialisedRows);
   const [columnDefs] = useState<RBTColumnDefs<TData>[]>(columns ?? []);
   const [compact, setCompact] = useState<boolean>(false);
-  const handleCompactState = useCallback((isCompact: boolean) => {
-    setCompact(isCompact);
-  }, []);
 
   const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
   const tableName = useMemo(() => {
@@ -62,12 +56,12 @@ export const RBTable = <TData extends Record<string, unknown>>({
       <RBTMenuBar
         enableDensityToggle={enableDensityToggle}
         isCompact={compact}
-        setCompact={handleCompactState}
+        setCompact={setCompact}
         name={name}
         varient={styleVarient}
         columns={columnDefs}
         data={rows}
-        handleDisplayedRows={handleRows}
+        handleDisplayedRows={setRows}
       />
       <Row>
         <Col>
@@ -84,7 +78,7 @@ export const RBTable = <TData extends Record<string, unknown>>({
       <RBTRowControls
         columns={columnDefs}
         data={rows}
-        handleDisplayedRows={handleRows}
+        handleDisplayedRows={setRows}
         name={name}
         varient={styleVarient}
       />

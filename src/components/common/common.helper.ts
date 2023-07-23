@@ -1,4 +1,4 @@
-import { RBTRow } from '../common';
+import { RBTRow } from '.';
 
 /**
  * Function to
@@ -18,4 +18,19 @@ export const CompareRBTRow = <TData extends Record<string, unknown>>(
   }
 
   return comparison;
+};
+
+export const RemoveFilterFromArray = (filterValue: string, filters: string[]) => {
+  let result: string[] = [];
+
+  if (Array.isArray(result)) {
+    for (let index = 0; index < filters.length; index++) {
+      const filter = filters[index];
+      if (filter !== filterValue) {
+        result.push(filter);
+      }
+    }
+  }
+
+  return result;
 };

@@ -1,4 +1,7 @@
-import { RBTRow } from '../common';
+import { RBTRow, RemoveFilterFromArray } from '../common';
+
+/** Unique value for filters applied by this component. */
+const FILTER_VALUE = 'search';
 
 export const updateFilterAndDisplayed = <TData extends Record<string, unknown>>(
   toFind: string,
@@ -13,9 +16,9 @@ export const updateFilterAndDisplayed = <TData extends Record<string, unknown>>(
     // If the filtering status of the row has changed we need to capture this and feed
     // it back to the other components.
     if (isMatch<TData>(toFind, row, searchableColumns)) {
-      row.filters = row.filters.filter((filter) => filter === 'search');
-    } else if (row.filters.indexOf('search') < 0) {
-      row.filters.push('search');
+      row.filters = RemoveFilterFromArray(FILTER_VALUE, row.filters);
+    } else if (row.filters.indexOf(FILTER_VALUE) < 0) {
+      row.filters.push(FILTER_VALUE);
     }
 
     results.push(row);

@@ -3,8 +3,9 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { ChevronBarLeft, ChevronBarRight, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 
 import { RBTRowControlOptions } from './rowcontrols.types';
-import { getRowOptions, getRowRangeText } from './rowcontrols.helper';
+import { SetPaginationFilter, getRowOptions, getRowRangeText } from './rowcontrols.helper';
 import { RBTRow } from '../common/common.types';
+import { CompareRBTRow } from '../common';
 
 /** Unique value for filters applied by this component. */
 const FILTER_VALUE = 'rowcontrols';
@@ -27,6 +28,8 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
     name && name.length > 0 ? name + ' Row Controls' : 'Row Controls';
   }, [name]);
 
+  // The Rows data sorted by the index field.
+  const indexSortedRows: RBTRow<TData>[] = useMemo(() => data.sort(CompareRBTRow), [data]);
   /** How Many Table rows should be displayed? The default is 5 */
   const [paginationRows, setPaginationRows] = useState<number>(rowsPerPage ?? 5);
   /** What is the current position of displayed rows within the table (e.g. if there are 5 rows per page and 10 records, position could be 0, 5)*/
@@ -38,26 +41,16 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
   const handleTablePosition = (tablePos: number) => {
     setTablePosition(tablePos);
 
+    //console.log('handleTablePosition - tablePos: ' + tablePos);
+    //console.log('handleTablePosition - indexSortedRows length: ' + indexSortedRows.length);
     if (handleDisplayedRows) {
-      const displayedRows: RBTRow<TData>[] = [];
+      const original = JSON.stringify(indexSortedRows);
+      const displayedRows: RBTRow<TData>[] = SetPaginationFilter(tablePos, paginationRows, indexSortedRows);
+      const processed = JSON.stringify(displayedRows);
 
-      const upperRange = tablePos + paginationRows;
-      for (let index = 0; index < data.length; index++) {
-        const row: RBTRow<TData> = data[index];
-
-        if (row.position >= tablePos && row.position < upperRange) {
-          let index = row.filters.indexOf(FILTER_VALUE);
-          while (index > -1) {
-            row.filters.splice(index, 1);
-            index = row.filters.indexOf(FILTER_VALUE);
-          }
-        } else if (row.filters.indexOf(FILTER_VALUE) < 0) {
-          row.filters.push(FILTER_VALUE);
-        }
-        displayedRows.push(row);
+      if (original !== processed) {
+        handleDisplayedRows(displayedRows);
       }
-
-      handleDisplayedRows(displayedRows);
     }
   };
 
@@ -112,6 +105,10 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
       }
     }
   };
+
+  useEffect(() => {
+    handleTablePosition(tablePosition);
+  });
 
   return (
     <Row className={'align-items-center mx-0 px-0'}>

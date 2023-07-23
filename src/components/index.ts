@@ -1,4 +1,5 @@
 export type { RBTStyleOptions, RBTData, RBTColumnSizing, RBTColumnDefs } from './common';
+export { CompareRBTRow, RemoveFilterFromArray } from './common';
 
 export type { RBTMenuBarOptions, RBTMenuBarStyleOptions } from './menubar';
 export { RBTMenuBar } from './menubar';

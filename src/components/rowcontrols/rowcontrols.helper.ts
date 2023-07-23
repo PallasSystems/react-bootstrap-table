@@ -1,3 +1,8 @@
+import { RBTRow, RemoveFilterFromArray } from '../common';
+
+/** Unique value for filters applied by this component. */
+const FILTER_VALUE = 'rowcontrols';
+
 export const getRowOptions = (rows: number): string[] => {
   let results: string[] = ['0'];
 
@@ -33,4 +38,50 @@ export const getRowRangeText = (rows: number, rowsPerPage: number, tablePosition
   }
 
   return result;
+};
+
+export const SetPaginationFilter = <TData extends Record<string, unknown>>(
+  position: number,
+  rowsPerPage: number,
+  rows: RBTRow<TData>[],
+) => {
+  let results: RBTRow<TData>[] = [];
+  let count = 0;
+
+  for (let index = position; index < rows.length; index++) {
+    const row: RBTRow<TData> = rows[index];
+
+    if (count < rowsPerPage) {
+      if (row.filters.length === 0) {
+        count++;
+      } else {
+        //remove the row control filter from the list
+        row.filters = RemoveFilterFromArray(FILTER_VALUE, row.filters);
+
+        // If after removing the row control filter there
+        // are no filters we can assume the record is displayed
+        // otherwise we need to keep it filtered out
+        if (row.filters.length === 0) {
+          count++;
+        } else {
+          row.filters.push(FILTER_VALUE);
+        }
+      }
+    } else if (row.filters.length === 0) {
+      row.filters.push(FILTER_VALUE);
+    } else {
+      //remove the row control filter from the list
+      row.filters = RemoveFilterFromArray(FILTER_VALUE, row.filters);
+      row.filters.push(FILTER_VALUE);
+    }
+
+    results.push(row);
+  }
+
+  // If we have a non zero position and not enough matches, wrap around to zero and try to match other values.
+  if (position > 0 && count < rowsPerPage) {
+    //results = SetPaginationFilter<TData>(0, rowsPerPage, results);
+  }
+
+  return results;
 };
