@@ -33,7 +33,7 @@
     "../node_modules",
     "../src/**/*.test.tsx",
     "../src/**/*.testdata.ts",
-    "../src/**/*.stories.tsx",
+    "../src/**/*.stories.mdx",
     "../src/**/*.stories.ts",
     "../**/*.md",
     "../**/rollup.config.js"
