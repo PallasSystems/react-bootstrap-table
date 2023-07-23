@@ -6,6 +6,9 @@ import { RBTRowControlOptions } from './rowcontrols.types';
 import { getRowOptions, getRowRangeText } from './rowcontrols.helper';
 import { RBTRow } from '../common/common.types';
 
+/** Unique value for filters applied by this component. */
+const FILTER_VALUE = 'rowcontrols';
+
 /**
  * This is used to create table paigniation controls at the bottom of the table
  * @param {RBTRowControlOptions} param0
@@ -33,28 +36,29 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
    * @param tablePos the new table position
    */
   const handleTablePosition = (tablePos: number) => {
+    setTablePosition(tablePos);
+
     if (handleDisplayedRows) {
       const displayedRows: RBTRow<TData>[] = [];
 
-      let changed = false;
       const upperRange = tablePos + paginationRows;
       for (let index = 0; index < data.length; index++) {
         const row: RBTRow<TData> = data[index];
+
         if (row.position >= tablePos && row.position < upperRange) {
-          changed = changed || !row.displayed;
-          row.displayed = true;
-        } else if (row.displayed) {
-          row.displayed = false;
-          changed = true;
+          let index = row.filters.indexOf(FILTER_VALUE);
+          while (index > -1) {
+            row.filters.splice(index, 1);
+            index = row.filters.indexOf(FILTER_VALUE);
+          }
+        } else if (row.filters.indexOf(FILTER_VALUE) < 0) {
+          row.filters.push(FILTER_VALUE);
         }
         displayedRows.push(row);
       }
 
-      if (changed) {
-        handleDisplayedRows(displayedRows);
-      }
+      handleDisplayedRows(displayedRows);
     }
-    setTablePosition(tablePos);
   };
 
   /** Works out how many rows are visible to the user, to create a row total. */
@@ -62,8 +66,18 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
     let result = 0;
     if (data) {
       for (let index = 0; index < data.length; index++) {
-        if (!data[index].filtered) {
-          result++;
+        const row = data[index];
+
+        if (row) {
+          if (row.filters.length === 0) {
+            result++;
+          } else if (row.filters.length === 1) {
+            // Check it isn't this component filtering the value, if it is we should include it
+            // within the count
+            if (row.filters.indexOf(FILTER_VALUE) > -1) {
+              result++;
+            }
+          }
         }
       }
     }
@@ -77,13 +91,6 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
     () => getRowRangeText(numRows, paginationRows, tablePosition),
     [numRows, paginationRows, tablePosition],
   );
-
-  /**
-   *
-   */
-  useEffect(() => {
-    handleTablePosition(0);
-  });
 
   /**
    * Called as the drop down can contain numbers and string values, so this correctly converts

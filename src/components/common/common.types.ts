@@ -102,8 +102,6 @@ export type RBTRow<TData extends Record<string, unknown>> = {
   data: TData;
   /** The records table row number. */
   position: number;
-  /** Should the record be filtered out of the display? */
-  filtered: boolean;
-  /** Is the record currently displayed to the user? */
-  displayed: boolean;
+  /** List of filters currently applied to the object */
+  filters: string[];
 };

@@ -5,6 +5,7 @@ import { RBTColumnDefs } from '../common';
 import { Form, InputGroup } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 import { RBTRow } from '../common/common.types';
+import { isMatch, updateFilterAndDisplayed } from './search.helpers';
 
 /**
  * This is used to provide a search bar which will look through the supplied data objects and mark them as
@@ -54,40 +55,11 @@ export const RBTSearch = <TData extends Record<string, unknown>>({
   const handleSearchValue = useCallback(
     (toFind: string) => {
       if (handleDisplayedRows) {
-        const results: RBTRow<TData>[] = [];
         // Convert to Upper case to remove case specific issues
         const upperToFind = toFind.toUpperCase();
-        let changed = false;
-        //iterate over each table record to find ones which match our search term
-        data?.forEach((row: RBTRow<TData>) => {
-          const data = row.data;
-          if (data) {
-            let match = false;
-            for (let keyIndex = 0; keyIndex < searchableColumns.length; keyIndex++) {
-              // TODO This needs to be configured for multi level objects
-              const key = searchableColumns[keyIndex];
-              const value = data[key];
-              if (typeof value === 'string') {
-                match = value.toUpperCase().indexOf(upperToFind) > -1;
+        const results: RBTRow<TData>[] = updateFilterAndDisplayed(upperToFind, data, searchableColumns);
 
-                if (match) {
-                  break;
-                }
-              }
-            }
-            // If the filtering status of the row has changed we need to capture this and feed
-            // it back to the other components.
-            if (row.filtered !== match) {
-              row.filtered = match;
-              changed = true;
-            }
-            results.push(row);
-          }
-        });
-
-        if (changed) {
-          handleDisplayedRows(results);
-        }
+        handleDisplayedRows(results);
       }
     },
     [columns, data],

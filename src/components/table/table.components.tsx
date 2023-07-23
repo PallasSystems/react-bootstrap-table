@@ -19,7 +19,8 @@ export const RBTable = <TData extends Record<string, unknown>>({
   name,
   varient,
 }: RBTOptions<TData>) => {
-  //
+  // We want to wrap eac data item within a row object which controls how informaiton is displayed
+  // by default nothing should be filtered from view and everything should be displayed.
   const [rows, setRows] = useState<RBTRow<TData>[]>(() => {
     const results: RBTRow<TData>[] = [];
     //
@@ -28,8 +29,7 @@ export const RBTable = <TData extends Record<string, unknown>>({
         const row: RBTRow<TData> = {
           data: data[index],
           position: index,
-          filtered: false,
-          displayed: true,
+          filters: [],
         };
         results.push(row);
       }

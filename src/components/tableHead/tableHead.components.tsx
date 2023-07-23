@@ -31,12 +31,28 @@ export const RBTableHead = <TData extends Record<string, unknown>>({
     }
 
     let result: ReactNode;
-    if (column.Header && column.id) {
-      result = <th aria-label={id}>{column.Header({ ...column })}</th>;
-    } else if (column.accessorKey) {
-      result = <th aria-label={id}>{column.header}</th>;
-    } else {
-      result = <th aria-label={id}></th>;
+    if (column.id) {
+      if (typeof column.Header === 'function') {
+        result = column.Header({ ...column });
+      } else {
+        result = column.Header;
+      }
+    }
+
+    // If there was no Id or Cell then result should be undefined
+    if (!result && column.header) {
+      const data = column.header;
+
+      if (typeof data === 'string' || typeof data === 'number') {
+        result = (
+          <th key={id} aria-label={id}>
+            {data}
+          </th>
+        );
+      } else {
+        console.log('GenerateHeader - Unable to convert data into table header: ' + JSON.stringify(data));
+        result = <th key={id} aria-label={id}></th>;
+      }
     }
 
     return result;

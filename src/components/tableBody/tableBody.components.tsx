@@ -4,27 +4,54 @@ import { RBTableCellProps } from './tableBody.types';
 import { RBTColumnDefs, RBTRow } from '../common';
 import { CompareRBTRow } from './tableBody.helper';
 
-export const RBTableBody = <TData extends Record<string, unknown>>({ columns, data }: RBTableCellProps<TData>) => {
+export const RBTableBody = <TData extends Record<string, unknown>>({
+  columns,
+  data,
+  name,
+}: RBTableCellProps<TData>) => {
+  const columnPrefix = useMemo<string>(() => (name && name.length > 0 ? name + '.table.body' : 'table.body'), [name]);
+
   const displayed: RBTRow<TData>[] = useMemo(() => {
-    const results: RBTRow<TData>[] = data.filter((value) => value.displayed);
+    const results: RBTRow<TData>[] = data.filter((value) => value.filters.length === 0);
     return results.sort(CompareRBTRow);
   }, [data]);
 
-  const GenerateCell = (column: RBTColumnDefs<TData>, row: RBTRow<TData>): ReactNode => {
+  /**
+   * This will process the Cell atribute (if set)
+   * @param column
+   * @param row
+   * @returns
+   */
+  const GenerateCell = (index: number, column: RBTColumnDefs<TData>, row: RBTRow<TData>): ReactNode => {
+    let id = columnPrefix;
+    if (column.id && column.id.length > 0) {
+      id = column.id;
+    } else {
+      id = columnPrefix;
+    }
+
     let result: ReactNode;
 
-    if (column.Cell && column.id) {
-      result = column.Cell({ column: column.id, originalRow: row.data });
-    } else if (column.accessorKey) {
+    if (column.id) {
+      if (typeof column.Cell === 'function') {
+        result = column.Cell({ column: column.id, originalRow: row.data });
+      } else {
+        result = column.Cell;
+      }
+    }
+
+    // If there was no Id or Cell then result should be undefined
+    if (!result && column.accessorKey) {
       const data = row.data[column.accessorKey];
 
       if (typeof data === 'string' || typeof data === 'number') {
-        result = <td>{data}</td>;
+        result = <td key={row.position + '.' + index}>{data}</td>;
       } else {
         console.log('GenerateCell - Unable to convert data into table cell: ' + JSON.stringify(data));
       }
     } else {
-      result = <td></td>;
+      console.log('No Id or Accessor key\ncolumn: ' + JSON.stringify(column) + '\nrow: ' + JSON.stringify(data));
+      result = <td key={row.position + '.' + index}></td>;
     }
 
     return result;
@@ -35,8 +62,8 @@ export const RBTableBody = <TData extends Record<string, unknown>>({ columns, da
       {displayed.map((row: RBTRow<TData>): ReactNode => {
         return (
           <tr key={row.position}>
-            {columns.map((column: RBTColumnDefs<TData>): ReactNode => {
-              return GenerateCell(column, row);
+            {columns.map((column: RBTColumnDefs<TData>, index: number): ReactNode => {
+              return GenerateCell(index, column, row);
             })}
           </tr>
         );
