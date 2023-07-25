@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { RBTableHeadOptions } from './tableHead.types';
 import { RBTColumnDefs } from '../common';
 

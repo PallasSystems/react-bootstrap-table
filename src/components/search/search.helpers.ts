@@ -10,7 +10,6 @@ export const updateFilterAndDisplayed = <TData extends Record<string, unknown>>(
 ): RBTRow<TData>[] => {
   const results: RBTRow<TData>[] = [];
 
-  let displayCounter = 0;
   //iterate over each table record to find ones which match our search term
   rows?.forEach((row: RBTRow<TData>) => {
     // If the filtering status of the row has changed we need to capture this and feed

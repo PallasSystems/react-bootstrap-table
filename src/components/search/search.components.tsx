@@ -1,11 +1,11 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { RBTSearchOptions } from './search.types';
 import { RBTColumnDefs } from '../common';
 import { Form, InputGroup } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 import { RBTRow } from '../common/common.types';
-import { isMatch, updateFilterAndDisplayed } from './search.helpers';
+import { updateFilterAndDisplayed } from './search.helpers';
 
 /**
  * This is used to provide a search bar which will look through the supplied data objects and mark them as

@@ -1,11 +1,11 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Col, Container, Row, Table } from 'react-bootstrap';
 
 import { RBTMenuBar } from '../menubar';
 import { RBTRowControls } from '../rowcontrols';
 
-import type { RBTRow, RBTColumnDefs } from '../common';
+import { type RBTRow, type RBTColumnDefs, CompareRBTRow } from '../common';
 import { RBTOptions } from './table.types';
 import { RBTableHead } from '../tableHead';
 import { RBTablePlaceholder } from '../tablePlaceholder';
@@ -34,7 +34,8 @@ export const RBTable = <TData extends Record<string, unknown>>({
       }
     }
 
-    return results;
+    // Ensure all the results are correctly sorted
+    return results.sort(CompareRBTRow);
   }, [data]);
 
   // We want to wrap eac data item within a row object which controls how informaiton is displayed

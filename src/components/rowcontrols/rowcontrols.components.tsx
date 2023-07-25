@@ -1,11 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { ChevronBarLeft, ChevronBarRight, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 
 import { RBTRowControlOptions } from './rowcontrols.types';
 import { SetPaginationFilter, getRowOptions, getRowRangeText } from './rowcontrols.helper';
 import { RBTRow } from '../common/common.types';
-import { CompareRBTRow, RemoveFilterFromArray } from '../common';
+import { RemoveFilterFromArray } from '../common';
 
 /** Unique value for filters applied by this component. */
 const FILTER_VALUE = 'rowcontrols';

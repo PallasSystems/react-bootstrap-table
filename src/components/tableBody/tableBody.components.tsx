@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 
 import { RBTableCellProps } from './tableBody.types';
 import { RBTColumnDefs, RBTRow } from '../common';
@@ -32,18 +32,14 @@ export const RBTableBody = <TData extends Record<string, unknown>>({
     let id = columnPrefix;
     if (column.id && column.id.length > 0) {
       id = column.id;
-    } else {
-      id = columnPrefix;
     }
 
     let result: ReactNode;
 
-    if (column.id) {
-      if (typeof column.Cell === 'function') {
-        result = column.Cell({ column: column.id, originalRow: row.data });
-      } else {
-        result = column.Cell;
-      }
+    if (typeof column.Cell === 'function') {
+      result = column.Cell({ column: id, originalRow: row.data });
+    } else {
+      result = column.Cell;
     }
 
     // If there was no Id or Cell then result should be undefined
@@ -51,13 +47,13 @@ export const RBTableBody = <TData extends Record<string, unknown>>({
       const data = row.data[column.accessorKey];
 
       if (typeof data === 'string' || typeof data === 'number') {
-        result = <td key={row.position + '.' + index}>{data}</td>;
+        result = <td key={id + '.' + row.position + '.' + index}>{data}</td>;
       } else {
         console.log('GenerateCell - Unable to convert data into table cell: ' + JSON.stringify(data));
       }
     } else {
       console.log('No Id or Accessor key\ncolumn: ' + JSON.stringify(column) + '\nrow: ' + JSON.stringify(data));
-      result = <td key={row.position + '.' + index}></td>;
+      result = <td key={id + '.' + row.position + '.' + index}></td>;
     }
 
     return result;

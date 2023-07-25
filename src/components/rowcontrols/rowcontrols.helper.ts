@@ -44,9 +44,9 @@ export const SetPaginationFilter = <TData extends Record<string, unknown>>(
   position: number,
   rowsPerPage: number,
   rows: RBTRow<TData>[],
-  rowsToMark: number = 0,
+  rowsToMark = 0,
 ) => {
-  let results: RBTRow<TData>[] = [];
+  const results: RBTRow<TData>[] = [];
   let count = rowsToMark;
 
   rows = rows.sort(CompareRBTRow);

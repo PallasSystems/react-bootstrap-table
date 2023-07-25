@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { Button, Col, InputGroup, Row } from 'react-bootstrap';
 import { Download, Grid3x2Gap, Grid3x3Gap } from 'react-bootstrap-icons';
