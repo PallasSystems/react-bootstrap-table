@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { ChevronBarLeft, ChevronBarRight, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 
 import { RBTRowControlOptions } from './rowcontrols.types';
 import { SetPaginationFilter, getRowOptions, getRowRangeText } from './rowcontrols.helper';
 import { RBTRow } from '../common/common.types';
-import { CompareRBTRow } from '../common';
+import { CompareRBTRow, RemoveFilterFromArray } from '../common';
 
 /** Unique value for filters applied by this component. */
 const FILTER_VALUE = 'rowcontrols';
@@ -28,31 +28,33 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
     name && name.length > 0 ? name + ' Row Controls' : 'Row Controls';
   }, [name]);
 
-  // The Rows data sorted by the index field.
-  const indexSortedRows: RBTRow<TData>[] = useMemo(() => data.sort(CompareRBTRow), [data]);
   /** How Many Table rows should be displayed? The default is 5 */
   const [paginationRows, setPaginationRows] = useState<number>(rowsPerPage ?? 5);
   /** What is the current position of displayed rows within the table (e.g. if there are 5 rows per page and 10 records, position could be 0, 5)*/
   const [tablePosition, setTablePosition] = useState<number>(0);
+
   /**
    * This is supplied a new table position, it will iterate only data from that postion (to the range endpoint)
    * @param tablePos the new table position
    */
-  const handleTablePosition = (tablePos: number) => {
-    setTablePosition(tablePos);
-
-    //console.log('handleTablePosition - tablePos: ' + tablePos);
-    //console.log('handleTablePosition - indexSortedRows length: ' + indexSortedRows.length);
-    if (handleDisplayedRows) {
-      const original = JSON.stringify(indexSortedRows);
-      const displayedRows: RBTRow<TData>[] = SetPaginationFilter(tablePos, paginationRows, indexSortedRows);
-      const processed = JSON.stringify(displayedRows);
-
-      if (original !== processed) {
-        handleDisplayedRows(displayedRows);
+  const handleTablePosition = useCallback(
+    (tablePos: number) => {
+      if (tablePosition !== tablePos) {
+        setTablePosition(tablePos);
       }
-    }
-  };
+
+      if (handleDisplayedRows) {
+        const original = JSON.stringify(data);
+        const updatedRows: RBTRow<TData>[] = SetPaginationFilter(tablePos, paginationRows, data);
+        const updated = JSON.stringify(updatedRows);
+        // Use strings to check if we have added/removed rowcontrol filters to anytning
+        if (original !== updated) {
+          handleDisplayedRows(updatedRows);
+        }
+      }
+    },
+    [data],
+  );
 
   /** Works out how many rows are visible to the user, to create a row total. */
   const numRows = useMemo(() => {
@@ -64,10 +66,11 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
         if (row) {
           if (row.filters.length === 0) {
             result++;
-          } else if (row.filters.length === 1) {
+          } else {
             // Check it isn't this component filtering the value, if it is we should include it
             // within the count
-            if (row.filters.indexOf(FILTER_VALUE) > -1) {
+            const filters = RemoveFilterFromArray(FILTER_VALUE, row.filters);
+            if (filters.length === 0) {
               result++;
             }
           }
@@ -108,7 +111,7 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
 
   useEffect(() => {
     handleTablePosition(tablePosition);
-  });
+  }, [data, tablePosition]);
 
   return (
     <Row className={'align-items-center mx-0 px-0'}>

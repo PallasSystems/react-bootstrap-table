@@ -1,4 +1,4 @@
-import { RBTRow, RemoveFilterFromArray } from '../common';
+import { CompareRBTRow, RBTRow, RemoveFilterFromArray } from '../common';
 
 /** Unique value for filters applied by this component. */
 const FILTER_VALUE = 'rowcontrols';
@@ -44,9 +44,12 @@ export const SetPaginationFilter = <TData extends Record<string, unknown>>(
   position: number,
   rowsPerPage: number,
   rows: RBTRow<TData>[],
+  rowsToMark: number = 0,
 ) => {
   let results: RBTRow<TData>[] = [];
-  let count = 0;
+  let count = rowsToMark;
+
+  rows = rows.sort(CompareRBTRow);
 
   for (let index = position; index < rows.length; index++) {
     const row: RBTRow<TData> = rows[index];
@@ -78,10 +81,17 @@ export const SetPaginationFilter = <TData extends Record<string, unknown>>(
     results.push(row);
   }
 
-  // If we have a non zero position and not enough matches, wrap around to zero and try to match other values.
-  if (position > 0 && count < rowsPerPage) {
-    //results = SetPaginationFilter<TData>(0, rowsPerPage, results);
+  if (position > 0 && position < rows.length) {
+    for (let index = 0; index < position; index++) {
+      const row: RBTRow<TData> = rows[index];
+      //remove the row control filter from the list
+      row.filters = RemoveFilterFromArray(FILTER_VALUE, row.filters);
+      row.filters.push(FILTER_VALUE);
+      results.push(row);
+    }
   }
 
-  return results;
+  //console.log('Results: ' + JSON.stringify(results));
+
+  return results.sort(CompareRBTRow);
 };

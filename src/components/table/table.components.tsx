@@ -19,6 +19,7 @@ export const RBTable = <TData extends Record<string, unknown>>({
   name,
   varient,
 }: RBTOptions<TData>) => {
+  //
   const initialisedRows = useMemo(() => {
     const results: RBTRow<TData>[] = [];
     //
