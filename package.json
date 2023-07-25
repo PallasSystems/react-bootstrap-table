@@ -87,7 +87,7 @@
     "url": "https://github.com/PallasSystems/react-bootstrap-library.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/"
   },
   "browserslist": {
     "production": [

@@ -14,6 +14,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+          registry-url: 'https://registry.npmjs.org'
       - name: Find yarn cache
         id: yarn-cache-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -39,8 +40,8 @@ jobs:
           passphrase: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
           git_user_signingkey: true
           git_config_global: true
-          git_committer_name: "pallasCI"
-          git_committer_email: "continuous.integration@pallas.uk"
+          git_committer_name: 'pallasCI'
+          git_committer_email: 'continuous.integration@pallas.uk'
           git_commit_gpgsign: true
           git_push_gpgsign: false
           git_tag_gpgsign: true
@@ -53,7 +54,7 @@ jobs:
 
       - name: Set Project Version
         if: ${{ contains(github.ref, 'refs/heads/release') }}
-        run: "npm version ${{ env.BRANCH_NAME }} -m \"[NPM Release] Performing release: ${{ env.BRANCH_NAME }}\""
+        run: 'npm version ${{ env.BRANCH_NAME }} -m "[NPM Release] Performing release: ${{ env.BRANCH_NAME }}"'
         continue-on-error: true
 
       - name: Run NPM Install
@@ -93,35 +94,22 @@ jobs:
       - name: Publish package on NPM 📦
         if: ${{ contains(github.ref, 'refs/heads/release') }}
         run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git 
           npm publish
         env:
-          GITHUB_USER: "pallasCI <continuous.integration@pallas.uk>"
-          GITHUB_TOKEN: ${{ secrets.SCM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push the Release Change into the Branch
         if: ${{ contains(github.ref, 'refs/heads/release') }}
         run: git push origin release/${{ env.BRANCH_NAME }}
 
       - name: Increase Patch Version
-        run: "npm version patch -m \"[NPM Release] Moving to Next Dev Version\""
+        run: 'npm version patch -m "[NPM Release] Moving to Next Dev Version"'
 
-      - name: Push the Patch change into the Branch
-        if: ${{ contains(github.ref, 'refs/heads/release') }}
-        run: git push origin release/${{ env.BRANCH_NAME }}
-
-      - name: Fetch all Branches
-        if: ${{ contains(github.ref, 'refs/heads/release') }}
-        run: git fetch --all
-
-      - name: Switch to main branch
-        if: ${{ contains(github.ref, 'refs/heads/release') }}
-        run: git checkout main
-
-      - name: Merge release banch into main
-        if: ${{ contains(github.ref, 'refs/heads/release') }}
-        run: git merge origin/release/${{ env.BRANCH_NAME }}
-
-      - name: Merge release banch into main
-        if: ${{ contains(github.ref, 'refs/heads/release') }}
-        run: git push origin main
+      - name: Create pull request into main
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: release/${{ env.BRANCH_NAME }}
+          destination_branch: 'main'
+          github_token: ${{ secrets.SCM_TOKEN }}
+          pr_title: 'Merge Release back to main'
+          pr_body: 'Performed successfull release, needs to be merged back into main branch'
