@@ -37,6 +37,7 @@ export const RBTable = <TData extends Record<string, unknown>>({
     // Ensure all the results are correctly sorted
     return results.sort(CompareRBTRow);
   }, [data]);
+  const showTableHead = useMemo(() => enableTableHead ?? true, [enableTableHead]);
 
   // We want to wrap eac data item within a row object which controls how informaiton is displayed
   // by default nothing should be filtered from view and everything should be displayed.
@@ -68,7 +69,7 @@ export const RBTable = <TData extends Record<string, unknown>>({
       <Row>
         <Col>
           <Table hover responsive size={compact ? 'sm' : ''} aria-label={tableName}>
-            <RBTableHead columns={columnDefs} enableTableHead={enableTableHead} name={name} varient={styleVarient} />
+            <RBTableHead columns={columnDefs} enableTableHead={showTableHead} name={name} varient={styleVarient} />
             {rows.length > 0 ? (
               <RBTableBody columns={columnDefs} name={name} varient={styleVarient} data={rows} />
             ) : (
