@@ -105,6 +105,10 @@ jobs:
       - name: Increase Patch Version
         run: 'npm version patch -m "[NPM Release] Moving to Next Dev Version"'
 
+      - name: Push the Patch change into the Branch
+        if: ${{ contains(github.ref, 'refs/heads/release') }}
+        run: git push origin release/${{ env.BRANCH_NAME }}
+
       - name: Create pull request into main
         uses: repo-sync/pull-request@v2
         with:
