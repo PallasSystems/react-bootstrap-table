@@ -4,7 +4,7 @@
 
 A library to create a data grid using React, Bootstrap & Bootstrap Icons. This was written as other Bootstrap libraries were written against old versions of React/Bootstrap and everything else was based on the Material UI framework.
 
-![Image of the Table](./docs/react-bootstrap-table.png)
+![Image of the Table](https://github.com/PallasSystems/react-bootstrap-table/blob/main/docs/react-bootstrap-table.png?raw=true)
 
 ## Getting Started
 
