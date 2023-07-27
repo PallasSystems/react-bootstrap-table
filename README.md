@@ -28,7 +28,12 @@ import React, { useMemo, useRef, useState, useEffect } from 'react';
 import type { RBTColumnDefs } from '@pallassystems/react-bootstrap-table';
 import { RBTable } from '@pallassystems/react-bootstrap-table';
 
-const data = [
+type Person = {
+  name: string;
+  age: number;
+};
+
+const data: Person[] = [
   {
     name: 'John',
     age: 30,
@@ -40,7 +45,7 @@ const data = [
 ];
 
 export default function App() {
-  const columns = useMemo(
+  const columns = useMemo<RBTColumnDefs<Person>[]>(
     () => [
       {
         accessorKey: 'name', //simple recommended way to define a column
@@ -56,7 +61,7 @@ export default function App() {
     [],
   );
 
-  return <MaterialReactTable columns={columns} data={data} />;
+  return <RBTable columns={columns} data={data} />;
 }
 ```
 
