@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Button, Col, InputGroup, Row } from 'react-bootstrap';
 import { Download, Grid3x2Gap, Grid3x3Gap } from 'react-bootstrap-icons';
+import { ExportToCsv } from 'export-to-csv-fix-source-map';
 
 import { RBTMenuBarOptions } from './menubar.types';
 import { RBTSearch } from '../search';
@@ -16,6 +17,18 @@ export const RBTMenuBar = <TData extends Record<string, unknown>>(props: RBTMenu
   const tableName = useMemo(() => {
     props.name && props.name.length > 0 ? props.name + ' SearchBar' : 'SearchBar';
   }, [props.name]);
+
+  const performExport = () => {
+    const data = props.data.map((value) => value.data);
+
+    const csvExport = new ExportToCsv({
+      showLabels: true,
+      filename: tableName + '_' + Date.now(),
+      useKeysAsHeaders: true,
+    });
+
+    csvExport.generateCsv(data);
+  };
 
   return (
     <Row>
@@ -36,7 +49,12 @@ export const RBTMenuBar = <TData extends Record<string, unknown>>(props: RBTMenu
               {props.isCompact ? <Grid3x3Gap /> : <Grid3x2Gap />}
             </Button>
           ) : null}
-          <Button variant={styleVarient} aria-label={tableName + ' Download CSV Button'} tabIndex={0}>
+          <Button
+            variant={styleVarient}
+            aria-label={tableName + ' Download CSV Button'}
+            tabIndex={0}
+            onClick={() => performExport()}
+          >
             <Download />
           </Button>
         </InputGroup>
