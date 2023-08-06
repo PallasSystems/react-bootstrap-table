@@ -3,6 +3,12 @@
   "version": "0.0.4",
   "description": "Library to build responsive tables using the Bootstrap framework within React.",
   "homepage": "https://www.pallas.uk",
+  "keywords": [
+    "react-table",
+    "bootstrap",
+    "bootstrap-table",
+    "data table"
+  ],
   "license": "Apache-2.0",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
