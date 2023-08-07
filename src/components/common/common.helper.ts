@@ -1,10 +1,13 @@
 import { RBTRow } from '.';
 
 /**
- * Function to
- * @param valueA
- * @param valueB
- * @returns
+ * Sorting function for RBTRow based on the position stored in the row object, to be used
+ * with the JS Sort array.
+ *
+ * @param valueA A row object to compare
+ * @param valueB A row object to compare
+ * @returns 0 for equal position, -1 if rowA position is lower than rowB,
+ *          1 if rowA position is greater than rowB
  */
 export const CompareRBTRow = <TData extends Record<string, unknown>>(
   valueA: RBTRow<TData>,
