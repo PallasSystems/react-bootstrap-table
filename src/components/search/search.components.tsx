@@ -22,7 +22,13 @@ export const RBTSearch = <TData extends Record<string, unknown>>({
   handleDisplayedRows,
 }: RBTSearchOptions<TData>) => {
   const tableName = useMemo(() => {
-    name && name.length > 0 ? name + ' SearchBar' : 'SearchBar';
+    let result = 'Search Bar';
+    if (name) {
+      if (name.length > 0) {
+        result = name + ' ' + result;
+      }
+    }
+    return result;
   }, [name]);
 
   /**

@@ -25,7 +25,13 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
 }: RBTRowControlOptions<TData>) => {
   const styleVarient = useMemo(() => varient ?? 'dark', [varient]);
   const tableName = useMemo(() => {
-    name && name.length > 0 ? name + ' Row Controls' : 'Row Controls';
+    let result = 'Row Controls';
+    if (name) {
+      if (name.length > 0) {
+        result = name + ' ' + result;
+      }
+    }
+    return result;
   }, [name]);
 
   /** How Many Table rows should be displayed? The default is 5 */
