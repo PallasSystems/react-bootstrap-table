@@ -89,7 +89,7 @@
     "eslint": "eslint --ext .ts --ext .tsx --output-file eslint_report.json --format json src",
     "prepack": "npm run build",
     "storybook": "storybook dev -p 6006",
-    "test": "jest"
+    "test": "jest --collect-coverage"
   },
   "repository": {
     "type": "git",
