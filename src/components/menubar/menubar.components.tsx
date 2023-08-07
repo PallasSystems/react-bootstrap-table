@@ -8,22 +8,39 @@ import { RBTMenuBarOptions } from './menubar.types';
 import { RBTSearch } from '../search';
 
 /**
- * This component builds a menu bar.
+ * This component builds a menu bar, this includes the Search box, spacing and download table as a csv.
+ *
  * @param {RBTMenuBarOptions} props
  */
 export const RBTMenuBar = <TData extends Record<string, unknown>>(props: RBTMenuBarOptions<TData>) => {
   const displayCompactBtn = useMemo(() => props.enableDensityToggle ?? true, [props.enableDensityToggle]);
   const styleVarient = useMemo(() => props.varient ?? 'dark', [props.varient]);
   const tableName = useMemo(() => {
-    props.name && props.name.length > 0 ? props.name + ' SearchBar' : 'SearchBar';
+    let result = 'SearchBar';
+    if (props.name) {
+      if (props.name.length > 0) {
+        result = props.name + ' ' + result;
+      }
+    }
+    return result;
   }, [props.name]);
 
+  /**
+   * Called by the download button, this will capture the information in the table and
+   * return is a CSV for download by the user.
+   */
   const performExport = () => {
     const data = props.data.map((value) => value.data);
-
+    let exportName = 'Unknown' + '_' + Date.now();
+    if (props.name) {
+      if (props.name.length > 0) {
+        exportName = props.name + '_' + Date.now();
+      }
+    }
+    // Define rules for exporting.
     const csvExport = new ExportToCsv({
       showLabels: true,
-      filename: tableName + '_' + Date.now(),
+      filename: exportName,
       useKeysAsHeaders: true,
     });
 
