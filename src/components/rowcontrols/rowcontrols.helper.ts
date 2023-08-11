@@ -10,7 +10,7 @@ const FILTER_VALUE = 'rowcontrols';
  * @returns a valid string array with row values.
  */
 export const getRowOptions = (rows: number): string[] => {
-  let results: string[] = ['0'];
+  let results: string[];
 
   if (rows > 100) {
     results = ['5', '10', '25', '50', '100', 'All'];
@@ -110,8 +110,6 @@ export const SetPaginationFilter = <TData extends Record<string, unknown>>(
       results.push(row);
     }
   }
-
-  //console.log('Results: ' + JSON.stringify(results));
 
   return results.sort(CompareRBTRow);
 };

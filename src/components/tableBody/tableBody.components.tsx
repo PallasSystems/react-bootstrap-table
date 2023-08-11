@@ -1,7 +1,7 @@
 import React, { ReactNode, useMemo } from 'react';
 
 import { RBTableCellProps } from './tableBody.types';
-import { RBTColumnDefs, RBTRow } from '../common';
+import type { RBTColumnDefs, RBTRow } from '../common';
 import { CompareRBTRow } from '../common';
 
 export const RBTableBody = <TData extends Record<string, unknown>>({
@@ -12,13 +12,7 @@ export const RBTableBody = <TData extends Record<string, unknown>>({
   const columnPrefix = useMemo<string>(() => (name && name.length > 0 ? name + '.table.body' : 'table.body'), [name]);
 
   const displayed: RBTRow<TData>[] = useMemo(() => {
-    const results: RBTRow<TData>[] = [];
-    for (let index = 0; index < data.length; index++) {
-      if (data[index].filters.length === 0) {
-        results.push(data[index]);
-      }
-    }
-
+    const results: RBTRow<TData>[] = data.filter((record) => record.filters.length === 0);
     return results.sort(CompareRBTRow);
   }, [data]);
 

@@ -37,13 +37,11 @@ export const isMatch = <TData extends Record<string, unknown>>(
   const data = row.data;
 
   if (data) {
-    for (let keyIndex = 0; keyIndex < searchableColumns.length; keyIndex++) {
+    for (const key in searchableColumns) {
       // TODO This needs to be configured for multi level objects
-      const key = searchableColumns[keyIndex];
       const value = data[key];
       if (typeof value === 'string') {
         match = value.toUpperCase().indexOf(toFind) > -1;
-
         if (match) {
           break;
         }

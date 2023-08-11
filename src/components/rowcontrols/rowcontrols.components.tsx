@@ -66,9 +66,7 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
   const numRows = useMemo(() => {
     let result = 0;
     if (data) {
-      for (let index = 0; index < data.length; index++) {
-        const row = data[index];
-
+      data.forEach((row) => {
         if (row) {
           if (row.filters.length === 0) {
             result++;
@@ -81,7 +79,7 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
             }
           }
         }
-      }
+      });
     }
 
     return result;

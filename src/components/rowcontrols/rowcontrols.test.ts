@@ -1,6 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
 
-import { getRowOptions, getRowRangeText } from './rowcontrols.helper';
+import { SetPaginationFilter, getRowOptions, getRowRangeText } from './rowcontrols.helper';
+import { SimpleDataType } from '../common/common.testdata';
+import { RBTRow } from '../common';
 
 describe('getRowOptions', () => {
   test('Happy Path', () => {
@@ -47,5 +49,12 @@ describe('getRowRangeText', () => {
 
   test('Invalid Position', () => {
     expect(getRowRangeText(100, 10, 200)).toBe('? of 100');
+  });
+});
+
+describe('SetPaginationFilter', () => {
+  test('Empty Request', () => {
+    const result: RBTRow<SimpleDataType>[] = [];
+    expect(SetPaginationFilter<SimpleDataType>(0, 0, result)).toStrictEqual(result);
   });
 });

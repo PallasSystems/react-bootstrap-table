@@ -31,15 +31,12 @@ export const CompareRBTRow = <TData extends Record<string, unknown>>(
  * @returns  an empty string if the supplied
  */
 export const RemoveFilterFromArray = (filterValue: string, filters: string[]) => {
-  const result: string[] = [];
+  let result: string[] = [];
 
   if (Array.isArray(filters)) {
-    for (let index = 0; index < filters.length; index++) {
-      const filter = filters[index];
-      if (filter !== filterValue) {
-        result.push(filter);
-      }
-    }
+    result = filters.filter((filter) => {
+      return filter !== null && filter !== undefined && filterValue !== filter;
+    });
   }
 
   return result;
