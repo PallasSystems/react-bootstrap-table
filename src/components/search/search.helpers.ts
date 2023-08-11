@@ -27,6 +27,15 @@ export const updateFilterAndDisplayed = <TData extends Record<string, unknown>>(
   return results;
 };
 
+/**
+ * Supplies a value and a table row. This will check the defined fields within the table to
+ * see if they match the value. If they do it will return true.
+ *
+ * @param toFind the term to find within the data
+ * @param row the row containing the data object we need to check
+ * @param searchableColumns the fields in the data object we should compare
+ * @returns true if toFind is empty
+ */
 export const isMatch = <TData extends Record<string, unknown>>(
   toFind: string,
   row: RBTRow<TData>,
@@ -37,16 +46,14 @@ export const isMatch = <TData extends Record<string, unknown>>(
   const data = row.data;
 
   if (data) {
-    for (const key in searchableColumns) {
+    const toFindUpper = toFind.toUpperCase();
+    searchableColumns.forEach((key) => {
       // TODO This needs to be configured for multi level objects
       const value = data[key];
       if (typeof value === 'string') {
-        match = value.toUpperCase().indexOf(toFind) > -1;
-        if (match) {
-          break;
-        }
+        match = match || value.toUpperCase().indexOf(toFindUpper) > -1;
       }
-    }
+    });
   }
 
   return match;
