@@ -3,11 +3,17 @@ import { CompareRBTRow, RBTRow, RemoveFilterFromArray } from '../common';
 /** Unique value for filters applied by this component. */
 const FILTER_VALUE = 'rowcontrols';
 
+/**
+ * Used to work out the set ranges that should be displayed in the row controls based
+ * on the supplied number.
+ * @param rows the rows contained within the table (e.g. length of data array)
+ * @returns a valid string array with row values.
+ */
 export const getRowOptions = (rows: number): string[] => {
   let results: string[] = ['0'];
 
   if (rows > 100) {
-    results = ['5', '10', '25', '50', '100'];
+    results = ['5', '10', '25', '50', '100', 'All'];
   } else if (rows > 50) {
     results = ['5', '10', '25', '50', 'All'];
   } else if (rows > 25) {
@@ -23,18 +29,32 @@ export const getRowOptions = (rows: number): string[] => {
   return results;
 };
 
-export const getRowRangeText = (rows: number, rowsPerPage: number, tablePosition: number): string => {
+/**
+ * Used to create a text block to explain what rows are currently displayed on the page.
+ *
+ * @param rows the total rows of data within the table
+ * @param rowsPerPage how many rows of data the table is currently displayed
+ * @param position the current start position of the display
+ * @returns a valid text string.
+ */
+export const getRowRangeText = (rows: number, rowsPerPage: number, position: number): string => {
   let result = '0 of 0';
+  const tablePosition = position + 1;
 
   if (rows > 0) {
-    result = tablePosition + 1 + ' - ';
-    if (tablePosition + rowsPerPage > rows) {
-      result += rows;
+    if (tablePosition > 0 && tablePosition <= rows) {
+      if (rowsPerPage > 0) {
+        if (position + rowsPerPage <= rows) {
+          result = tablePosition + ' - ' + (position + rowsPerPage) + ' of ' + rows;
+        } else {
+          result = tablePosition + ' - ' + rows + ' of ' + rows;
+        }
+      } else {
+        result = tablePosition + ' - ? of ' + rows;
+      }
     } else {
-      result += tablePosition + rowsPerPage;
+      result = '? of ' + rows;
     }
-
-    result += ' of ' + rows;
   }
 
   return result;
