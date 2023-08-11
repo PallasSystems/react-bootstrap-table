@@ -1,7 +1,7 @@
 import { CompareRBTRow, RBTRow, RemoveFilterFromArray } from '../common';
 
 /** Unique value for filters applied by this component. */
-const FILTER_VALUE = 'rowcontrols';
+export const FILTER_VALUE = 'rowcontrols';
 
 /**
  * Used to work out the set ranges that should be displayed in the row controls based

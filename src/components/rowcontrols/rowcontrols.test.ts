@@ -1,8 +1,17 @@
 import { describe, expect, test } from '@jest/globals';
 
-import { SetPaginationFilter, getRowOptions, getRowRangeText } from './rowcontrols.helper';
+import { FILTER_VALUE, SetPaginationFilter, getRowOptions, getRowRangeText } from './rowcontrols.helper';
 import { SimpleDataType } from '../common/common.testdata';
 import { RBTRow } from '../common';
+
+const testData: RBTRow<SimpleDataType>[] = [
+  { position: 0, filters: [], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
+  { position: 1, filters: [], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },
+  { position: 2, filters: [], data: { firstName: 'John', surname: 'Smith', age: 48 } },
+  { position: 3, filters: [], data: { firstName: 'Patty', surname: "O'Furniture", age: 24 } },
+  { position: 4, filters: [], data: { firstName: 'Teri', surname: 'Dactyl', age: 36 } },
+  { position: 5, filters: [], data: { firstName: 'Allie', surname: 'Grater', age: 48 } },
+];
 
 describe('getRowOptions', () => {
   test('Happy Path', () => {
@@ -56,5 +65,17 @@ describe('SetPaginationFilter', () => {
   test('Empty Request', () => {
     const result: RBTRow<SimpleDataType>[] = [];
     expect(SetPaginationFilter<SimpleDataType>(0, 0, result)).toStrictEqual(result);
+  });
+  test('Valid 2 Page', () => {
+    const expected: RBTRow<SimpleDataType>[] = [
+      { position: 0, filters: [FILTER_VALUE], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
+      { position: 1, filters: [FILTER_VALUE], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },
+      { position: 2, filters: [], data: { firstName: 'John', surname: 'Smith', age: 48 } },
+      { position: 3, filters: [], data: { firstName: 'Patty', surname: "O'Furniture", age: 24 } },
+      { position: 4, filters: [FILTER_VALUE], data: { firstName: 'Teri', surname: 'Dactyl', age: 36 } },
+      { position: 5, filters: [FILTER_VALUE], data: { firstName: 'Allie', surname: 'Grater', age: 48 } },
+    ];
+
+    expect(SetPaginationFilter<SimpleDataType>(2, 2, testData)).toStrictEqual(expected);
   });
 });
