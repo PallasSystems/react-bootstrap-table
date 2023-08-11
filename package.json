@@ -125,5 +125,11 @@
         "default": "./dist/esm/index.js"
       }
     }
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      ".testdata.ts",
+      ".stories.ts"
+    ]
   }
 }
