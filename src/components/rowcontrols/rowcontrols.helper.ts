@@ -60,6 +60,20 @@ export const getRowRangeText = (rows: number, rowsPerPage: number, position: num
   return result;
 };
 
+/**
+ * Various components in the library can cause a Table row to be filtered from the display (e.g. search).
+ * The pagination filter is supposed to display blocks of results.
+ *
+ * This means it needs to move to the target position and look for rows which only have the pagination
+ * filter applied and remove the pagination filter under the desired number of page objects is visible.
+ *
+ *
+ * @param position the position we should be centered on.
+ * @param rowsPerPage  the number of rows we want to see on a 'page'
+ * @param rows  the rows to be processed
+ * @param rowsToMark allows us to control how much is displayed
+ * @returns processed RBTRows
+ */
 export const SetPaginationFilter = <TData extends Record<string, unknown>>(
   position: number,
   rowsPerPage: number,
@@ -69,10 +83,10 @@ export const SetPaginationFilter = <TData extends Record<string, unknown>>(
   const results: RBTRow<TData>[] = [];
   let count = rowsToMark;
 
-  rows = rows.sort(CompareRBTRow);
+  const sortedRows = rows.sort(CompareRBTRow);
 
-  for (let index = position; index < rows.length; index++) {
-    const row: RBTRow<TData> = rows[index];
+  for (let index = position; index < sortedRows.length; index++) {
+    const row: RBTRow<TData> = sortedRows[index];
 
     if (count < rowsPerPage) {
       if (row.filters.length === 0) {
@@ -101,9 +115,9 @@ export const SetPaginationFilter = <TData extends Record<string, unknown>>(
     results.push(row);
   }
 
-  if (position > 0 && position < rows.length) {
+  if (position > 0 && position < sortedRows.length) {
     for (let index = 0; index < position; index++) {
-      const row: RBTRow<TData> = rows[index];
+      const row: RBTRow<TData> = sortedRows[index];
       //remove the row control filter from the list
       row.filters = RemoveFilterFromArray(FILTER_VALUE, row.filters);
       row.filters.push(FILTER_VALUE);

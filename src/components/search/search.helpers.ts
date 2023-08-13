@@ -1,7 +1,7 @@
 import { RBTRow, RemoveFilterFromArray } from '../common';
 
 /** Unique value for filters applied by this component. */
-const FILTER_VALUE = 'search';
+export const FILTER_VALUE = 'search';
 
 export const updateFilterAndDisplayed = <TData extends Record<string, unknown>>(
   toFind: string,

@@ -78,4 +78,74 @@ describe('SetPaginationFilter', () => {
 
     expect(SetPaginationFilter<SimpleDataType>(2, 2, testData)).toStrictEqual(expected);
   });
+
+  /**
+   * We want to display 2 results, we give a position but data in that position has filters applied
+   * this means we want the function to find 2 records which don't have alternate filters and display them.
+   */
+  test('Valid support for alternate filters', () => {
+    const testFilter = 'COMPLEX';
+    const source: RBTRow<SimpleDataType>[] = [
+      { position: 0, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
+      { position: 1, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },
+      { position: 2, filters: [testFilter, FILTER_VALUE], data: { firstName: 'John', surname: 'Smith', age: 48 } },
+      { position: 3, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Patty', surname: "O'Furn", age: 24 } },
+      { position: 4, filters: [FILTER_VALUE], data: { firstName: 'Teri', surname: 'Dactyl', age: 36 } },
+      { position: 5, filters: [FILTER_VALUE], data: { firstName: 'Allie', surname: 'Grater', age: 48 } },
+    ];
+    const expected: RBTRow<SimpleDataType>[] = [
+      { position: 0, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
+      { position: 1, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },
+      { position: 2, filters: [testFilter, FILTER_VALUE], data: { firstName: 'John', surname: 'Smith', age: 48 } },
+      { position: 3, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Patty', surname: "O'Furn", age: 24 } },
+      { position: 4, filters: [], data: { firstName: 'Teri', surname: 'Dactyl', age: 36 } },
+      { position: 5, filters: [], data: { firstName: 'Allie', surname: 'Grater', age: 48 } },
+    ];
+
+    expect(SetPaginationFilter<SimpleDataType>(2, 2, source)).toStrictEqual(expected);
+  });
+
+  test('Test Nothing displayed', () => {
+    const testFilter = 'COMPLEX';
+    const source: RBTRow<SimpleDataType>[] = [
+      { position: 0, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
+      { position: 1, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },
+      { position: 2, filters: [testFilter, FILTER_VALUE], data: { firstName: 'John', surname: 'Smith', age: 48 } },
+      { position: 3, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Patty', surname: "O'Furn", age: 24 } },
+      { position: 4, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Teri', surname: 'Dactyl', age: 36 } },
+      { position: 5, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Allie', surname: 'Grater', age: 48 } },
+    ];
+    const expected: RBTRow<SimpleDataType>[] = [
+      { position: 0, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
+      { position: 1, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },
+      { position: 2, filters: [testFilter, FILTER_VALUE], data: { firstName: 'John', surname: 'Smith', age: 48 } },
+      { position: 3, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Patty', surname: "O'Furn", age: 24 } },
+      { position: 4, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Teri', surname: 'Dactyl', age: 36 } },
+      { position: 5, filters: [testFilter, FILTER_VALUE], data: { firstName: 'Allie', surname: 'Grater', age: 48 } },
+    ];
+
+    expect(SetPaginationFilter<SimpleDataType>(2, 2, source)).toStrictEqual(expected);
+  });
+
+  test('Test Nothing displayed', () => {
+    const testFilter = 'COMPLEX';
+    const source: RBTRow<SimpleDataType>[] = [
+      { position: 0, filters: [], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
+      { position: 1, filters: [], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },
+      { position: 2, filters: [], data: { firstName: 'John', surname: 'Smith', age: 48 } },
+      { position: 3, filters: [], data: { firstName: 'Patty', surname: "O'Furn", age: 24 } },
+      { position: 4, filters: [], data: { firstName: 'Teri', surname: 'Dactyl', age: 36 } },
+      { position: 5, filters: [], data: { firstName: 'Allie', surname: 'Grater', age: 48 } },
+    ];
+    const expected: RBTRow<SimpleDataType>[] = [
+      { position: 0, filters: [FILTER_VALUE], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
+      { position: 1, filters: [FILTER_VALUE], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },
+      { position: 2, filters: [], data: { firstName: 'John', surname: 'Smith', age: 48 } },
+      { position: 3, filters: [], data: { firstName: 'Patty', surname: "O'Furn", age: 24 } },
+      { position: 4, filters: [FILTER_VALUE], data: { firstName: 'Teri', surname: 'Dactyl', age: 36 } },
+      { position: 5, filters: [FILTER_VALUE], data: { firstName: 'Allie', surname: 'Grater', age: 48 } },
+    ];
+
+    expect(SetPaginationFilter<SimpleDataType>(2, 2, source)).toStrictEqual(expected);
+  });
 });
