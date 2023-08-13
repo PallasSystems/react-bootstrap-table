@@ -33,3 +33,6 @@ eslint_report.json
 stylelint_report.json
 junit.xml
 .npmrc
+
+#MKDocs
+site/
