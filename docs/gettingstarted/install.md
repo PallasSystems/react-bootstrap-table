@@ -39,3 +39,5 @@ npm install --save react-bootstrap react-bootstrap-icons @pallassystems/react-bo
 ```bash
 yarn add react-bootstrap react-bootstrap-icons @pallassystems/react-bootstrap-table
 ```
+
+git fetch
