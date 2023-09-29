@@ -36,3 +36,4 @@ junit.xml
 
 #MKDocs
 site/
+docs/node_modules
