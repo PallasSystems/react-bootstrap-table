@@ -13,6 +13,5 @@ export default defineConfig({
         replacement: path.resolve(__dirname, '../src/'),
       },
     ],
-    extensions: ['.js', '.ts', '.tsx', '.jsx'],
   },
 });
