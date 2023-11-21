@@ -10,9 +10,9 @@
     "data table"
   ],
   "license": "Apache-2.0",
-  "main": "dist/esm/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/esm/types/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist/**/*",
     "src/**/*"
@@ -106,16 +106,16 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/cjs/types/index.d.ts",
-        "default": "./dist/cjs/index.js"
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/esm/types/index.d.ts",
-        "default": "./dist/esm/index.js"
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.js"
       },
       "default": {
-        "types": "./dist/esm/types/index.d.ts",
-        "default": "./dist/esm/index.js"
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.js"
       }
     }
   }
