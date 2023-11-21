@@ -1,54 +1,54 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import { BannerNavBar, Footer } from '@pallassystems/website-core';
 
 // HomePage Properties
-import { HomePageProperties } from './Home.types';
-import { Button, Col, Row } from 'react-bootstrap';
+import { HomePageProperties } from './home.types';
+
+// Package properties
+import projectProps from '../../../../package.json';
 
 const HomePage: FC<HomePageProperties> = ({ footerProps, navBarProps }) => {
   return (
     <main role={'main'} className={'flex-shrink-0'}>
       <BannerNavBar {...navBarProps} />
-      <div className='px-4 py-5 my-5 text-center'>
-        <h1>React Bootstrap Table</h1>
-        <Row className={'mt-5'}>
-          <Col xs={3} />
-          <Col>
-            <img src={'https://badgen.net/npm/v/@pallassystems/react-bootstrap-table?color=green'} />
-          </Col>
-          <Col>
-            <img src={'https://badgen.net/npm/dt/material-react-table?label=installs&icon=npm&color=green'} />
-          </Col>
-          <Col>
-            <img
-              src={'https://badgen.net/bundlephobia/minzip/@pallassystems/react-bootstrap-table@latest?color=green'}
-            />
-          </Col>
-          <Col>
-            <img src={'https://img.shields.io/github/license/apache/maven.svg?label=License'} />
-          </Col>
-          <Col xs={3} />
+      <Container id='intro' className={'content text-center my-5'}>
+        <Row className={'my-2'}>
+          <h1>React Bootstrap Table</h1>
         </Row>
-        <Row className={'mt-5'}>
-          <Col xs={3} />
-          <Col>
-            <Button variant='primary'>Getting Started</Button>
-          </Col>
-          <Col>
-            <Button variant='primary'>API</Button>
-          </Col>
-          <Col>
-            <Button variant='primary'>Examples</Button>
-          </Col>
-          <Col xs={3} />
+        <Row className={'my-2'}>
+          <h5>{projectProps.description}</h5>
         </Row>
-        <Row className={'mt-5 bg-body-tertiary rounded-3'}>
-          <pre>
-            <code>npm install @pallassystems/react-bootstrap-table react-bootstrap react-bootstrap-icons</code>
-          </pre>
+
+        <Row>
+          <Col>
+            <div className={'d-grid gap-2 my-2'}>
+              <LinkContainer to='/gettingStarted'>
+                <Button variant='dark'>Getting Started</Button>
+              </LinkContainer>
+            </div>
+          </Col>
+          <Col>
+            <div className={'d-grid gap-2 my-2'}>
+              <LinkContainer to='/api'>
+                <Button variant='dark'>API</Button>
+              </LinkContainer>
+            </div>
+          </Col>
+          <Col>
+            <div className={'d-grid gap-2 my-2'}>
+              <LinkContainer to='/examples'>
+                <Button variant='dark'>Examples</Button>
+              </LinkContainer>
+            </div>
+          </Col>
         </Row>
-      </div>
+        <Row className={'my-2'}>
+          <p>Current Version: {projectProps.version}</p>
+        </Row>
+      </Container>
       <Footer {...footerProps} />
     </main>
   );

@@ -1,2 +1,2 @@
-export type { HomePageProperties } from './Home.types';
-export { HomePage } from './Home.components';
+export type { HomePageProperties } from './home.types';
+export { HomePage } from './home.components';

@@ -1,10 +1,15 @@
-import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
-import { HomePage, MissingPage } from './pages';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@pallassystems/website-core/dist/website.css';
+import {
+  ApiHeadPage,
+  ApiTablePageData,
+  ExamplesHeadPage,
+  ExamplePageData,
+  GettingStartedInstallPage,
+  GettingStartedPage,
+  GettingStartedUsagePage,
+  HomePage,
+} from './pages';
 import { PageData } from './App.data';
 
 function App() {
@@ -12,7 +17,18 @@ function App() {
     <HashRouter>
       <Routes>
         <Route path={''} element={<HomePage {...PageData} />} />
-        <Route path={'/404'} element={<MissingPage />} />
+        <Route path={'/api'} element={<ApiHeadPage {...PageData} />} />
+        {ApiTablePageData.map((value) => {
+          return <Route path={value.link} element={value.page(PageData)} />;
+        })}
+        <Route path={'/examples'} element={<ExamplesHeadPage {...PageData} />} />
+        {ExamplePageData.map((value) => {
+          return <Route path={value.link} element={value.page(PageData)} />;
+        })}
+        <Route path={'/gettingstarted'} element={<GettingStartedPage {...PageData} />} />
+        <Route path={'/gettingstarted/install'} element={<GettingStartedInstallPage {...PageData} />} />
+        <Route path={'/gettingstarted/usage'} element={<GettingStartedUsagePage {...PageData} />} />
+        /examples/simplebanner
       </Routes>
     </HashRouter>
   );

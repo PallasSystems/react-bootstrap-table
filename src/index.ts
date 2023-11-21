@@ -17,7 +17,6 @@ export {
   RBTable,
   RBTableHead,
   RBTablePlaceholder,
-  RBTablePlaceholderRow,
   RBTMenuBar,
   RBTRowControls,
   RBTSearch,

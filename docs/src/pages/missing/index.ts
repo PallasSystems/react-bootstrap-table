@@ -1,1 +1,1 @@
-export { MissingPage } from './Missing.components';
+export { MissingPage } from './missing.components';

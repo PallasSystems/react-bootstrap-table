@@ -1,15 +1,14 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import { Col, Container, Row } from 'react-bootstrap';
 
 import { BannerNavBar, Footer, PallasSVG } from '@pallassystems/website-core';
+import { MissingPageProperties } from './missing.types.js';
 
-const MissingPage: FC = () => {
+const MissingPage: FC<MissingPageProperties> = ({ footerProps, navBarProps }) => {
   return (
     <main role={'main'}>
-      <BannerNavBar />
+      <BannerNavBar {...navBarProps} />
       <Container fluid id={'Missing.Container'} className={'content'}>
         <Row align='center' id={'Missing.Container.ImageRow'}>
           <Col className={'text-dark'} id={'Missing.Container.ImageRow.Coloumn'}>
@@ -22,7 +21,7 @@ const MissingPage: FC = () => {
           </Col>
         </Row>
       </Container>
-      <Footer />
+      <Footer {...footerProps} />
     </main>
   );
 };
