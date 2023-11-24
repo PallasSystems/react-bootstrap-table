@@ -4,13 +4,13 @@ import { ApiTableEntry } from '../api.types';
 export const RBTColumnDefData: ApiTableEntry[] = [
   {
     field: 'Cell',
-    type: '(props: { column: string; originalRow: TData }) => ReactNode',
+    type: '(props: RBTColumnCellDefs) => ReactNode',
     required: 'true',
     description: 'Allows users to define a function to return an element for the table header contents.',
   },
   {
     field: 'Header',
-    type: '(props: { header: string; id?: string; minSize?: number; maxSize?: number }) => ReactNode',
+    type: '(props: RBTColumnHeaderDefs) => ReactNode',
     required: 'true',
     description: 'Allows users to define a function to return an element for the table header contents.',
   },

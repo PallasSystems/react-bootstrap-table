@@ -38,12 +38,12 @@ export type RBTColumnSizing = {
   maxSize?: number;
 };
 
-export type RBTColumnCellDefs<TData extends Record<string, unknown>> = {
+export type RBTColumnCellDef<TData extends Record<string, unknown>> = {
   column: string;
   originalRow: TData;
 };
 
-export type RBTColumnHeaderDefs = {
+export type RBTColumnHeaderDef = {
   header: string;
   id?: string;
   minSize?: number;
@@ -59,12 +59,12 @@ export type RBTColumnDefs<TData extends Record<string, unknown>> = RBTColumnSizi
   /**
    * Allows users to define a function to return an element for the table header contents.
    */
-  Cell?: (props: RBTColumnCellDefs<TData>) => ReactNode;
+  Cell?: (props: RBTColumnCellDef<TData>) => ReactNode;
 
   /**
    * Allows users to define a function to return an element for the table header contents.
    */
-  Header?: (props: RBTColumnHeaderDefs) => ReactNode;
+  Header?: (props: RBTColumnHeaderDef) => ReactNode;
 
   /**
    * Either an `accessorKey` or a combination of an `accessorFn` and `id` are required for a data column definition.

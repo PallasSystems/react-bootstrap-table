@@ -15,15 +15,15 @@ export const RBTOptionsData: ApiTableEntry[] = [
     description: 'Data you want to display within the table.',
   },
   {
-    field: 'enablePagination',
-    type: 'boolean',
+    field: 'header',
+    type: 'RBTHeaderControls',
     required: 'false',
-    description: 'Should the pagination controls, row controls, etc.. be displayed.',
+    description: 'Should the table headers, export button, compaction, etc.. be displayed.',
   },
   {
-    field: 'enableTableHead',
-    type: 'boolean',
+    field: 'footer',
+    type: 'RBTFooterControls',
     required: 'false',
-    description: 'Should the Table controls, export button, compaction, etc.. be displayed.',
+    description: 'Should the pagination controls, row controls, etc.. be displayed.',
   },
 ];

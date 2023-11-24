@@ -11,6 +11,7 @@ import { SimpleExamplesRBTableData } from '../../examples';
 // For code highlighting
 import 'prismjs/themes/prism.min.css';
 import { RBTOptionsData } from './RBTOptions.data';
+import { ApiTableConfiguration } from '../api.data';
 
 const ApiRBTOptionsPage: FC<ApiPageProperties> = ({ footerProps, navBarProps }) => {
   useEffect(() => {
@@ -28,7 +29,7 @@ const ApiRBTOptionsPage: FC<ApiPageProperties> = ({ footerProps, navBarProps }) 
           <p>Below we have provided the options you can supply to the RBTable object.</p>
         </Row>
         <Row>
-          <RBTable columns={ApiTableColumns} data={RBTOptionsData} enablePagination={false} />
+          <RBTable data={RBTOptionsData} {...ApiTableConfiguration} />
         </Row>
         <Row>
           <h2>Example</h2>

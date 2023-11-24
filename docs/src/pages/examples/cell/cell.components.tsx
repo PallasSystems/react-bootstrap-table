@@ -39,15 +39,20 @@ const CellExamplesComponent: FC = () => {
           The React Bootstrap table allows us to modify specific header/cell values, in various ways. This example shows
           how you can return ReactNode objects or redirt how a value is generated.
         </p>
-        <pre className={'language-javascript'}>
-          <code>{GetCellExample()}</code>
-        </pre>
       </Row>
       <Row>
         <h5>Demonstration</h5>
       </Row>
       <Row>
         <RBTable {...CellExamplesRBTableData} />
+      </Row>
+      <Row>
+        <h5>Source Code</h5>
+      </Row>
+      <Row>
+        <pre className={'language-javascript'}>
+          <code>{GetCellExample()}</code>
+        </pre>
       </Row>
     </Container>
   );

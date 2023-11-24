@@ -6,14 +6,14 @@ import { BannerNavBar, Footer } from '@pallassystems/website-core';
 import { RBTable } from '@pallassystems/react-bootstrap-table';
 
 // Getting Started Page Properties
-import { ApiTableColumns, ApiPageProperties } from '../api.types';
+import { ApiPageProperties } from '../api.types';
 import { SimpleExamplesRBTableData } from '../../examples';
 // For code highlighting
 import 'prismjs/themes/prism.min.css';
-import { RBTColumnDefData } from './RBTColumnDefs.data';
+import { RBTFooterOptionsData } from './RBTFooterControls.data';
 import { ApiTableConfiguration } from '../api.data';
 
-const ApiRBTColumnDefsPage: FC<ApiPageProperties> = ({ footerProps, navBarProps }) => {
+const ApiRBTFooterOptionsPage: FC<ApiPageProperties> = ({ footerProps, navBarProps }) => {
   useEffect(() => {
     Prism.highlightAll();
   });
@@ -23,20 +23,20 @@ const ApiRBTColumnDefsPage: FC<ApiPageProperties> = ({ footerProps, navBarProps 
       <BannerNavBar {...navBarProps} />
       <Container id='intro' className={'content my-5'}>
         <Row>
-          <h1>RBTColumnsDef</h1>
+          <h1>RBTFooterOptions</h1>
         </Row>
         <Row>
-          <p>Information required to define a the table columns and data mapppings.</p>
+          <p>The options you can supply RBTable to modify and update the Table Row Controls.</p>
         </Row>
         <Row>
-          <RBTable data={RBTColumnDefData} {...ApiTableConfiguration} />
+          <RBTable data={RBTFooterOptionsData} {...ApiTableConfiguration} />
         </Row>
         <Row>
           <h2>Example</h2>
         </Row>
         <Row>
           <pre className={'language-javascript'}>
-            <code>{JSON.stringify(SimpleExamplesRBTableData.columns, null, 2)}</code>
+            <code>{JSON.stringify(SimpleExamplesRBTableData, null, 2)}</code>
           </pre>
         </Row>
       </Container>
@@ -45,4 +45,4 @@ const ApiRBTColumnDefsPage: FC<ApiPageProperties> = ({ footerProps, navBarProps 
   );
 };
 
-export { ApiRBTColumnDefsPage };
+export { ApiRBTFooterOptionsPage };

@@ -34,8 +34,6 @@ const CellExamplesTableConfData: RBTColumnDefs<CellPerson>[] = [
 export const CellExamplesRBTableData: RBTOptions = {
   columns: CellExamplesTableConfData,
   data: CellExamplesData,
-  enablePagination: true,
-  enableTableHead: true,
 };
 
 export const GetCellExample = (): string => {

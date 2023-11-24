@@ -1,5 +1,6 @@
 import { RBTColumnDefs } from '../common';
-import { RBTMenuBarStyleOptions } from '../menubar';
+import { RBTMenuBarStyleOptions, RBTMenuBarStyleOptions } from '../menubar';
+import { RBTableHeadStyleOptions } from '../tableHead';
 
 /**
  * @typedef {Object} RBTOptions Specifies the properties needed to generate a Bootstrap Table.
@@ -9,16 +10,12 @@ export type RBTOptions<TData extends Record<string, unknown>> = Omit<RBTMenuBarS
   data: TData[];
   name?: string;
   varient?: string;
-  header?: RBTHeaderControls;
-  footer?: RBTFooterControls;
+  header?: RBTHeaderOptions;
+  footer?: RBTFooterOptions;
 };
 
-export type RBTHeaderControls = {
-  enableTableHeader?: boolean;
-  enableDensityToggle?: boolean;
-  enableExportButton?: boolean;
-};
+export type RBTHeaderOptions = RBTableHeadStyleOptions & RBTMenuBarStyleOptions;
 
-export type RBTFooterControls = {
+export type RBTFooterOptions = {
   enablePagination?: boolean;
 };

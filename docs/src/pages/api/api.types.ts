@@ -1,4 +1,3 @@
-import { RBTColumnDefs } from '@pallassystems/react-bootstrap-table';
 import { FooterProperties, NavbarProperty } from '@pallassystems/website-core';
 import { ReactNode } from 'react';
 
@@ -20,25 +19,4 @@ type ApiTableEntry = {
   description: string;
 };
 
-// Generate the props table
-const ApiTableColumns: RBTColumnDefs<ApiTableEntry>[] = [
-  {
-    accessorKey: 'field',
-    header: 'Field',
-  },
-  {
-    accessorKey: 'type',
-    header: 'Type',
-  },
-  {
-    accessorKey: 'required',
-    header: 'Required',
-  },
-  {
-    accessorKey: 'description',
-    header: 'Description',
-  },
-];
-
-export { ApiTableColumns };
 export type { ApiPage, ApiPageProperties, ApiTableEntry };
