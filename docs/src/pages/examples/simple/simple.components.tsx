@@ -1,9 +1,9 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Prism from 'prismjs';
 
 import { BannerNavBar, Footer } from '@pallassystems/website-core';
-import { RBTable, RBTColumnDefs } from '@pallassystems/react-bootstrap-table';
+import { RBTable } from '@pallassystems/react-bootstrap-table';
 
 // Getting Started Page Properties
 import { ExamplesPageProperties } from '../examples.types';
@@ -35,16 +35,24 @@ const SimpleBannerExamplesComponent: FC = () => {
         <h4>Create a simple table</h4>
       </Row>
       <Row>
-        <p>This will outline how to define a simple table:</p>
-        <pre className={'language-javascript'}>
-          <code>{GetSimpleBannerExample()}</code>
-        </pre>
+        <p>
+          The React Bootstrap Table library aims to provide extensive configurability with defaults which should meet
+          the majority of use cases. In this example we are showcasing the default behavour it the table.
+        </p>
       </Row>
       <Row>
         <h5>Demonstration</h5>
       </Row>
       <Row>
         <RBTable {...SimpleExamplesRBTableData} />
+      </Row>
+      <Row>
+        <h5>Source Code</h5>
+      </Row>
+      <Row>
+        <pre className={'language-javascript'}>
+          <code>{GetSimpleBannerExample()}</code>
+        </pre>
       </Row>
     </Container>
   );

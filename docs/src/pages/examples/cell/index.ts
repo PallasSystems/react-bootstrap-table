@@ -1,2 +1,2 @@
-export { SimpleBannerExamplesPage, SimpleBannerExamplesComponent } from './simple.components';
-export { SimpleExamplesData } from './simple.data';
+export { CellExamplesPage, CellExamplesComponent } from './cell.components';
+export { CellExamplesRBTableData } from './cell.data';

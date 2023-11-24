@@ -26,8 +26,8 @@ const SimpleExamplesTableConfData: RBTColumnDefs<Person>[] = [
 export const SimpleExamplesRBTableData: RBTOptions = {
   columns: SimpleExamplesTableConfData,
   data: SimpleExamplesData,
-  enablePagination: false,
-  enableTableHead: false,
+  enablePagination: true,
+  enableTableHead: true,
 };
 
 export const GetSimpleBannerExample = (): string => {

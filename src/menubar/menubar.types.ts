@@ -9,6 +9,7 @@ import { RBTSearchOptions } from '../search';
 export type RBTMenuBarStyleOptions = RBTStyleOptions & {
   /** Switch to allow ou to decide if you want the option to change the density of the data. */
   enableDensityToggle?: boolean;
+  enableExportButton?: boolean;
 };
 
 /**

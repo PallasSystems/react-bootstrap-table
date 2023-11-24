@@ -14,10 +14,10 @@ import { RBTableBody } from '../tableBody/tableBody.components';
 export const RBTable = <TData extends Record<string, unknown>>({
   columns,
   data,
-  enableDensityToggle,
-  enableTableHead,
   name,
   varient,
+  header,
+  footer,
 }: RBTOptions<TData>) => {
   //
   const initialisedRows = useMemo(() => {
@@ -37,7 +37,7 @@ export const RBTable = <TData extends Record<string, unknown>>({
     // Ensure all the results are correctly sorted
     return results.sort(CompareRBTRow);
   }, [data]);
-  const showTableHead = useMemo(() => enableTableHead ?? true, [enableTableHead]);
+  const showTableHead = useMemo(() => header?.enableTableHeader ?? true, [header]);
 
   // We want to wrap eac data item within a row object which controls how informaiton is displayed
   // by default nothing should be filtered from view and everything should be displayed.
@@ -57,7 +57,8 @@ export const RBTable = <TData extends Record<string, unknown>>({
   return (
     <Container fluid>
       <RBTMenuBar
-        enableDensityToggle={enableDensityToggle}
+        enableDensityToggle={header?.enableDensityToggle ?? showTableHead}
+        enableExportButton={header?.enableExportButton ?? showTableHead}
         isCompact={compact}
         setCompact={setCompact}
         name={name}

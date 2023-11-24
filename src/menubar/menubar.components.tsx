@@ -14,6 +14,7 @@ import { RBTSearch } from '../search';
  */
 export const RBTMenuBar = <TData extends Record<string, unknown>>(props: RBTMenuBarOptions<TData>) => {
   const displayCompactBtn = useMemo(() => props.enableDensityToggle ?? true, [props.enableDensityToggle]);
+  const displayExportBtn = useMemo(() => props.enableExportButton ?? true, [props.enableExportButton]);
   const styleVarient = useMemo(() => props.varient ?? 'dark', [props.varient]);
   const tableName = useMemo(() => {
     let result = 'SearchBar';
@@ -48,34 +49,40 @@ export const RBTMenuBar = <TData extends Record<string, unknown>>(props: RBTMenu
   };
 
   return (
-    <Row>
-      <Col />
-      <Col md='auto'>
-        <InputGroup>
-          <RBTSearch {...props} />
-          {displayCompactBtn ? (
-            <Button
-              variant={styleVarient}
-              aria-label={tableName + ' Compact Setting Toggle'}
-              onClick={() => {
-                if (props.setCompact) {
-                  props.setCompact(!props.isCompact);
-                }
-              }}
-            >
-              {props.isCompact ? <Grid3x3Gap /> : <Grid3x2Gap />}
-            </Button>
-          ) : null}
-          <Button
-            variant={styleVarient}
-            aria-label={tableName + ' Download CSV Button'}
-            tabIndex={0}
-            onClick={() => performExport()}
-          >
-            <Download />
-          </Button>
-        </InputGroup>
-      </Col>
-    </Row>
+    <>
+      {displayCompactBtn || displayExportBtn ? (
+        <Row>
+          <Col />
+          <Col md='auto'>
+            <InputGroup>
+              <RBTSearch {...props} />
+              {displayCompactBtn ? (
+                <Button
+                  variant={styleVarient}
+                  aria-label={tableName + ' Compact Setting Toggle'}
+                  onClick={() => {
+                    if (props.setCompact) {
+                      props.setCompact(!props.isCompact);
+                    }
+                  }}
+                >
+                  {props.isCompact ? <Grid3x3Gap /> : <Grid3x2Gap />}
+                </Button>
+              ) : null}
+              {displayExportBtn ? (
+                <Button
+                  variant={styleVarient}
+                  aria-label={tableName + ' Download CSV Button'}
+                  tabIndex={0}
+                  onClick={() => performExport()}
+                >
+                  <Download />
+                </Button>
+              ) : null}
+            </InputGroup>
+          </Col>
+        </Row>
+      ) : null}
+    </>
   );
 };
