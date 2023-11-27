@@ -9,13 +9,15 @@ export const PageData: HomePageProperties = {
   navBarProps: {
     brand: {
       name: 'React Bootstrap Table',
-      imgFn: ((value?: ImageProperty): ReactNode => { return getRBTIcon({id: value?.id, className: value?.className, height: value?.height, width: value?.width})}),
+      imgFn: (value?: ImageProperty): ReactNode => {
+        return getRBTIcon({ id: value?.id, className: value?.className, height: value?.height, width: value?.width });
+      },
       imgProps: {
         id: 'BannerNavBar.Brand.Link.Logo.SVG',
         height: '2rem',
-        width: '3rem',
-        className: 'd-inline-block'
-      }
+        width: '2rem',
+        className: 'd-inline-block',
+      },
     },
     items: [
       { path: '/gettingStarted', text: 'Getting Started' },

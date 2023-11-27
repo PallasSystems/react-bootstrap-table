@@ -2,7 +2,7 @@ export type {
   RBTStyleOptions,
   RBTData,
   RBTColumnSizing,
-  RBTColumnCellDefs,
+  RBTColumnAccessorFNDefs,
   RBTColumnHeaderDefs,
   RBTColumnDefs,
 } from './common';
@@ -21,7 +21,7 @@ export type { RBTOptions } from './table';
 export { RBTable } from './table';
 
 export { RBTableBody } from './tableBody';
-export type { RBTableCellProps } from './tableBody';
+export type { RBTableAccessorFNProps } from './tableBody';
 
 export type { RBTableHeadStyleOptions, RBTableHeadOptions } from './tableHead';
 export { RBTableHead } from './tableHead';

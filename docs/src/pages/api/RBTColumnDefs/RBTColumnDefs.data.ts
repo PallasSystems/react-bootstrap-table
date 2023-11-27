@@ -3,14 +3,14 @@ import { ApiTableEntry } from '../api.types';
 
 export const RBTColumnDefData: ApiTableEntry[] = [
   {
-    field: 'Cell',
-    type: '(props: RBTColumnCellDefs) => ReactNode',
+    field: 'AccessorFN',
+    type: '(props: RBTColumnAccessorFNDef) => ReactNode',
     required: 'true',
     description: 'Allows users to define a function to return an element for the table header contents.',
   },
   {
     field: 'Header',
-    type: '(props: RBTColumnHeaderDefs) => ReactNode',
+    type: '(props: RBTColumnHeaderDef) => ReactNode',
     required: 'true',
     description: 'Allows users to define a function to return an element for the table header contents.',
   },

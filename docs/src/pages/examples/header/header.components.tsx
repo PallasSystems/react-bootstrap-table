@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Prism from 'prismjs';
 
@@ -7,24 +7,24 @@ import { RBTable } from '@pallassystems/react-bootstrap-table';
 
 // Getting Started Page Properties
 import { ExamplesPageProperties } from '../examples.types';
-import { GetSimpleBannerExample, SimpleExamplesRBTableData } from './simple.data';
+import { GetHeaderExample, HeaderExamplesRBTableData } from './header.data';
 
 // For code highlighting
 import 'prismjs/themes/prism.min.css';
 
-const SimpleBannerExamplesPage: FC<ExamplesPageProperties> = ({ footerProps, navBarProps }) => {
+const HeaderExamplesPage: FC<ExamplesPageProperties> = ({ footerProps, navBarProps }) => {
   return (
     <main role={'main'} className={'flex-shrink-0'}>
       <BannerNavBar {...navBarProps} />
       <Container id='intro' className={'content my-5'}>
-        <SimpleBannerExamplesComponent />
+        <HeaderExamplesComponent />
       </Container>
       <Footer {...footerProps} />
     </main>
   );
 };
 
-const SimpleBannerExamplesComponent: FC = () => {
+const HeaderExamplesComponent: FC = () => {
   useEffect(() => {
     Prism.highlightAll();
   });
@@ -32,30 +32,34 @@ const SimpleBannerExamplesComponent: FC = () => {
   return (
     <Container>
       <Row>
-        <h2>Create a simple table</h2>
+        <h2>Create a table with modified headers</h2>
       </Row>
       <Row>
         <p>
-          The React Bootstrap Table library aims to provide extensive configurability with defaults which should meet
-          the majority of use cases. In this example we are showcasing the default behavour it the table.
+          The React Bootstrap table allows us to return JSX Elements to use as a column header allowing users to
+          customise the look of the table.
+        </p>
+        <p>
+          Below we have modified both column headers, the 'First Name' column has an embedded SVG element taken from
+          Bootstrap Icons, while the the 'Age' column makes use of Bootstrap theming to centre the text elements.
         </p>
       </Row>
       <Row>
         <h3>Demonstration</h3>
       </Row>
       <Row>
-        <RBTable {...SimpleExamplesRBTableData} />
+        <RBTable {...HeaderExamplesRBTableData} />
       </Row>
       <Row>
         <h5>Source Code</h5>
       </Row>
       <Row>
         <pre className={'language-javascript'}>
-          <code>{GetSimpleBannerExample()}</code>
+          <code>{GetHeaderExample()}</code>
         </pre>
       </Row>
     </Container>
   );
 };
 
-export { SimpleBannerExamplesPage, SimpleBannerExamplesComponent };
+export { HeaderExamplesPage, HeaderExamplesComponent };

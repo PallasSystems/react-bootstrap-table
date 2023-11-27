@@ -2,19 +2,65 @@ import { RBTColumnDefs, RBTOptions } from '@pallassystems/react-bootstrap-table'
 
 const SimpleExamplesData: Person[] = [
   {
-    name: 'John',
+    firstName: 'John',
+    surname: 'Smith',
     age: 30,
   },
   {
-    name: 'Sara',
-    age: 25,
+    firstName: 'Sarah',
+    surname: 'Jane',
+    age: 21,
+  },
+  {
+    firstName: 'Joe',
+    surname: 'Bloggs',
+    age: 43,
+  },
+  {
+    firstName: 'John',
+    surname: 'Doe',
+    age: 37,
+  },
+  {
+    firstName: 'Jessica',
+    surname: 'Johnson',
+    age: 55,
+  },
+  {
+    firstName: 'Jennifer',
+    surname: 'Williams',
+    age: 26,
+  },
+  {
+    firstName: 'Emily',
+    surname: 'Wilson',
+    age: 55,
+  },
+  {
+    firstName: 'Alfie',
+    surname: 'Best',
+    age: 63,
+  },
+  {
+    firstName: 'Edwin',
+    surname: 'Sharpe',
+    age: 42,
+  },
+  {
+    firstName: 'Angus',
+    surname: 'Fowler',
+    age: 39,
   },
 ];
 
 const SimpleExamplesTableConfData: RBTColumnDefs<Person>[] = [
   {
-    accessorKey: 'name', //simple recommended way to define a column
-    header: 'Name',
+    accessorKey: 'firstName',
+    header: 'First Name',
+  },
+  {
+    accessorKey: 'surname',
+    header: 'Surname',
   },
   {
     accessorKey: 'age', //alternate way
@@ -26,8 +72,6 @@ const SimpleExamplesTableConfData: RBTColumnDefs<Person>[] = [
 export const SimpleExamplesRBTableData: RBTOptions = {
   columns: SimpleExamplesTableConfData,
   data: SimpleExamplesData,
-  enablePagination: true,
-  enableTableHead: true,
 };
 
 export const GetSimpleBannerExample = (): string => {
@@ -40,8 +84,11 @@ export const GetSimpleBannerExample = (): string => {
     '\tconst columns = useMemo<RBTColumnDefs<Person>[]>(\n' +
     '\t\t() => [\n' +
     '\t\t\t{\n' +
-    "\t\t\t\taccessorKey: 'name',\n" +
-    "\t\t\t\theader: 'Name',\n" +
+    "\t\t\t\taccessorKey: 'firstName',\n" +
+    "\t\t\t\theader: 'First Name',\n" +
+    '\t\t\t},{\n' +
+    "\t\t\t\taccessorKey: 'surname',\n" +
+    "\t\t\t\theader: 'Surname',\n" +
     '\t\t\t},{\n' +
     "\t\t\t\taccessorKey: 'age',\n" +
     "\t\t\t\theader: 'Age',\n" +

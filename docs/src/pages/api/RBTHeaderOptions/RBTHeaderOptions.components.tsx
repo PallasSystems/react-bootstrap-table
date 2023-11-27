@@ -6,7 +6,7 @@ import { BannerNavBar, Footer } from '@pallassystems/website-core';
 import { RBTable } from '@pallassystems/react-bootstrap-table';
 
 // Getting Started Page Properties
-import { ApiTableColumns, ApiPageProperties, ApiTableEntry } from '../api.types';
+import { ApiPageProperties, ApiTableEntry } from '../api.types';
 import { SimpleExamplesRBTableData } from '../../examples';
 // For code highlighting
 import 'prismjs/themes/prism.min.css';
@@ -45,4 +45,4 @@ const ApiRBTHeaderOptionsPage: FC<ApiPageProperties> = ({ footerProps, navBarPro
   );
 };
 
-export { ApiRBTOptionsPage };
+export { ApiRBTHeaderOptionsPage };

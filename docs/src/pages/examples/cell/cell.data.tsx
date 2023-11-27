@@ -1,5 +1,6 @@
-import { RBTColumnHeaderDefs, RBTColumnDefs, RBTOptions } from '@pallassystems/react-bootstrap-table';
+import { RBTColumnCellDefs, RBTColumnDefs, RBTOptions } from '@pallassystems/react-bootstrap-table';
 import { FC } from 'react';
+import { Person } from 'react-bootstrap-icons';
 
 const CellExamplesData: CellPerson[] = [
   {
@@ -14,20 +15,32 @@ const CellExamplesData: CellPerson[] = [
   },
 ];
 
-const ModifiedAgeHeader: FC<RBTColumnHeaderDefs> = ({ header, id }) => {
-  console.log('header: ' + header);
-  return <h1 id={id}>{header}</h1>;
+const ModifiedAgeCell: FC<RBTColumnCellDefs> = ({ originalRow }) => {
+  return <p className={'text-center'}>{originalRow.age}</p>;
 };
+
+const ModifiedFirstNameCell: FC<RBTColumnCellDefs> = ({ originalRow }) => {
+  return (
+    <>
+      <Person /> {originalRow.firstName} <Person />
+    </>
+  );
+};
+
 const CellExamplesTableConfData: RBTColumnDefs<CellPerson>[] = [
   {
-    accessorFn: (row: CellPerson) => row.firstName + ' ' + row.surname,
-    header: 'Name',
+    Cell: (props: RBTColumnCellDefs) => ModifiedFirstNameCell(props),
+    id: 'firstName',
+    header: 'First Name',
   },
   {
-    accessorKey: 'age', //alternate way
-    id: 'age', //id required if you use accessorFn instead of accessorKey
+    accessorKey: 'surname',
+    header: 'Surname',
+  },
+  {
+    Cell: (props: RBTColumnCellDefs) => ModifiedAgeCell(props),
+    id: 'age',
     header: 'Age',
-    Header: (props: RBTColumnHeaderDefs) => ModifiedAgeHeader(props),
   },
 ];
 
@@ -42,16 +55,27 @@ export const GetCellExample = (): string => {
     JSON.stringify(CellExamplesData, null, 2) +
     ';\n' +
     '\n' +
+    'const ModifiedAgeCell: FC<RBTColumnCellDefs> = ({ originalRow }) => {\n' +
+    "\treturn <p className={'text-center'}>{originalRow.age}</p>;\n" +
+    '}\n' +
+    'const ModifiedFirstNameCell: FC<RBTColumnCellDefs> = ({ originalRow }) => {\n' +
+    '\treturn <><Person /> {originalRow.firstName} <Person /></>;\n' +
+    '}\n' +
+    '\n' +
     'const CellExamplesPage: FC = () => {\n' +
     '\tconst columns = useMemo<RBTColumnDefs<Person>[]>(\n' +
     '\t\t() => [\n' +
     '\t\t\t{\n' +
-    "\t\t\t\taccessorFn: (row: CellPerson) => row.firstName + ' ' + row.surname,\n" +
+    '\t\t\t\tCell: (props: RBTColumnCellDefs) => ModifiedFirstNameCell(props),\n' +
+    "\t\t\t\tid: 'firstName',\n" +
     "\t\t\t\theader: 'Full Name',\n" +
     '\t\t\t},{\n' +
     "\t\t\t\taccessorKey: 'age',\n" +
     '\t\t\t\tHeader: (props: RBTColumnHeaderDefs) => ModifiedAgeHeader(props),\n' +
-    '\t\t\t}\n' +
+    '\t\t\t},{\n' +
+    '\t\t\t\tCell: (props: RBTColumnCellDefs) => ModifiedAgeCell(props),\n' +
+    "\t\t\t\tid: 'age',\n" +
+    "\t\t\t\theader: 'Age',\n" +
     '\t\t],[]\n' +
     '\t);\n' +
     '\n' +

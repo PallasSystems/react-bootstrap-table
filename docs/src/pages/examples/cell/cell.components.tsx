@@ -7,7 +7,7 @@ import { RBTable } from '@pallassystems/react-bootstrap-table';
 
 // Getting Started Page Properties
 import { ExamplesPageProperties } from '../examples.types';
-import { GetCellExample, CellExamplesRBTableData } from './cell.data';
+import { GetCellExample, CellExamplesRBTableData } from './Cell.data';
 
 // For code highlighting
 import 'prismjs/themes/prism.min.css';
@@ -32,16 +32,16 @@ const CellExamplesComponent: FC = () => {
   return (
     <Container>
       <Row>
-        <h4>Create a table with modified headers and Cells</h4>
+        <h2>Create a table with modified cells</h2>
       </Row>
       <Row>
         <p>
-          The React Bootstrap table allows us to modify specific header/cell values, in various ways. This example shows
-          how you can return ReactNode objects or redirt how a value is generated.
+          The React Bootstrap table allows us to return JSX Elements to use as cell values allowing users to customise
+          the look of the table.
         </p>
       </Row>
       <Row>
-        <h5>Demonstration</h5>
+        <h3>Demonstration</h3>
       </Row>
       <Row>
         <RBTable {...CellExamplesRBTableData} />
