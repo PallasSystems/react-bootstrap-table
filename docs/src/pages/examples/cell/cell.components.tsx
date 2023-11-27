@@ -7,7 +7,7 @@ import { RBTable } from '@pallassystems/react-bootstrap-table';
 
 // Getting Started Page Properties
 import { ExamplesPageProperties } from '../examples.types';
-import { GetCellExample, CellExamplesRBTableData } from './Cell.data';
+import { GetCellExample, CellExamplesRBTableData } from './cell.data';
 
 // For code highlighting
 import 'prismjs/themes/prism.min.css';

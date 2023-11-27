@@ -1,2 +1,2 @@
-export { CellExamplesPage, CellExamplesComponent } from './Cell.components';
-export { CellExamplesRBTableData } from './Cell.data';
+export { CellExamplesPage, CellExamplesComponent } from './cell.components';
+export { CellExamplesRBTableData } from './cell.data';
