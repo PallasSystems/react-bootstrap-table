@@ -2,8 +2,8 @@ export type {
   RBTStyleOptions,
   RBTData,
   RBTColumnSizing,
-  RBTColumnCellDefs,
-  RBTColumnHeaderDefs,
+  RBTColumnCellDef,
+  RBTColumnHeaderDef,
   RBTColumnDefs,
   RBTRow,
 } from './common.types';

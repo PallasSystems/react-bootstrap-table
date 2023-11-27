@@ -2,8 +2,8 @@ export type {
   RBTStyleOptions,
   RBTData,
   RBTColumnSizing,
-  RBTColumnAccessorFNDefs,
-  RBTColumnHeaderDefs,
+  RBTColumnCellDef,
+  RBTColumnHeaderDef,
   RBTColumnDefs,
 } from './common';
 export { CompareRBTRow, RemoveFilterFromArray } from './common';
@@ -21,7 +21,7 @@ export type { RBTOptions } from './table';
 export { RBTable } from './table';
 
 export { RBTableBody } from './tableBody';
-export type { RBTableAccessorFNProps } from './tableBody';
+export type { RBTableCellProps } from './tableBody';
 
 export type { RBTableHeadStyleOptions, RBTableHeadOptions } from './tableHead';
 export { RBTableHead } from './tableHead';
