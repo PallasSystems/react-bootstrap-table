@@ -1,5 +1,5 @@
 import { RBTColumnDefs } from '../common';
-import { RBTMenuBarStyleOptions, RBTMenuBarStyleOptions } from '../menubar';
+import { RBTMenuBarStyleOptions } from '../menubar';
 import { RBTableHeadStyleOptions } from '../tableHead';
 
 /**

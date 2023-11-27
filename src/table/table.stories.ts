@@ -10,8 +10,10 @@ const meta = {
   tags: ['autodocs'],
   args: {
     ...searchableArgs,
-    enableDensityToggle: true,
-    enableTableHead: true,
+    header: {
+      enableTableHead: true,
+      enableDensityToggle: true,
+    },
   },
 } satisfies Meta<typeof RBTable<SimpleDataType>>;
 
@@ -24,7 +26,9 @@ export const Primary: Story = {
 
 export const DisabledTableHeader: Story = {
   args: {
-    enableTableHead: false,
+    header: {
+      enableTableHead: false,
+    },
   },
 };
 
