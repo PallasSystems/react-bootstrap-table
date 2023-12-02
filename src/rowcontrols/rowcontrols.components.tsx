@@ -136,14 +136,16 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
   }, [data, tablePosition]);
 
   return (
-    <Row className={'align-items-center mx-0 px-0'}>
-      <Col />
-      <Col md='auto'>Rows per page:</Col>
-      <Col md='auto'>
+    <Row className={'justify-content-end mx-1 my-1'}>
+      <Col xs={'auto'}>
+        <p className={'pt-2'}>Rows per page</p>
+      </Col>
+      <Col xs={'auto'}>
         <Form.Select
           aria-expanded={false}
           aria-haspopup={'listbox'}
           aria-label={tableName + ' Set Rows Per Table Page'}
+          className={'mx-1 my-1'}
           onChange={(e) => handleTablePagination(e.currentTarget.value)}
         >
           {rowOptions.map((option: string) => {
@@ -155,47 +157,49 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
           })}
         </Form.Select>
       </Col>
-      <Col md='auto'>{rangeText}</Col>
-      <Col md='auto' className={'mx-1 px-0'}>
-        <Button
-          aria-label={tableName + ' Move to first page of table results'}
-          onClick={() => handleTablePosition(0)}
-          disabled={tablePosition === 0}
-          variant={styleVarient}
-        >
-          <ChevronBarLeft />
-        </Button>
+      <Col xs={'auto'}>
+        <p className={'pt-2'}>{rangeText}</p>
       </Col>
-      <Col md='auto' className={'mx-1 px-0'}>
-        <Button
-          aria-label={tableName + ' Move to previous page of table results'}
-          onClick={() => handleTablePosition(tablePosition - paginationRows)}
-          disabled={tablePosition - paginationRows < 0}
-          variant={styleVarient}
-        >
-          <ChevronLeft />
-        </Button>
-      </Col>
-      <Col md='auto' className={'mx-1 px-0'}>
-        <Button
-          aria-label={tableName + ' Move to next page of table results'}
-          onClick={() => handleTablePosition(tablePosition + paginationRows)}
-          disabled={tablePosition + paginationRows >= numRows}
-          variant={styleVarient}
-        >
-          <ChevronRight />
-        </Button>
-      </Col>
-      <Col md='auto' className={'mx-1 px-0'}>
-        <Button
-          aria-label={tableName + ' Move to last page of table results'}
-          onClick={() => handleTablePosition(numRows - paginationRows)}
-          disabled={numRows - paginationRows <= tablePosition}
-          variant={styleVarient}
-        >
-          <ChevronBarRight />
-        </Button>
-      </Col>
+      {numRows > paginationRows ? (
+        <Col xs={'auto'}>
+          <Button
+            aria-label={tableName + ' Move to first page of table results'}
+            className={'mx-1 my-1 px-2'}
+            onClick={() => handleTablePosition(0)}
+            disabled={tablePosition === 0}
+            variant={styleVarient}
+          >
+            <ChevronBarLeft />
+          </Button>
+          <Button
+            aria-label={tableName + ' Move to previous page of table results'}
+            className={'mx-1 my-1 px-2'}
+            onClick={() => handleTablePosition(tablePosition - paginationRows)}
+            disabled={tablePosition - paginationRows < 0}
+            variant={styleVarient}
+          >
+            <ChevronLeft />
+          </Button>
+          <Button
+            aria-label={tableName + ' Move to next page of table results'}
+            className={'mx-1 my-1 px-2'}
+            onClick={() => handleTablePosition(tablePosition + paginationRows)}
+            disabled={tablePosition + paginationRows >= numRows}
+            variant={styleVarient}
+          >
+            <ChevronRight />
+          </Button>
+          <Button
+            aria-label={tableName + ' Move to last page of table results'}
+            className={'mx-1 my-1 px-2'}
+            onClick={() => handleTablePosition(numRows - paginationRows)}
+            disabled={numRows - paginationRows <= tablePosition}
+            variant={styleVarient}
+          >
+            <ChevronBarRight />
+          </Button>
+        </Col>
+      ) : null}
     </Row>
   );
 };
