@@ -40,6 +40,30 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
   const [tablePosition, setTablePosition] = useState<number>(0);
 
   /**
+   * If a callback function has been supplied his will update the data to indicate if row controls should be applied to the data.
+   *
+   * @param position the position we should be centered on.
+   * @param rowsPerPage  the number of rows we want to see on a 'page'
+   * @param rows  the rows to be processed
+   * @param rowsToMark allows us to control how much is displayed
+   * @returns processed RBTRows
+   */
+  const updateDisplayedRows = useCallback(
+    (position: number, rowsPerPage: number, rows: RBTRow<TData>[], rowsToMark = 0) => {
+      if (typeof handleDisplayedRows === 'function') {
+        const original = JSON.stringify(data);
+        const updatedRows: RBTRow<TData>[] = SetPaginationFilter(position, rowsPerPage, rows, rowsToMark);
+        const updated = JSON.stringify(updatedRows);
+        // Use strings to check if we have added/removed rowcontrol filters to anytning
+        if (original !== updated) {
+          handleDisplayedRows(updatedRows);
+        }
+      }
+    },
+    [],
+  );
+
+  /**
    * This is supplied a new table position, it will iterate only data from that postion (to the range endpoint)
    * @param tablePos the new table position
    */
@@ -49,15 +73,7 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
         setTablePosition(tablePos);
       }
 
-      if (handleDisplayedRows) {
-        const original = JSON.stringify(data);
-        const updatedRows: RBTRow<TData>[] = SetPaginationFilter(tablePos, paginationRows, data);
-        const updated = JSON.stringify(updatedRows);
-        // Use strings to check if we have added/removed rowcontrol filters to anytning
-        if (original !== updated) {
-          handleDisplayedRows(updatedRows);
-        }
-      }
+      updateDisplayedRows(tablePos, paginationRows, data);
     },
     [data],
   );
@@ -102,12 +118,14 @@ export const RBTRowControls = <TData extends Record<string, unknown>>({
     if (value) {
       if (value === 'All') {
         setPaginationRows(numRows);
+        updateDisplayedRows(0, numRows, data);
       } else {
         const convertedValue = Number(value);
         if (isNaN(convertedValue)) {
           console.log('handleTablePagination: Invalid Value has been supplied ' + value);
         } else {
           setPaginationRows(convertedValue);
+          updateDisplayedRows(tablePosition, convertedValue, data, convertedValue);
         }
       }
     }
