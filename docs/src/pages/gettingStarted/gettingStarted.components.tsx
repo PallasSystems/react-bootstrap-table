@@ -13,7 +13,7 @@ const GettingStartedPage: FC<GettingStartedPageProperties> = ({ footerProps, nav
   return (
     <main role={'main'} className={'flex-shrink-0'}>
       <BannerNavBar {...navBarProps} />
-      <Container id='intro' className={'content my-3'}>
+      <Container id='intro' className={'my-3'}>
         <Row className={'my-2'}>
           <GettingStartedInstallComponent />
         </Row>

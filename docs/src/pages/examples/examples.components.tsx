@@ -10,28 +10,30 @@ import { ExamplePageData } from './example.data';
 
 const ExamplesHeadPage: FC<ExamplesPageProperties> = ({ footerProps, navBarProps }) => {
   return (
-    <main role={'main'} className={'flex-shrink-0'}>
+    <>
       <BannerNavBar {...navBarProps} />
-      <Container id='intro' className={'content my-5'}>
-        <Row>
-          <h1>Examples</h1>
-        </Row>
-        <Row className={'mx-3'}>
-          <ul>
-            {ExamplePageData.map((value) => {
-              return (
-                <li>
-                  <LinkContainer to={value.link}>
-                    <a>{value.text}</a>
-                  </LinkContainer>
-                </li>
-              );
-            })}
-          </ul>
-        </Row>
-      </Container>
+      <main role={'main'} className={'flex-grow-1'}>
+        <Container id='intro' className={'my-3'}>
+          <Row>
+            <h1>Examples</h1>
+          </Row>
+          <Row className={'mx-3'}>
+            <ul>
+              {ExamplePageData.map((value) => {
+                return (
+                  <li>
+                    <LinkContainer to={value.link}>
+                      <a>{value.text}</a>
+                    </LinkContainer>
+                  </li>
+                );
+              })}
+            </ul>
+          </Row>
+        </Container>
+      </main>
       <Footer {...footerProps} />
-    </main>
+    </>
   );
 };
 

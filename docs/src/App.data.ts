@@ -24,6 +24,16 @@ export const PageData: HomePageProperties = {
       { path: '/api', text: 'API' },
       { path: '/examples', text: 'Examples' },
     ],
+    scm: {
+      project: 'PallasSystems',
+      repository: 'react-bootstrap-table',
+      imgProps: {
+        id: 'SourceLink',
+        height: '2rem',
+        width: '2.5rem',
+        className: 'd-inline-block',
+      },
+    },
   },
   footerProps: {
     socialMedia: {
@@ -31,10 +41,6 @@ export const PageData: HomePageProperties = {
       facebook: '350073883439443',
       linkedin: 'pallas-systems-ltd',
       twitter: 'PallasUK',
-      scm: {
-        project: 'PallasSystems',
-        repository: 'react-bootstrap-table',
-      },
     },
     companyName: 'Pallas Systems',
     companyNameLink: 'https://www.pallas.uk',
