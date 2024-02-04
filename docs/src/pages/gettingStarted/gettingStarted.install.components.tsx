@@ -29,9 +29,9 @@ const GettingStartedInstallComponent: FC = () => {
       </Row>
       <Row>
         <p>
-          The best way to use React Bootstrap Table is via the npm package which you can install with
-          bun, npm, pnpm or yarn. If you are already using React Bootstrap, you probably already have most of these peer
-          dependencies installed.
+          The best way to use React Bootstrap Table is via the npm package which you can install with bun, npm, pnpm or
+          yarn. If you are already using React Bootstrap, you probably already have most of these peer dependencies
+          installed.
         </p>
       </Row>
       <Row className={'px-3'}>
@@ -84,7 +84,7 @@ const GettingStartedInstallPage: FC<GettingStartedPageProperties> = ({ footerPro
   return (
     <main role={'main'} className={'flex-shrink-0'}>
       <BannerNavBar {...navBarProps} />
-      <Container id='intro' className={'content my-5'}>
+      <Container id='intro' className={'my-3'}>
         <GettingStartedInstallComponent />
       </Container>
       <Footer {...footerProps} />

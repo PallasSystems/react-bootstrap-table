@@ -14,13 +14,15 @@ import 'prismjs/themes/prism.min.css';
 
 const SimpleBannerExamplesPage: FC<ExamplesPageProperties> = ({ footerProps, navBarProps }) => {
   return (
-    <main role={'main'} className={'flex-shrink-0'}>
+    <>
       <BannerNavBar {...navBarProps} />
-      <Container id='intro' className={'content my-5'}>
-        <SimpleBannerExamplesComponent />
-      </Container>
+      <main role={'main'} className={'flex-grow-1'}>
+        <Container id='intro' className={'my-3'}>
+          <SimpleBannerExamplesComponent />
+        </Container>
+      </main>
       <Footer {...footerProps} />
-    </main>
+    </>
   );
 };
 
