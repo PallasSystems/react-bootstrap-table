@@ -2,7 +2,7 @@
   "name": "@pallassystems/react-bootstrap-table",
   "version": "0.6.7",
   "description": "Library to build responsive tables using the Bootstrap framework and React.",
-  "homepage": "https://pallassystems.github.io/react-bootstrap-table",
+  "homepage": "https://rbt.pallas.uk",
   "keywords": [
     "react-table",
     "bootstrap",
