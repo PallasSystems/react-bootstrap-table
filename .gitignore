@@ -4,6 +4,7 @@
 /docs/dist
 /docs/lib
 /docs/node_modules
+/docs/public
 
 # dependencies
 /node_modules

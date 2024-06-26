@@ -1,9 +1,19 @@
 import { ReactNode } from 'react';
 
-import { ImageProperty } from '@pallassystems/website-core';
+import { ImageProperty, NavbarLinkProperty } from '@pallassystems/website-core';
 
 import { HomePageProperties } from './pages';
 import { getRBTIcon } from './App.icon';
+
+export const ExamplePageNavData: NavbarLinkProperty[] = [
+  { path: '/example/simple', id: 'react-bootstrap-table-table--simple', text: 'Minimal Example', items: [] },
+  {
+    path: '/example/modifiedAccessorFN',
+    id: 'react-bootstrap-table-table--accessor-functions',
+    text: 'Making use of Accessor Functions',
+    items: [],
+  },
+];
 
 export const PageData: HomePageProperties = {
   navBarProps: {
@@ -20,9 +30,14 @@ export const PageData: HomePageProperties = {
       },
     },
     items: [
-      { path: '/gettingStarted', text: 'Getting Started' },
-      { path: '/api', text: 'API' },
-      { path: '/examples', text: 'Examples' },
+      { path: '/gettingStarted', id: '', text: 'Getting Started' },
+      { path: '/api', id: '', text: 'API' },
+      {
+        text: 'Examples',
+        path: '/example',
+        id: '',
+        items: ExamplePageNavData,
+      },
     ],
     scm: {
       project: 'PallasSystems',

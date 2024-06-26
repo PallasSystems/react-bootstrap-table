@@ -8,7 +8,6 @@ import { GettingStartedPageProperties } from './gettingStarted.types';
 import { Container, Row } from 'react-bootstrap';
 
 // Project dependencies
-import { SimpleBannerExamplesComponent } from '..';
 import projectProps from '../../../../package.json';
 // For code highlighting
 import 'prismjs/themes/prism.min.css';
@@ -41,9 +40,6 @@ const GettingStartedUsageComponent: FC = () => {
         <pre className={'language-javascript'}>
           <code>{GetImportStatement()}</code>
         </pre>
-      </Row>
-      <Row>
-        <SimpleBannerExamplesComponent />
       </Row>
     </Container>
   );

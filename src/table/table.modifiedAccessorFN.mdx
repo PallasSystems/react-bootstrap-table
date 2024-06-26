@@ -1,0 +1,61 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as TableModifiedAccessorFNStories from './table.modifiedAccessorFN.stories';
+
+<Meta name='Accessor Functions' of={TableModifiedAccessorFNStories} />
+
+# Making use of Accessor Functions
+
+The React Bootstrap table allows us to supply a function to decide which field should be retrieved or perform a calculation and generate a result.
+
+The first column concatenates two fields from the data object to provide a combined name column. The Age column returns the field name 'age'. The system will identify this is a key in the data and return the value. The purpose of this action is to allow you to dynamically select the field displayed.
+
+# Demonstration
+
+<Canvas of={TableModifiedAccessorFNStories.ModifiedAccessorFN} />
+
+# Source code
+
+```ts
+
+type AccessorFNPerson = {
+  firstName: string;
+  surname: string;
+  age: number;
+};
+
+const AccessorFNExamplesData: AccessorFNPerson[] = [
+  {
+    firstName: 'John',
+    surname: 'Smith',
+    age: 30,
+  },
+  {
+    firstName: 'Sara',
+    surname: 'Jane',
+    age: 25,
+  },
+];
+
+const AccessorFNExamplesTableConfData: RBTColumnDefs<AccessorFNPerson>[] = [
+  {
+    accessorFn: (row: AccessorFNPerson) => {
+      return row.firstName + ' ' + row.surname;
+    },
+    id: 'name',
+    header: 'Full Name',
+  },
+  {
+    accessorFn: () => {
+      return 'age';
+    },
+    id: 'age',
+    header: 'Age',
+  },
+];
+
+const AccessorFNExamplesComponent: FC = () => {
+  return (<RBTable column={AccessorFNExamplesTableConfData} data={AccessorFNExamplesData} />);
+};
+
+```

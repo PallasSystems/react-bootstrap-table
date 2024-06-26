@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { RBTable } from './table.components';
 import { searchableArgs } from '../common/common.testdata';
 import type { SimpleDataType } from '../common/common.testdata';
+import { useMemo } from 'react';
+import { RBTColumnDefs } from '../common';
 
 const meta = {
   title: 'react-bootstrap-table/Table',
