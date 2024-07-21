@@ -6,12 +6,32 @@ import { HomePageProperties } from './pages';
 import { getRBTIcon } from './App.icon';
 
 export const ExamplePageNavData: NavbarLinkProperty[] = [
-  { path: '/example/simple', id: 'react-bootstrap-table-table--simple', text: 'Minimal Example', items: [] },
   {
-    path: '/example/modifiedAccessorFN',
-    id: 'react-bootstrap-table-table--accessor-functions',
-    text: 'Making use of Accessor Functions',
-    items: [],
+    path: '/examples/quick',
+    id: 'quick-example-page',
+    text: 'Quick Examples',
+    items: [
+      { path: '/examples/basic', id: 'react-bootstrap-table-table--basic-example', text: 'Basic Example', items: [] },
+      {
+        path: '/example/minimal',
+        id: 'react-bootstrap-table-table--minimal-example',
+        text: 'Minimal Example',
+        items: [],
+      },
+    ],
+  },
+  {
+    path: '/examples/fundamentals',
+    id: 'fundamentals-example-page',
+    text: 'Fundamentals',
+    items: [
+      {
+        path: '/examples/modifiedAccessorFN',
+        id: 'react-bootstrap-table-table--accessor-functions',
+        text: 'Making use of Accessor Functions',
+        items: [],
+      },
+    ],
   },
 ];
 
@@ -34,7 +54,7 @@ export const PageData: HomePageProperties = {
       { path: '/api', id: '', text: 'API' },
       {
         text: 'Examples',
-        path: '/example',
+        path: '/examples',
         id: '',
         items: ExamplePageNavData,
       },

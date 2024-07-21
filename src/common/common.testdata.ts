@@ -1,11 +1,26 @@
 import { RBTOptions } from '../table';
 import { RBTData } from './common.types';
 
+/**
+ * Simple Data type used within the various storybook stories to test out the functionality embedded within the React Bootstrap Table.
+ */
 export type SimpleDataType = {
   firstName: string;
   surname: string;
   age: number;
 };
+
+/**
+ * Basic Dataset to use when combined with the SimpleDataType.
+ */
+export const SimpleDataset: SimpleDataType[] = [
+  { firstName: 'Joe', surname: 'Bloggs', age: 24 },
+  { firstName: 'Jane', surname: 'Doe', age: 36 },
+  { firstName: 'John', surname: 'Smith', age: 48 },
+  { firstName: 'Patty', surname: "O'Furniture", age: 24 },
+  { firstName: 'Teri', surname: 'Dactyl', age: 36 },
+  { firstName: 'Allie', surname: 'Grater', age: 48 },
+];
 
 export const searchableArgs: RBTOptions<SimpleDataType> = {
   columns: [
@@ -13,14 +28,7 @@ export const searchableArgs: RBTOptions<SimpleDataType> = {
     { accessorKey: 'surname', header: 'Surname', searchable: true },
     { accessorKey: 'age', header: 'Age' },
   ],
-  data: [
-    { firstName: 'Joe', surname: 'Bloggs', age: 24 },
-    { firstName: 'Jane', surname: 'Doe', age: 36 },
-    { firstName: 'John', surname: 'Smith', age: 48 },
-    { firstName: 'Patty', surname: "O'Furniture", age: 24 },
-    { firstName: 'Teri', surname: 'Dactyl', age: 36 },
-    { firstName: 'Allie', surname: 'Grater', age: 48 },
-  ],
+  data: SimpleDataset,
   name: 'Simple Data',
   varient: 'dark',
 };

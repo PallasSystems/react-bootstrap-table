@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@pallassystems/website-core": ">=0.7.1",
+    "@pallassystems/website-core": ">=0.7.2",
     "bootstrap": ">=5.3.3",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",

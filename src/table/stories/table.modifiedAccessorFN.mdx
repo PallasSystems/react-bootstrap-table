@@ -1,0 +1,56 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as TableModifiedAccessorFNStories from './table.modifiedAccessorFN.stories';
+
+<Meta name='Accessor Functions' of={TableModifiedAccessorFNStories} />
+
+# Making use of Accessor Functions
+
+The React Bootstrap table allows us to supply a function to decide which field should be retrieved or perform a calculation and generate a result.
+
+The first column concatenates two fields from the data object to provide a combined name column. The Age column returns the field name 'age'. The system will identify this is a key in the data and return the value. The purpose of this action is to allow you to dynamically select the field displayed.
+
+# Demonstration
+
+<Canvas of={TableModifiedAccessorFNStories.ModifiedAccessorFN} />
+
+# Source code
+
+```ts
+/**
+ * Simple Data type used within the various storybook stories to test out the functionality embedded within the React Bootstrap Table.
+ */
+export type SimpleDataType = {
+  firstName: string;
+  surname: string;
+  age: number;
+};
+
+const AccessorFNExamplesComponent: FC<SimpleDataType[]> = (tableData) => {
+
+  /**
+   * This provides a definition for the columns in the table, in this example we are concatinating two data fields
+   * to provide a result for a single column.
+   */
+  const SimpleColumnDefs: RBTColumnDefs<SimpleDataType>[] = [
+    {
+      accessorFn: (row: SimpleDataType) => {
+        return row.firstName + ' ' + row.surname;
+      },
+      id: 'name',
+      header: 'Full Name',
+    },
+    {
+      accessorFn: () => {
+        return 'age';
+      },
+      id: 'age',
+      header: 'Age',
+    },
+  ];
+
+  // Generates an instance of the table supplies our column definitions and the test data
+  return (<RBTable  columns={ SimpleColumnDefs }, data={tableData} />);
+};
+
+```

@@ -10,7 +10,7 @@ export default defineConfig({
     alias: [
       {
         find: '@pallassystems/react-bootstrap-table',
-        replacement: path.resolve(__dirname, '../src/'),
+        replacement: path.resolve(__dirname, './src/'),
       },
     ],
   },

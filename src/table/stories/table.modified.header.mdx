@@ -1,0 +1,77 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as TableModifiedHeaderStories from './table.modified.header.stories';
+
+<Meta name='Modified Header Functions' of={TableModifiedHeaderStories} />
+
+# Create a modified cells table
+
+The React Bootstrap table allows us to supply a function which returns a ReactNode (e.g. jsx/tsx functional component) to define the contents of a cell. When the function is defined for a specific column and when called the function is supplied a copy of the data for the row. This should allow the function to make cell specific choices.
+
+In the example below we define a column to hold both parts of a name from the dataset and to modify the age cell so the text is displayed as a header text item.
+
+# Demonstration
+
+<Canvas of={TableModifiedHeaderStories.ModifiedHeaderFn} />
+
+# Source Code
+
+```ts
+/**
+ * Simple Data type used within the various storybook stories to test out the functionality embedded within the React Bootstrap Table.
+ */
+export type SimpleDataType = {
+  firstName: string;
+  surname: string;
+  age: number;
+};
+
+const ModifiedCellExampleComponent: FC<SimpleDataType[]> = (tableData) => {
+
+  /**
+   * This provides a definition for the columns in the table, in this example we are providing
+   * two modified cell functions.
+   */
+  const SimpleColumnDefs: RBTColumnDefs<SimpleDataType>[] = [
+    {
+      Cell: (props: RBTColumnCellDef<SimpleDataType>) => ModifiedNameCell(props),
+      header: 'Name',
+    },
+    {
+      Cell: (props: RBTColumnCellDef<SimpleDataType>) => ModifiedAgeCell(props),
+      header: 'Age',
+    },
+  ];
+
+  /**
+   * This is a modified cell function called by the table, this is called for the 'Age'
+   * column. It is supplied the row data and extracts the age field from the data and
+   * wraps it within a H1 (Header Level 1) HTML element.
+   */
+  const ModifiedAgeCell: FC<RBTColumnCellDef<SimpleDataType>> = ({ originalRow }) => {
+    return <h1>{originalRow.age}</h1>;
+  };
+
+
+  /**
+   * This is a modified cell function called by the table, this is called for the 'Name'
+   * column. It is supplied the row data and concatenates the first name and surname fields
+   * it also embededs the 'Person' React Bootstrap Icon around the result to show other
+   * JSX/TSX elements can be included.
+   */
+  const ModifiedNameCell: FC<RBTColumnCellDef<SimpleDataType>> = ({ originalRow }) => {
+    return (
+      <p>
+        <Person></Person>
+        {originalRow.firstName} {originalRow.surname}
+        <Person></Person>
+      </p>
+    );
+  };
+
+
+  // Generates an instance of the table supplies our column definitions and the test data
+  return (<RBTable  columns={SimpleColumnDefs} data={tableData} />);
+};
+
+```

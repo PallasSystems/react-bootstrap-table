@@ -9,9 +9,21 @@ import {
   HomePage,
 } from './pages';
 import { ExamplePageNavData, PageData } from './App.data';
-import { ExamplesHeadPage, ExamplesSectionPage, NavbarLinkProperty } from '@pallassystems/website-core';
+import {
+  ExamplesHeadPage,
+  ExamplesSectionPage,
+  ExamplesStorybookPage,
+  NavbarLinkProperty,
+} from '@pallassystems/website-core';
 
 function App() {
+  let storybooks: NavbarLinkProperty[] = [];
+  ExamplePageNavData.forEach((value) => {
+    if (value.items && value.items.length > 0) {
+      storybooks = storybooks.concat(value.items);
+    }
+  });
+
   return (
     <HashRouter>
       <Routes>
@@ -20,9 +32,12 @@ function App() {
         {ApiTablePageData.map((value) => {
           return <Route path={value.link} element={value.page(PageData)} />;
         })}
-        <Route path={'/example'} element={<ExamplesHeadPage {...PageData} exampleProps={ExamplePageNavData} />} />
+        <Route path={'/examples'} element={<ExamplesHeadPage {...PageData} exampleProps={ExamplePageNavData} />} />
         {ExamplePageNavData.map((value: NavbarLinkProperty) => {
           return <Route path={value.path} element={<ExamplesSectionPage exampleProps={value} {...PageData} />} />;
+        })}
+        {storybooks.map((value: NavbarLinkProperty) => {
+          return <Route path={value.path} element={<ExamplesStorybookPage exampleProps={value} {...PageData} />} />;
         })}
 
         <Route path={'/gettingstarted'} element={<GettingStartedPage {...PageData} />} />
