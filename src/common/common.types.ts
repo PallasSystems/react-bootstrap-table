@@ -85,7 +85,7 @@ export type RBTColumnDefs<TData extends Record<string, unknown>> = RBTColumnSizi
   /**
    * Header must be a string.
    */
-  header: string;
+  header?: string;
   /**
    * Either an `accessorKey` or a combination of an `accessorFn` and `id` are required for a data column definition.
    *

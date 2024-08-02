@@ -1,0 +1,104 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as TableSyleVarientStories from './table.styling.stories';
+
+<Meta name='Table Varients' of={TableSyleVarientStories} />
+
+# Making use of Varients
+
+The Bootstrap library supports theming of various elements, the table element provides 'varient' atyles. The React Bootstrap Table allows you to select the variant to use with the table.
+
+While there are default designs for all variants, most bootstrap themes will modify the variant styles.
+
+# Demonstration
+
+The following subsections show the same tables with different variants selected.
+
+## Primary
+
+This table has set the variant attribute to `primary`.
+
+<Canvas of={TableSyleVarientStories.PrimaryVarient} />
+
+## Secondary
+
+This table has set the variant attribute to `secondary`.
+
+<Canvas of={TableSyleVarientStories.SecondaryVarient} />
+
+## Success
+
+This table has set the variant attribute to `success`.
+
+<Canvas of={TableSyleVarientStories.SuccessVarient} />
+
+## Warning
+
+This table has set the variant attribute to `warning`.
+
+<Canvas of={TableSyleVarientStories.WarningVarient} />
+
+## Danger
+
+This table has set the variant attribute to `danger`.
+
+<Canvas of={TableSyleVarientStories.DangerVarient} />
+
+## Info
+
+This table has set the variant attribute to `info`.
+
+<Canvas of={TableSyleVarientStories.InfoVarient} />
+
+## Light
+
+This table has set the variant attribute to `light`.
+
+<Canvas of={TableSyleVarientStories.LightVarient} />
+
+## Dark
+
+This table has set the variant attribute to `dark`.
+
+<Canvas of={TableSyleVarientStories.DarkVarient} />
+
+## Link
+
+This table has set the variant attribute to `link`.
+
+<Canvas of={TableSyleVarientStories.LinkVarient} />
+
+# Source code
+
+```ts
+/**
+ * Simple Data type used within the various storybook stories to test out the functionality embedded within the React Bootstrap Table.
+ */
+export type SimpleDataType = {
+  firstName: string;
+  surname: string;
+  age: number;
+};
+
+const AccessorFNExamplesComponent: FC<SimpleDataType[]> = (tableData) => {
+
+  /**
+   * This provides a definition for the columns in the table, in this example we are concatinating two data fields
+   * to provide a result for a single column.
+   */
+  const SimpleColumnDefs: RBTColumnDefs<SimpleDataType>[] = [
+    {
+      id: 'firstName',
+      header: 'Full Name',
+    },
+    {
+      id: 'age',
+      header: 'Age',
+    },
+  ];
+
+  // Generates an instance of the table supplies our column definitions and the test data
+  return (<RBTable  columns={ SimpleColumnDefs }, data={tableData} variant={primary} />);
+};
+
+```

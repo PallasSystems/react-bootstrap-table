@@ -1,0 +1,43 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as TableBasicStories from './table.basic.stories';
+
+<Meta name='Basic Example' of={TableBasicStories} />
+
+# Create a Basic table
+
+The React Bootstrap Table library aims to provide extensive configurability which can be disabled or customised to meet you needs. In this example we have disabled all optional parameters.
+
+# Demonstration
+
+<Canvas of={TableBasicStories.BasicTable} />
+
+# Source code
+
+```ts
+/**
+ * Simple Data type used within the various storybook stories to test out the functionality embedded within the React Bootstrap Table.
+ */
+export type SimpleDataType = {
+  firstName: string;
+  surname: string;
+  age: number;
+};
+
+const BasicExampleComponent: FC<SimpleDataType[]> = (tableData) => {
+
+  /**
+   * This provides a definition for the columns in the table, in this example we are providing
+   * two modified cell functions.
+   */
+  const SimpleColumnDefs: RBTColumnDefs<SimpleDataType>[] = [
+    { accessorKey: 'firstName', header: 'First Name', searchable: true, Header: () => 'Header Function Name' },
+    { accessorKey: 'surname', header: 'Surname', searchable: true, Header: () => 'Header Function Surname' },
+    { accessorKey: 'age', header: 'Age', Header: () => 'Header Function Age' },
+  ];
+
+  // Generates an instance of the table supplies our column definitions and the test data
+  return (<RBTable  columns={ SimpleColumnDefs }, data={tableData} />);
+};
+
+```

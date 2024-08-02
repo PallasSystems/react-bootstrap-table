@@ -30,14 +30,20 @@ export const RBTableHead = <TData extends Record<string, unknown>>({
       id = columnPrefix + column.header.replace(' ', '');
     }
 
+    let headerText = id;
+    if (column.header && column.header.length > 0) {
+      headerText = column.header;
+    }
+
     let result: ReactNode = undefined;
     if (column.id) {
       if (typeof column.Header === 'function') {
         result = (
           <th key={id} aria-label={id}>
-            {column.Header({ ...column })}
+            {column.Header({ id: id, header: headerText })}
           </th>
         );
+      } else {
       }
     }
 
