@@ -26,8 +26,33 @@ export const ExamplePageNavData: NavbarLinkProperty[] = [
     text: 'Fundamentals',
     items: [
       {
-        path: '/examples/modifiedAccessorFN',
+        path: '/examples/fundamentals/modifiedAccessorFN',
         id: 'react-bootstrap-table-table--accessor-functions',
+        text: 'Making use of Accessor Functions',
+        items: [],
+      },
+      {
+        path: '/examples/fundamentals/modifiedCellFN',
+        id: 'react-bootstrap-table-table--modified-cell-functions',
+        text: 'Modifying Table Cells',
+        items: [],
+      },
+      {
+        path: '/examples/fundamentals/modifiedHeaderFN',
+        id: 'react-bootstrap-table-table--modified-header-functions',
+        text: 'Modifying Table Headers',
+        items: [],
+      },
+    ],
+  },
+  {
+    path: '/examples/styling',
+    id: 'style-example-page',
+    text: 'Styling',
+    items: [
+      {
+        path: '/examples/styling/varients',
+        id: 'react-bootstrap-table-table--table-varients',
         text: 'Making use of Accessor Functions',
         items: [],
       },
