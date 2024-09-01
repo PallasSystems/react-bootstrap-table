@@ -1,6 +1,6 @@
 {
   "name": "@pallassystems/react-bootstrap-table",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Library to build responsive tables using the Bootstrap framework and React.",
   "homepage": "https://rbt.pallas.uk",
   "type": "module",
