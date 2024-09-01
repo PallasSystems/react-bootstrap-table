@@ -3,6 +3,7 @@
   "version": "0.7.2",
   "description": "Library to build responsive tables using the Bootstrap framework and React.",
   "homepage": "https://rbt.pallas.uk",
+  "type": "module",
   "keywords": [
     "react-table",
     "bootstrap",
@@ -23,7 +24,7 @@
     "export-to-csv-fix-source-map": "^0.2.1",
     "react": ">=18.0.0",
     "react-bootstrap": ">=2.0.0",
-    "react-bootstrap-icons": "^1.0.0",
+    "react-bootstrap-icons": ">=1.0.0",
     "react-dom": ">=18.0.0",
     "typescript": ">=5.4.5",
     "web-vitals": ">=3.3.2"
@@ -74,7 +75,7 @@
   },
   "scripts": {
     "clean": "rm -rf ./dist ./coverage eslint_report.json stylelint_report.json junit.xml",
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && tsc && npm run build:storybook",
     "test": "jest",
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
