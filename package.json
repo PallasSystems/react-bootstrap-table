@@ -48,7 +48,7 @@
     "@storybook/addon-onboarding": "^8.1.10",
     "@storybook/blocks": "^8.1.10",
     "@storybook/react": "^8.1.10",
-    "@storybook/react-vite": "^8.1.10",
+    "@storybook/react-webpack5": "^8.1.10",
     "@storybook/test": "^8.1.10",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^15.0.7",
@@ -106,15 +106,15 @@
   },
   "exports": {
     ".": {
+      "default": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.js"
+      },
       "import": {
         "types": "./dist/types/index.d.ts",
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "default": {
         "types": "./dist/types/index.d.ts",
         "default": "./dist/index.js"
       }
