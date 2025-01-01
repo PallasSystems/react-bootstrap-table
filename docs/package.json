@@ -8,7 +8,9 @@
     "dev": "npm run clean && npm run build:storybook && vite",
     "build": "npm run clean && npm run build:storybook && vite build",
     "build:storybook": "storybook build -o ./public/storybook-static",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "eslint": "eslint --config eslint.config.mjs --output-file eslint_report.json --format json src/",
+    "stylelint": "stylelint \"./src/**/*.css\" --formatter json --output-file stylelint_report.json",
+    "lint": "npm run eslint && npm run stylelint",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -19,7 +21,6 @@
     "react-bootstrap-icons": ">=1.11.0",
     "react-dom": "^19.0.0",
     "web-vitals": ">=4.2.0"
-    
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
