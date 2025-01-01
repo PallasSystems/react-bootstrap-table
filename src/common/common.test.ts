@@ -61,7 +61,6 @@ describe('RemoveFilterFromArray', () => {
   });
 
   test('Empty Array', () => {
-    const filter = 'abc';
     expect(RemoveFilterFromArray('', [])).toStrictEqual([]);
   });
 

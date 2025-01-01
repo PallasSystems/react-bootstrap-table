@@ -3,7 +3,7 @@ import { Person } from 'react-bootstrap-icons';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { RBTable } from '../table.components';
-import type { RBTColumnDefs, RBTColumnCellDef, RBTColumnHeaderDef } from '../../common';
+import type { RBTColumnDefs, RBTColumnHeaderDef } from '../../common';
 
 import { SimpleDataset } from '../../common/common.testdata';
 import type { SimpleDataType } from '../../common/common.testdata';

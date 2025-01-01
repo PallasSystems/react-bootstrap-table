@@ -128,7 +128,6 @@ describe('SetPaginationFilter', () => {
   });
 
   test('Test Nothing displayed', () => {
-    const testFilter = 'COMPLEX';
     const source: RBTRow<SimpleDataType>[] = [
       { position: 0, filters: [], data: { firstName: 'Joe', surname: 'Bloggs', age: 24 } },
       { position: 1, filters: [], data: { firstName: 'Jane', surname: 'Doe', age: 36 } },

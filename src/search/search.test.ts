@@ -16,19 +16,15 @@ const testData: RBTRow<SimpleDataType>[] = [
 
 describe('isMatch', () => {
   test('Empty Filter', () => {
-    const result: RBTRow<SimpleDataType>[] = [];
     expect(isMatch<SimpleDataType>('', testData[0], [])).toStrictEqual(true);
   });
   test('No Match', () => {
-    const result: RBTRow<SimpleDataType>[] = [];
     expect(isMatch<SimpleDataType>('blah', testData[0], ['firstName'])).toStrictEqual(false);
   });
   test('Valid Match', () => {
-    const result: RBTRow<SimpleDataType>[] = [];
     expect(isMatch<SimpleDataType>('Joe', testData[0], ['firstName', 'surname', 'age'])).toStrictEqual(true);
   });
   test('Valid Term, Wrong fields', () => {
-    const result: RBTRow<SimpleDataType>[] = [];
     expect(isMatch<SimpleDataType>('Joe', testData[0], ['surname', 'age'])).toStrictEqual(false);
   });
 });

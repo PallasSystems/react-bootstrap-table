@@ -43,7 +43,6 @@ export const RBTableHead = <TData extends Record<string, unknown>>({
             {column.Header({ id: id, header: headerText })}
           </th>
         );
-      } else {
       }
     }
 

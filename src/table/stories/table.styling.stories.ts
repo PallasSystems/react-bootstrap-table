@@ -4,8 +4,6 @@ import { RBTable } from '../table.components';
 import { searchableArgs } from '../../common/common.testdata';
 import type { SimpleDataType } from '../../common/common.testdata';
 
-import { RBTColumnDefs } from '../../common';
-
 const meta = {
   title: 'react-bootstrap-table/Table',
   component: RBTable<SimpleDataType>,
