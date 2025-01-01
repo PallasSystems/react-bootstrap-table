@@ -21,7 +21,7 @@ const ApiHeadPage: FC<ApiPageProperties> = ({ footerProps, navBarProps }) => {
           <ul>
             {ApiTablePageData.map((value) => {
               return (
-                <li>
+                <li key={"api.container.row.li." + value.link}>
                   <LinkContainer to={value.link}>
                     <a>{value.text}</a>
                   </LinkContainer>

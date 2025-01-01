@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Table } from 'react-bootstrap-icons';
 import type { IconProps } from 'react-bootstrap-icons';
 

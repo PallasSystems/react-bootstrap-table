@@ -37,7 +37,7 @@ const GettingStartedInstallComponent: FC = () => {
       <Row className={'px-3'}>
         <ul>
           {dependencies.map(function (value) {
-            return <li>{value}</li>;
+            return <li key={"gs.install.container.row.ul.li." + value}>{value}</li>;
           })}
         </ul>
       </Row>
